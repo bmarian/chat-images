@@ -40,4 +40,12 @@ Hooks.on('preCreateChatMessage', function (message) {
     }
 });
 
-// Add any additional hooks if necessary
+/* ------------------------------------ */
+/* When rendering sidebar tab   		*/
+/* ------------------------------------ */
+Hooks.on('renderSidebarTab', function (chatLog, element) {
+    if (element[0] && element[0].id === 'chat') {
+        const chat = document.getElementById("chat-message");
+        renderSidebarTabHook.handleImagePaste(chat);
+    }
+});

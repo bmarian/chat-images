@@ -20,4 +20,4 @@ class Utils {
     }
 }
 
-export default new Utils(true);
+export default new Utils(false);

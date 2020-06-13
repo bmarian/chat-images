@@ -1,7 +1,7 @@
 import utils from "./utils";
 
 class PreCreateChatMessageHook {
-    private _urlRegex = /<a class="hyperlink" href=".*" target="_blank">(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>|(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    private _urlRegex = /<a class="hyperlink" href=".*" target=".*">(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>|(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
     private _isImageURL(link: string): boolean {
         return !!link.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)/gi);
