@@ -4,9 +4,7 @@ class Utils {
 
     constructor(debugging: boolean) {
         this._debugging = debugging;
-        if (CONFIG?.debug?.hooks) {
-            CONFIG.debug.hooks = debugging;
-        }
+        CONFIG.debug.hooks = debugging;
 
         this.debugMode = debugging;
     }
