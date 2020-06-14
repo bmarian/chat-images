@@ -13,7 +13,7 @@ class PreCreateChatMessageHook {
                         <i class="fas fa-expand" aria-hidden="true"></i>
                     </button>
                     <a class="hyperlink" href="${imgLink}" target="_blank">
-                        <img src="${imgLink}" alt="${imgLink}">        
+                        <img class="chat-images-image" src="${imgLink}" alt="${imgLink}">        
                     </a>
                 </div>`;
     }

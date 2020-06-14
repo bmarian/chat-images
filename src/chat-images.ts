@@ -11,8 +11,7 @@ import renderChatMessageHook from "./module/renderChatMessageHook";
 /* ------------------------------------ */
 Hooks.once('init', async () => {
     registerSettings();
-
-    await preloadTemplates();
+    // await preloadTemplates();
 });
 
 //

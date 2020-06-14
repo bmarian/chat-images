@@ -7,7 +7,7 @@ class RenderSidebarTabHook {
                     <button class="chat-images-expand-preview-button">
                         <i class="fas fa-expand" aria-hidden="true"></i>
                     </button>
-                    <img src="${image}" alt="image">
+                    <img class="chat-images-image" src="${image}" alt="image">
                 </div>`;
     }
 
