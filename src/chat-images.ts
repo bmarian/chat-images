@@ -45,7 +45,8 @@ Hooks.on('preCreateChatMessage', function (message) {
 /* ------------------------------------ */
 Hooks.on('renderSidebarTab', function (chatLog, element) {
     if (element[0] && element[0].id === 'chat') {
-        const chat = document.getElementById("chat-message");
+        const chat = element[0].querySelector("#chat-message");
+
         renderSidebarTabHook.handleImagePaste(chat);
     }
 });

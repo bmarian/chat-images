@@ -3,11 +3,22 @@ import utils from "./utils";
 class RenderSidebarTabHook {
 
     private _generateMessage(image: any): string {
-        return `<img src="${image}" alt="image">`;
+        return `<div class="chat-images-image-container"><img src="${image}" alt="image"></div>`;
     }
 
     private _toggleSpinner(chat: any, enable: boolean): void {
-        //TODO
+        const chatForm = chat.parentNode;
+
+        if (enable) {
+            const spinner = document.createElement('DIV')
+            spinner.id = 'chat-image-spinner';
+
+            chatForm.prepend(spinner);
+        } else {
+            const spinner = document.querySelector('#chat-image-spinner');
+
+            chatForm.removeChild(spinner);
+        }
     }
 
     private _toggleChat(chat: any, disabled: boolean): void {
@@ -17,6 +28,7 @@ class RenderSidebarTabHook {
             chat.setAttribute('disabled', 'true');
         } else {
             chat.removeAttribute('disabled');
+            chat.focus();
         }
     }
 
@@ -35,12 +47,13 @@ class RenderSidebarTabHook {
 
         if (blob !== null) {
             this._toggleChat(chat, true);
-            reader.onload = function (event) {
+            reader.onload = event => {
                 const chatData = {
                     content: that._generateMessage(event.target.result),
                 }
-                const message = ChatMessage.create(chatData);
-                that._toggleChat(chat, false);
+                ChatMessage.create(chatData).then(() => {
+                    that._toggleChat(chat, false);
+                });
             };
             reader.readAsDataURL(blob);
         }

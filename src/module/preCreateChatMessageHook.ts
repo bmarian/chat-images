@@ -8,7 +8,7 @@ class PreCreateChatMessageHook {
     }
 
     private _buildImage(imgLink: string): string {
-        return `<a class="hyperlink" href="${imgLink}" target="_blank"><img src="${imgLink}" alt="${imgLink}"></a>`;
+        return `<a class="hyperlink" href="${imgLink}" target="_blank"><div class="chat-images-image-container"><img src="${imgLink}" alt="${imgLink}"></div></a>`;
     }
 
     private _parseMessage(match: string, link?: string): string {
