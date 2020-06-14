@@ -3,7 +3,12 @@ import utils from "./utils";
 class RenderSidebarTabHook {
 
     private _generateMessage(image: any): string {
-        return `<div class="chat-images-image-container"><img src="${image}" alt="image"></div>`;
+        return `<div class="chat-images-image-container">
+                    <button class="chat-images-expand-preview-button">
+                        <i class="fas fa-expand" aria-hidden="true"></i>
+                    </button>
+                    <img src="${image}" alt="image">
+                </div>`;
     }
 
     private _toggleSpinner(chat: any, enable: boolean): void {
@@ -32,9 +37,7 @@ class RenderSidebarTabHook {
         }
     }
 
-    private _parseImage(chat: any, pasteEvent: any): void {
-        const that = this;
-        const reader = new FileReader();
+    private _parseImage(chat: any, pasteEvent: any): any {
         const items = pasteEvent?.clipboardData?.items;
 
         let blob = null;
@@ -44,8 +47,14 @@ class RenderSidebarTabHook {
                 break;
             }
         }
+        return blob;
+    }
 
-        if (blob !== null) {
+    private _sendMessageInChat(chat: any, image:any): void {
+        const reader = new FileReader();
+        const that = this;
+
+        if (image !== null) {
             this._toggleChat(chat, true);
             reader.onload = event => {
                 const chatData = {
@@ -55,7 +64,7 @@ class RenderSidebarTabHook {
                     that._toggleChat(chat, false);
                 });
             };
-            reader.readAsDataURL(blob);
+            reader.readAsDataURL(image);
         }
     }
 
@@ -64,7 +73,8 @@ class RenderSidebarTabHook {
         if (chat.disabled) {
             return;
         }
-        this._parseImage(chat, event);
+        const blob = this._parseImage(chat, event);
+        this._sendMessageInChat(chat, blob);
     }
 
     public handleImagePaste(chat: any): void {

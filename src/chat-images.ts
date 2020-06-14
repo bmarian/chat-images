@@ -4,13 +4,15 @@ import {preloadTemplates} from './module/preloadTemplates.js';
 import utils from "./module/utils";
 import preCreateChatMessageHook from "./module/preCreateChatMessageHook";
 import renderSidebarTabHook from "./module/renderSidebarTabHook"
+import renderChatMessageHook from "./module/renderChatMessageHook";
 
 /* ------------------------------------ */
 /* Initialize module					*/
 /* ------------------------------------ */
-Hooks.once('init', async function () {
-    console.log('chat-images | Initializing chat-images');
+Hooks.once('init', async () => {
     registerSettings();
+
+    await preloadTemplates();
 });
 
 //
@@ -34,7 +36,7 @@ Hooks.once('init', async function () {
 /* ------------------------------------ */
 /* Before creating a chat message		*/
 /* ------------------------------------ */
-Hooks.on('preCreateChatMessage', function (message) {
+Hooks.on('preCreateChatMessage', (message) => {
     if (message.content) {
         message.content = preCreateChatMessageHook.processMessage(message.content);
     }
@@ -43,10 +45,17 @@ Hooks.on('preCreateChatMessage', function (message) {
 /* ------------------------------------ */
 /* When rendering sidebar tab   		*/
 /* ------------------------------------ */
-Hooks.on('renderSidebarTab', function (chatLog, element) {
+Hooks.on('renderSidebarTab', (chatLog, element) => {
     if (element[0] && element[0].id === 'chat') {
         const chat = element[0].querySelector("#chat-message");
 
         renderSidebarTabHook.handleImagePaste(chat);
     }
+});
+
+/* ------------------------------------ */
+/* When rendering a chat message   		*/
+/* ------------------------------------ */
+Hooks.on('renderChatMessage', (message, html, data) => {
+    renderChatMessageHook.addImagePreviewButton(message, html, data);
 });

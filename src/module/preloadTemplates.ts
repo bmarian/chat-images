@@ -1,6 +1,6 @@
 export const preloadTemplates = async function() {
 	const templatePaths = [
-		// Add paths to "modules/chat-images/templates"
+		"modules/chat-images/templates/dialog-preview.html"
 	];
 
 	return loadTemplates(templatePaths);
