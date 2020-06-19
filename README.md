@@ -25,7 +25,8 @@ At this point the features implemented are:
 
 
 ### Preview for uploaded images.
-![preview](https://i.imgur.com/Ess9jGR.gif)
+![new-preview](https://i.imgur.com/fGDLA1A.gif)
+
 
 # TODO
 - Permission support.
