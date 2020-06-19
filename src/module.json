@@ -12,11 +12,7 @@
   "languages": [],
   "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "0.6.2",
-  "url": "",
-  "manifest": "",
-  "download": "",
-  "license": "",
-  "readme": "",
-  "bugs": "",
-  "changelog": ""
+  "url": "https://github.com/bmarian/chat-images",
+  "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
+  "download": ""
 }
