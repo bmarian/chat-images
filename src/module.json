@@ -2,8 +2,7 @@
   "name": "chat-images",
   "title": "Chat Images",
   "description": "Did you ever wanted to enjoy images in your chat? Now you can!",
-  "systems": ["dnd5e"],
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Marian",
   "scripts": [],
   "esmodules": ["chat-images.js"],
@@ -14,5 +13,5 @@
   "compatibleCoreVersion": "0.6.2",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
-  "download": "https://github.com/bmarian/chat-images/raw/master/package/chat-images-v0.1.0.zip"
+  "download": "https://github.com/bmarian/chat-images/raw/master/package/chat-images-v1.0.0.zip"
 }

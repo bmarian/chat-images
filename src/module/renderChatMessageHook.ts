@@ -1,13 +1,5 @@
 class RenderChatMessageHook {
 
-    private _togglePreviewButton(previewButton: any, disabled: boolean): void {
-        if (disabled) {
-            previewButton.setAttribute('disabled', 'true');
-        } else {
-            previewButton.removeAttribute('disabled');
-        }
-    }
-
     private _buttonClickEventListener(button: any, container: any): void {
         const image = container.querySelector('.chat-images-image');
         const previewButton = container.querySelector('.chat-images-expand-preview-button');
