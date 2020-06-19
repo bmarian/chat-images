@@ -1,17 +1,14 @@
 {
   "name": "chat-images",
   "title": "Chat Images",
-  "description": "Did you ever wanted to enjoy images in your chat? Now you can!",
-  "version": "1.0.0",
+  "description": "An extension that let's you easily use images in the chat.",
+  "version": "1.1.0",
   "author": "Marian",
-  "scripts": [],
   "esmodules": ["chat-images.js"],
   "styles": ["chat-images.css"],
-  "packs": [],
-  "languages": [],
   "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "0.6.2",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
-  "download": "https://github.com/bmarian/chat-images/raw/master/package/chat-images-v1.0.0.zip"
+  "download": "https://github.com/bmarian/chat-images/raw/master/package/chat-images-v1.1.0.zip"
 }

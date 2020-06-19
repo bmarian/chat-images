@@ -1,6 +1,4 @@
-import utils from "./utils";
-
-class PreCreateChatMessageHook {
+class PreCreateChatMessage {
     private _urlRegex = /<a class="hyperlink" href=".*" target=".*">(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>|(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
     private _isImageURL(link: string): boolean {
@@ -27,11 +25,8 @@ class PreCreateChatMessageHook {
     }
 
     public processMessage(content: string): string {
-        const parsedContent = content.replace(this._urlRegex, this._parseMessage.bind(this));
-
-        utils.debug(parsedContent);
-        return parsedContent;
+        return content.replace(this._urlRegex, this._parseMessage.bind(this));
     }
 }
 
-export default new PreCreateChatMessageHook();
+export default new PreCreateChatMessage();

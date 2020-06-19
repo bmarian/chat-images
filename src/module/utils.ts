@@ -4,7 +4,7 @@ class Utils {
 
     constructor(debugging: boolean) {
         this._debugging = debugging;
-        CONFIG.debug.hooks = debugging;
+        // CONFIG.debug.hooks = debugging;
 
         this.debugMode = debugging;
     }
@@ -20,4 +20,4 @@ class Utils {
     }
 }
 
-export default new Utils(false);
+export default new Utils(true);
