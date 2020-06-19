@@ -14,5 +14,5 @@
   "compatibleCoreVersion": "0.6.2",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
-  "download": ""
+  "download": "https://github.com/bmarian/chat-images/raw/master/package/chat-images-v0.1.0.zip"
 }
