@@ -37,8 +37,8 @@ class RenderSidebarTabHook {
         }
     }
 
-    private _parseImage(chat: any, pasteEvent: any): any {
-        const items = pasteEvent?.clipboardData?.items;
+    private _parseImage(chat: any, event: any): any {
+        const items = event?.clipboardData?.items || event?.dataTransfer?.items;
 
         let blob = null;
         for (let i = 0; i < items.length; i++) {
@@ -79,6 +79,7 @@ class RenderSidebarTabHook {
 
     public handleImagePaste(chat: any): void {
         chat.addEventListener('paste', this._pasteEventListener.bind(this));
+        chat.addEventListener('drop', this._pasteEventListener.bind(this));
     }
 }
 
