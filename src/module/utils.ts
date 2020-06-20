@@ -1,6 +1,6 @@
 class Utils {
-    private readonly _debugging: boolean = false;
-    public readonly debugMode: boolean = false;
+    private readonly _debugging: boolean;
+    public readonly debugMode: boolean;
     public readonly moduleName: string = 'chat-images';
 
     constructor(debugging: boolean) {

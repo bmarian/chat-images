@@ -12,14 +12,16 @@ class RenderSidebarTab {
      */
     private _toggleSpinner(chat: any, enable: boolean): void {
         const chatForm = chat.parentNode;
+        let spinner = document.querySelector(`#${utils.moduleName}-spinner`);
 
         if (enable) {
-            const spinner = document.createElement('DIV')
-            spinner.id = `${utils.moduleName}-spinner`;
-            chatForm.prepend(spinner);
+            if (!spinner) {
+                spinner = document.createElement('DIV');
+                spinner.id = `${utils.moduleName}-spinner`;
+                chatForm.prepend(spinner);
+            }
         } else {
-            const spinner = document.querySelector(`#${utils.moduleName}-spinner`);
-            chatForm.removeChild(spinner);
+            if (spinner) chatForm.removeChild(spinner);
         }
     }
 
@@ -65,16 +67,77 @@ class RenderSidebarTab {
     }
 
     /**
-     * Event listener for past/drop
+     * This function handles showing a warning dialog
      *
-     * @param event - paste/drop event
+     * @param warning - true if we need to show a warning
+     * @param chat - chat html element
+     * @param image - image blob
      * @private
      */
-    private _pasteDropEventListener(event: any): void {
+    private _handleWarnings(warning: boolean, chat: any, image: any): void {
+        if (!image) return;
+        if (!warning) {
+            this._sendMessageInChat(chat, image);
+            return;
+        }
+        const that = this;
+        let tookAction = false;
+        that._disableChat(chat, true);
+
+        const dialog = new Dialog({
+            title: 'Chat Images',
+            content: 'You are about to add an image to the chat. Are you sure you want to do that?',
+            buttons: {
+                ok: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: 'Yes',
+                    callback: () => {
+                        tookAction = true;
+                        that._sendMessageInChat(chat, image);
+                    }
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: 'No',
+                    callback: () => {
+                        tookAction = true;
+                        that._disableChat(chat, false);
+                    }
+                }
+            },
+            close: () => {
+                if (!tookAction) that._disableChat(chat, false);
+            }
+        });
+        dialog.render(true);
+    }
+
+    /**
+     * Event listener for past
+     *
+     * @param event - paste event
+     * @private
+     */
+    private _pasteEventListener(event: any): void {
         const chat = event.target;
         if (chat.disabled) return;
 
-        this._sendMessageInChat(chat, ImageHandler.getBlobFromFile(event));
+        const warningOnPaste = game.settings.get(utils.moduleName, 'warningOnPaste');
+        this._handleWarnings(warningOnPaste, chat, ImageHandler.getBlobFromFile(event));
+    }
+
+    /**
+     * Event listener for drop
+     *
+     * @param event - drop event
+     * @private
+     */
+    private _dropEventListener(event: any): void {
+        const chat = event.target;
+        if (chat.disabled) return;
+
+        const warningOnDrop = game.settings.get(utils.moduleName, 'warningOnDrop');
+        this._handleWarnings(warningOnDrop, chat, ImageHandler.getBlobFromFile(event));
     }
 
     /**
@@ -83,8 +146,8 @@ class RenderSidebarTab {
      * @param chat - chat input element
      */
     public handleImagePasteDrop(chat: any): void {
-        chat.addEventListener('paste', this._pasteDropEventListener.bind(this));
-        chat.addEventListener('drop', this._pasteDropEventListener.bind(this));
+        chat.addEventListener('paste', this._pasteEventListener.bind(this));
+        chat.addEventListener('drop', this._dropEventListener.bind(this));
     }
 }
 

@@ -40,7 +40,7 @@ class ImageHandler {
      */
     private _changeLinksToImages(match: string, link?: string): string {
         const image = link ? link : match;
-        return this._isImageUrl(image) ? this.buildImageHtml(image, false) : image;
+        return this._isImageUrl(image) ? this.buildImageHtml(image, false) : match;
     }
 
     /**
