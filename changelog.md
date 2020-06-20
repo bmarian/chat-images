@@ -5,11 +5,10 @@
 - [x] Preview for images
 
 # v1.1.0
+- [x] Add settings for warning dialog
 - [x] Cleanup and document the code
 - [x] Moved the module name in a global variable
-- [x] Add settings
-- [x] Add a warning dialog
-- [ ] Permissions
+- [x] Tested compatibility with 0.6.4
 
 #### Bugs 
 - [x] When having multiple images in the same message the preview button doesn't work
