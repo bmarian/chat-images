@@ -39,15 +39,17 @@ class RenderChatMessageHook {
     public addImagePreviewButton(html: any): void {
         if (!(html && html[0])) return;
 
-        const container = html[0].querySelector('.chat-images-image-container');
-        if (!container) return;
+        const containers = html[0].querySelectorAll('.chat-images-image-container');
+        if (!containers) return;
 
         const that = this;
-        const buttons = container.querySelectorAll('.chat-images-expand-preview-button');
+        containers.forEach((container: any): void => {
+            const buttons = container.querySelectorAll('.chat-images-expand-preview-button');
 
-        buttons.forEach((button: any): void => {
-            button.addEventListener('click touch', (): void => {
-                that._buttonClickEventListener(container);
+            buttons.forEach((button: any): void => {
+                button.addEventListener('click', (): void => {
+                    that._buttonClickEventListener(container);
+                });
             });
         });
     }

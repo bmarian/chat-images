@@ -34,7 +34,7 @@ Hooks.on('renderSidebarTab', (_0: any, element: any): void => {
     const htmlElement = element[0];
     if (htmlElement?.id === 'chat') {
         const chat = htmlElement.querySelector("#chat-message");
-        renderSidebarTab.handleImagePaste(chat);
+        renderSidebarTab.handleImagePasteDrop(chat);
 
         utils.debug('Event added to chat input.');
     }

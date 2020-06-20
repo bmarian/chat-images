@@ -1,32 +1,35 @@
-import utils from "../utils";
+import ImageHandler from "../ImageHandler";
 
 class RenderSidebarTabHook {
 
-    private _generateMessage(image: any): string {
-        return `<div class="chat-images-image-container">
-                    <button class="chat-images-expand-preview-button">
-                        <i class="fas fa-expand" aria-hidden="true"></i>
-                    </button>
-                    <img class="chat-images-image" src="${image}" alt="image">
-                </div>`;
-    }
-
+    /**
+     * This function shows a spinner over the chat
+     *
+     * @param chat - chat html element
+     * @param enable - true if the spinner needs to be displayed
+     * @private
+     */
     private _toggleSpinner(chat: any, enable: boolean): void {
         const chatForm = chat.parentNode;
 
         if (enable) {
             const spinner = document.createElement('DIV')
             spinner.id = 'chat-image-spinner';
-
             chatForm.prepend(spinner);
         } else {
             const spinner = document.querySelector('#chat-image-spinner');
-
             chatForm.removeChild(spinner);
         }
     }
 
-    private _toggleChat(chat: any, disabled: boolean): void {
+    /**
+     * This function adds the disabled property on the chat input
+     *
+     * @param chat - chat html element
+     * @param disabled - true if the chat needs to be disabled
+     * @private
+     */
+    private _disableChat(chat: any, disabled: boolean): void {
         this._toggleSpinner(chat, disabled);
 
         if (disabled) {
@@ -37,49 +40,50 @@ class RenderSidebarTabHook {
         }
     }
 
-    private _parseImage(chat: any, event: any): any {
-        const items = event?.clipboardData?.items || event?.dataTransfer?.items;
+    /**
+     * This function adds a new ChatMessage if an image was pasted/dropped in the chat
+     *
+     * @param chat - chat html element
+     * @param image - image blob
+     * @private
+     */
+    private _sendMessageInChat(chat: any, image: any): void {
+        if (!image) return;
 
-        let blob = null;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i]?.type.includes('image')) {
-                blob = items[i].getAsFile();
-                break;
-            }
-        }
-        return blob;
-    }
-
-    private _sendMessageInChat(chat: any, image:any): void {
         const reader = new FileReader();
         const that = this;
 
-        if (image !== null) {
-            this._toggleChat(chat, true);
-            reader.onload = event => {
-                const chatData = {
-                    content: that._generateMessage(event.target.result),
-                }
-                ChatMessage.create(chatData).then(() => {
-                    that._toggleChat(chat, false);
-                });
-            };
-            reader.readAsDataURL(image);
-        }
+        this._disableChat(chat, true);
+        reader.onload = (event: any): any => {
+            const content = ImageHandler.buildImageHtml(event.target.result, true);
+            ChatMessage.create({content}).then(() => {
+                that._disableChat(chat, false);
+            });
+        };
+        reader.readAsDataURL(image);
     }
 
-    private _pasteEventListener(event: any) {
+    /**
+     * Event listener for past/drop
+     *
+     * @param event - paste/drop event
+     * @private
+     */
+    private _pasteDropEventListener(event: any): void {
         const chat = event.target;
-        if (chat.disabled) {
-            return;
-        }
-        const blob = this._parseImage(chat, event);
-        this._sendMessageInChat(chat, blob);
+        if (chat.disabled) return;
+
+        this._sendMessageInChat(chat, ImageHandler.getBlobFromFile(event));
     }
 
-    public handleImagePaste(chat: any): void {
-        chat.addEventListener('paste', this._pasteEventListener.bind(this));
-        chat.addEventListener('drop', this._pasteEventListener.bind(this));
+    /**
+     * This function adds event listeners for paste and drop
+     *
+     * @param chat - chat input element
+     */
+    public handleImagePasteDrop(chat: any): void {
+        chat.addEventListener('paste', this._pasteDropEventListener.bind(this));
+        chat.addEventListener('drop', this._pasteDropEventListener.bind(this));
     }
 }
 
