@@ -15,10 +15,10 @@ class RenderSidebarTab {
 
         if (enable) {
             const spinner = document.createElement('DIV')
-            spinner.id = `${utils.appName}-spinner`;
+            spinner.id = `${utils.moduleName}-spinner`;
             chatForm.prepend(spinner);
         } else {
-            const spinner = document.querySelector(`#${utils.appName}-spinner`);
+            const spinner = document.querySelector(`#${utils.moduleName}-spinner`);
             chatForm.removeChild(spinner);
         }
     }

@@ -1,8 +1,8 @@
-.#{$app-name} {
+.#{$module-name} {
   &-image-container {
     position: relative;
 
-    & .#{$app-name}-expand-preview-button {
+    & .#{$module-name}-expand-preview-button {
       position: absolute;
       padding-top: 0;
       padding-bottom: 25px;

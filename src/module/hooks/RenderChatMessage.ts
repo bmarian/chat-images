@@ -26,8 +26,8 @@ class RenderChatMessage {
      * @private
      */
     private _buttonClickEventListener(container: any): void {
-        const image = container.querySelector(`.${utils.appName}-image`);
-        const previewButton = container.querySelector(`.${utils.appName}-expand-preview-button`);
+        const image = container.querySelector(`.${utils.moduleName}-image`);
+        const previewButton = container.querySelector(`.${utils.moduleName}-expand-preview-button`);
         if (!image || !previewButton) return;
 
         this._renderPopout(image.src);
@@ -41,12 +41,12 @@ class RenderChatMessage {
     public addImagePreviewButton(html: any): void {
         if (!(html && html[0])) return;
 
-        const containers = html[0].querySelectorAll(`.${utils.appName}-image-container`);
+        const containers = html[0].querySelectorAll(`.${utils.moduleName}-image-container`);
         if (!containers) return;
 
         const that = this;
         containers.forEach((container: any): void => {
-            const buttons = container.querySelectorAll(`.${utils.appName}-expand-preview-button`);
+            const buttons = container.querySelectorAll(`.${utils.moduleName}-expand-preview-button`);
 
             buttons.forEach((button: any): void => {
                 button.addEventListener('click', (): void => {

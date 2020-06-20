@@ -10,7 +10,6 @@ import renderChatMessage from "./module/hooks/RenderChatMessage";
  */
 Hooks.once('init', async () => {
     registerSettings();
-    // await preloadTemplates();
 
     utils.debug('Finished initializing the module.');
 });

@@ -23,12 +23,12 @@ class ImageHandler {
      * @private
      */
     public buildImageHtml(image: string | ArrayBuffer, isBase64: boolean): string {
-        const img = `<img class="${utils.appName}-image" src="${image}" alt="${utils.appName}">`;
-        const link = isBase64 ? `<a class="hyperlink" href="${image}" target="_blank">${img}</a>` : img;
-        const previewButton = `<button class="${utils.appName}-expand-preview-button">
+        const img = `<img class="${utils.moduleName}-image" src="${image}" alt="${utils.moduleName}">`;
+        const link = isBase64 ? img : `<a class="hyperlink" href="${image}" target="_blank">${img}</a>`;
+        const previewButton = `<button class="${utils.moduleName}-expand-preview-button">
                                     <i class="fas fa-expand" aria-hidden="true"></i>
                                </button>`;
-        return `<div class="${utils.appName}-image-container">${previewButton}${link}</div>`;
+        return `<div class="${utils.moduleName}-image-container">${previewButton}${link}</div>`;
     }
 
     /**
