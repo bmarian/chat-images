@@ -1,6 +1,6 @@
 import ImageHandler from "../ImageHandler";
 
-class RenderSidebarTabHook {
+class RenderSidebarTab {
 
     /**
      * This function shows a spinner over the chat
@@ -87,4 +87,4 @@ class RenderSidebarTabHook {
     }
 }
 
-export default new RenderSidebarTabHook();
+export default new RenderSidebarTab();

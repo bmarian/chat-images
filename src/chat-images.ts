@@ -1,8 +1,8 @@
 import {registerSettings} from './module/settings.js';
 import utils from "./module/utils";
 import preCreateChatMessage from "./module/hooks/PreCreateChatMessage";
-import renderSidebarTab from "./module/hooks/RenderSidebarTabHook"
-import renderChatMessage from "./module/hooks/RenderChatMessageHook";
+import renderSidebarTab from "./module/hooks/RenderSidebarTab"
+import renderChatMessage from "./module/hooks/RenderChatMessage";
 
 /**
  * Adding a hook on init to register settings

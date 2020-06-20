@@ -1,4 +1,4 @@
-class RenderChatMessageHook {
+class RenderChatMessage {
 
     /**
      * Renders immediately an ImagePopout with the received image
@@ -55,4 +55,4 @@ class RenderChatMessageHook {
     }
 }
 
-export default new RenderChatMessageHook();
+export default new RenderChatMessage();
