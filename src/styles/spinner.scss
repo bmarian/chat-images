@@ -1,3 +1,7 @@
+#chat-form {
+    position: relative;
+}
+
 #chat-image-spinner {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #555;
@@ -7,8 +11,8 @@
     animation: spin 2s linear infinite;
 
     position: absolute;
-    left: calc(100% - 180px);
-    top: calc(100% - 80px);
+    left: 40%;
+    top: 20%;
 }
 
 @keyframes spin {
