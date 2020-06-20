@@ -25,8 +25,10 @@ At this point the features implemented are:
 
 
 ### Preview for uploaded images.
-![new-preview](https://i.imgur.com/fGDLA1A.gif)
+![preview](https://i.imgur.com/fGDLA1A.gif)
 
+### Configurable warning dialog.
+![dialog](https://i.imgur.com/lFHaSGg.gif)
 
 # TODO
 - Permission support.
