@@ -32,7 +32,6 @@ At this point the features implemented are:
 
 # TODO
 - Permission support.
-- Confirmation dialog.
 - Better link cleanup.
 
 # License
