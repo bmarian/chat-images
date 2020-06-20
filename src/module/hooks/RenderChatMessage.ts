@@ -1,3 +1,5 @@
+import utils from "../utils";
+
 class RenderChatMessage {
 
     /**
@@ -24,8 +26,8 @@ class RenderChatMessage {
      * @private
      */
     private _buttonClickEventListener(container: any): void {
-        const image = container.querySelector('.chat-images-image');
-        const previewButton = container.querySelector('.chat-images-expand-preview-button');
+        const image = container.querySelector(`.${utils.appName}-image`);
+        const previewButton = container.querySelector(`.${utils.appName}-expand-preview-button`);
         if (!image || !previewButton) return;
 
         this._renderPopout(image.src);
@@ -39,12 +41,12 @@ class RenderChatMessage {
     public addImagePreviewButton(html: any): void {
         if (!(html && html[0])) return;
 
-        const containers = html[0].querySelectorAll('.chat-images-image-container');
+        const containers = html[0].querySelectorAll(`.${utils.appName}-image-container`);
         if (!containers) return;
 
         const that = this;
         containers.forEach((container: any): void => {
-            const buttons = container.querySelectorAll('.chat-images-expand-preview-button');
+            const buttons = container.querySelectorAll(`.${utils.appName}-expand-preview-button`);
 
             buttons.forEach((button: any): void => {
                 button.addEventListener('click', (): void => {

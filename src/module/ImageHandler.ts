@@ -1,4 +1,7 @@
+import utils from "./utils";
+
 class ImageHandler {
+
     public urlRegex = /<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>|(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     public imageUrlRegex = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/gi;
 
@@ -20,12 +23,12 @@ class ImageHandler {
      * @private
      */
     public buildImageHtml(image: string | ArrayBuffer, isBase64: boolean): string {
-        const img = `<img class="chat-images-image" src="${image}" alt="chat-image">`;
+        const img = `<img class="${utils.appName}-image" src="${image}" alt="${utils.appName}">`;
         const link = isBase64 ? `<a class="hyperlink" href="${image}" target="_blank">${img}</a>` : img;
-        const previewButton = `<button class="chat-images-expand-preview-button">
+        const previewButton = `<button class="${utils.appName}-expand-preview-button">
                                     <i class="fas fa-expand" aria-hidden="true"></i>
                                </button>`;
-        return `<div class="chat-images-image-container">${previewButton}${link}</div>`;
+        return `<div class="${utils.appName}-image-container">${previewButton}${link}</div>`;
     }
 
     /**

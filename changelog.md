@@ -6,9 +6,12 @@
 
 # v1.1.0
 - [x] Cleanup and document the code
+- [x] Moved the module name in a global variable
+- [ ] Add settings
 - [ ] Permissions
 - [ ] Add some debugging
 
 #### Bugs 
 - [x] When having multiple images in the same message the preview button doesn't work
-- [ ] Rewrite the css for the spinner to have a relative position to the chat (at the moment is incompatible with dice calculator)
+- [x] Rewrite the css for the spinner to have a relative position to the chat (incompatible with dice tray)
+- [x] Fixed preview button alignment.

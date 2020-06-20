@@ -1,6 +1,7 @@
 class Utils {
     private readonly _debugging: boolean = false;
     public readonly debugMode: boolean = false;
+    public readonly appName: string = 'chat-images';
 
     constructor(debugging: boolean) {
         this._debugging = debugging;

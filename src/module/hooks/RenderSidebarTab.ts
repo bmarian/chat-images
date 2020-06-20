@@ -1,4 +1,5 @@
 import ImageHandler from "../ImageHandler";
+import utils from "../utils";
 
 class RenderSidebarTab {
 
@@ -14,10 +15,10 @@ class RenderSidebarTab {
 
         if (enable) {
             const spinner = document.createElement('DIV')
-            spinner.id = 'chat-image-spinner';
+            spinner.id = `${utils.appName}-spinner`;
             chatForm.prepend(spinner);
         } else {
-            const spinner = document.querySelector('#chat-image-spinner');
+            const spinner = document.querySelector(`#${utils.appName}-spinner`);
             chatForm.removeChild(spinner);
         }
     }

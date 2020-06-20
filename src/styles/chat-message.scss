@@ -1,19 +1,21 @@
-.chat-images-image-container {
-  position: relative;
+.#{$app-name} {
+  &-image-container {
+    position: relative;
 
-  & .chat-images-expand-preview-button {
-    position: absolute;
-    padding-top: 0;
-    padding-bottom: 25px;
+    & .#{$app-name}-expand-preview-button {
+      position: absolute;
+      padding-top: 0;
+      padding-bottom: 25px;
 
-    width: 25px;
-    height: 25px;
+      width: 25px;
+      height: 25px;
 
-    top: 5px;
-    left: calc(100% - 30px);
+      top: 5px;
+      left: calc(100% - 30px);
 
-    & i {
-      margin: 0;
+      & i {
+        margin: 0;
+      }
     }
   }
 }
