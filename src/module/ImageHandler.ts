@@ -50,8 +50,6 @@ class ImageHandler {
      */
     public replaceImagesInText(message: string): string {
         if (!message) return;
-        // TODO check if multiple links are detected correctly after issue 3109 is fixed
-        // https://gitlab.com/foundrynet/foundryvtt/-/issues/3109
         return message.replace(this.urlRegex, this._changeLinksToImages.bind(this));
     }
 
