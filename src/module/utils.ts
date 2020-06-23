@@ -9,7 +9,7 @@ class Utils {
         this._trace = trace;
     }
 
-    private _log(output: any): void {
+    private _consoleLog(output: any): void {
         console.log(
             `%cChat Images %c|`,
             'background: #222; color: #bada55',
@@ -34,7 +34,7 @@ class Utils {
             if (this._trace && doTrace !== false) {
                 this._consoleTrace(output);
             } else {
-                this._log(output);
+                this._consoleLog(output);
             }
         }
     }
