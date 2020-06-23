@@ -4,14 +4,15 @@ class Utils {
     public readonly moduleName: string = 'chat-images';
 
     constructor(debugging: boolean) {
-        this._debugging = debugging;
-        // CONFIG.debug.hooks = debugging;
+        const configDebugHooks = CONFIG?.debug?.hooks;
+        this._debugging = configDebugHooks ? configDebugHooks : debugging;
 
         this.debugMode = debugging;
     }
 
     private _log(output: any): void {
-        console.log(`%cChat Images %c|`, 'background: #222; color: #bada55', 'color: #fff', output)
+        console.log(`%cChat Images %c|`, 'background: #222; color: #bada55', 'color: #fff', output);
+        console.trace();
     }
 
     public debug(output: any): void {

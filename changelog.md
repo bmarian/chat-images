@@ -15,3 +15,8 @@
 - [x] Rewrite the css for the spinner to have a relative position to the chat (incompatible with dice tray)
 - [x] Preview button alignment.
 - [x] Non image links were affected by the PreCreateChatMessage hook
+
+# v1.1.1
+- [] Add copy image right click menu
+- [] Debugging info
+- [] Permissions
