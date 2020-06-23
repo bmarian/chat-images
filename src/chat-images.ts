@@ -41,5 +41,4 @@ Hooks.on('renderSidebarTab', (_0: any, element: any): void => {
  */
 Hooks.on('renderChatMessage', (_0: any, html: any): void => {
     renderChatMessage.addImagePreviewButton(html);
-    utils.debug('Event added to preview button.', false);
 });

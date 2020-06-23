@@ -54,6 +54,7 @@ class RenderChatMessage {
                 });
             });
         });
+        utils.debug('Event added to preview button.', false);
     }
 }
 
