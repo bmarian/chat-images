@@ -6,11 +6,9 @@ import renderChatMessage from "./module/hooks/RenderChatMessage";
 
 /**
  * Adding a hook on init to register settings
- * // TODO v1.1.0 actually add settings
  */
 Hooks.once('init', async () => {
     registerSettings();
-
     utils.debug('Finished initializing the module.');
 });
 
@@ -21,8 +19,7 @@ Hooks.once('init', async () => {
 Hooks.on('preCreateChatMessage', (message: any): void => {
     if (message?.content) {
         message.content = preCreateChatMessage.processMessage(message.content);
-
-        utils.debug('Chat content modified.');
+        utils.debug('ChatMessage content modified.');
     }
 });
 
@@ -34,8 +31,7 @@ Hooks.on('renderSidebarTab', (_0: any, element: any): void => {
     if (htmlElement?.id === 'chat') {
         const chat = htmlElement.querySelector("#chat-message");
         renderSidebarTab.handleImagePasteDrop(chat);
-
-        utils.debug('Event added to chat input.');
+        utils.debug('Event added to chat input.', false);
     }
 });
 
@@ -45,6 +41,5 @@ Hooks.on('renderSidebarTab', (_0: any, element: any): void => {
  */
 Hooks.on('renderChatMessage', (_0: any, html: any): void => {
     renderChatMessage.addImagePreviewButton(html);
-
-    utils.debug('Event added to preview button.');
+    utils.debug('Event added to preview button.', false);
 });

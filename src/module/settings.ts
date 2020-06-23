@@ -29,4 +29,5 @@ export const registerSettings = (): void => {
     settingsList.forEach((setting: any): void => {
         game.settings.register(utils.moduleName, setting.key, setting.settings);
     });
+    utils.debug('Settings registered', false);
 }

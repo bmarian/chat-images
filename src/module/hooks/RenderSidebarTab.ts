@@ -61,6 +61,7 @@ class RenderSidebarTab {
             const content = ImageHandler.buildImageHtml(event.target.result, true);
             ChatMessage.create({content}).then(() => {
                 that._disableChat(chat, false);
+                utils.debug('Image rendered in chat.');
             });
         };
         reader.readAsDataURL(image);
@@ -110,6 +111,7 @@ class RenderSidebarTab {
             }
         });
         dialog.render(true);
+        utils.debug('Warning dialog rendered.');
     }
 
     /**

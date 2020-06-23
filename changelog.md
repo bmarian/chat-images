@@ -18,5 +18,5 @@
 
 # v1.1.1
 - [] Add copy image right click menu
-- [] Debugging info
+- [x] Debugging and stack tracing ( nice for me I guess `¯\_(ツ)_/¯` )
 - [] Permissions

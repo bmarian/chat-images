@@ -1,25 +1,43 @@
 class Utils {
     private readonly _debugging: boolean;
-    public readonly debugMode: boolean;
+    private readonly _trace: boolean;
     public readonly moduleName: string = 'chat-images';
 
-    constructor(debugging: boolean) {
+    constructor(debugging?: boolean, trace?: boolean) {
         const configDebugHooks = CONFIG?.debug?.hooks;
         this._debugging = configDebugHooks ? configDebugHooks : debugging;
-
-        this.debugMode = debugging;
+        this._trace = trace;
     }
 
     private _log(output: any): void {
-        console.log(`%cChat Images %c|`, 'background: #222; color: #bada55', 'color: #fff', output);
-        console.trace();
+        console.log(
+            `%cChat Images %c|`,
+            'background: #222; color: #bada55',
+            'color: #fff',
+            output
+        );
     }
 
-    public debug(output: any): void {
+    private _consoleTrace(output: any): void {
+        console.groupCollapsed(
+            `%cChat Images %c|`,
+            'background: #222; color: #bada55',
+            'color: #fff',
+            output
+        );
+        console.trace();
+        console.groupEnd();
+    }
+
+    public debug(output: any, doTrace?: boolean): void {
         if (this._debugging && output) {
-            this._log(output);
+            if (this._trace && doTrace !== false) {
+                this._consoleTrace(output);
+            } else {
+                this._log(output);
+            }
         }
     }
 }
 
-export default new Utils(true);
+export default new Utils(true, true);
