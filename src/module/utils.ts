@@ -3,10 +3,11 @@ class Utils {
     private readonly _trace: boolean;
     public readonly moduleName: string = 'chat-images';
 
-    constructor(debugging?: boolean, trace?: boolean) {
-        const configDebugHooks = CONFIG?.debug?.hooks;
-        this._debugging = configDebugHooks ? configDebugHooks : debugging;
+    constructor(debugging: boolean, trace: boolean) {
+        this._debugging = debugging;
         this._trace = trace;
+
+        CONFIG.debug.hooks = debugging;
     }
 
     private _consoleLog(output: any): void {
