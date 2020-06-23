@@ -17,6 +17,15 @@
 - [x] Non image links were affected by the PreCreateChatMessage hook
 
 # v1.1.1
-- [] Add copy image right click menu
+- [ ] Add copy image right click menu
 - [x] Debugging and stack tracing ( nice for me I guess `¯\_(ツ)_/¯` )
-- [] Permissions
+- [ ] Permissions
+
+#### Bugs
+
+- [ ] Hilarious but still a bug, bubbles don't work well with images:
+
+
+![bubbles](https://i.imgur.com/N0pN9Vs.gif)
+
+- [x] Added a default action to the warning dialog

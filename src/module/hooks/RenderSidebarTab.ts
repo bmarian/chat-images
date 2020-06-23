@@ -106,6 +106,7 @@ class RenderSidebarTab {
                     }
                 }
             },
+            default: 'ok',
             close: () => {
                 if (!tookAction) that._disableChat(chat, false);
             }
