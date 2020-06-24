@@ -19,10 +19,11 @@
 # v1.1.1
 - [x] Debugging and stack tracing ( nice for me I guess `¯\_(ツ)_/¯` )
 - [x] Tested compatibility with 0.6.4
-- [ ] Add copy image right click menu
-- [ ] Permissions
 
 #### Bugs
-
 - [X] Disable bubbles for converted chat messages
 - [x] Added a default action to the warning dialog
+
+# v1.1.2
+- [ ] Add copy image right click menu
+- [ ] Permissions
