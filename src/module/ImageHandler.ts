@@ -48,9 +48,12 @@ class ImageHandler {
      *
      * @param message - text containing image links to change
      */
-    public replaceImagesInText(message: string): string {
+    public replaceImagesInText(message: string): any {
         if (!message) return;
-        return message.replace(this.urlRegex, this._changeLinksToImages.bind(this));
+        return {
+            content: message.replace(this.urlRegex, this._changeLinksToImages.bind(this)),
+            changed: !!message.match(this.urlRegex)
+        };
     }
 
     /**

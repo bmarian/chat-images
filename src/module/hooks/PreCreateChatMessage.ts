@@ -8,7 +8,7 @@ class PreCreateChatMessage {
      *
      * @param content - ChatMessage content
      */
-    public processMessage(content: string): string {
+    public processMessage(content: string): any {
         return ImageHandler.replaceImagesInText(content);
     }
 }

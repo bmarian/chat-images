@@ -16,9 +16,11 @@ Hooks.once('init', async () => {
  * Adding a hook on preCreateChatMessage to get the message before is posted in chat and to
  * manipulate the data
  */
-Hooks.on('preCreateChatMessage', (message: any): void => {
+Hooks.on('preCreateChatMessage', (message: any, options: any): void => {
     if (message?.content) {
-        message.content = preCreateChatMessage.processMessage(message.content);
+        const {content, changed} = preCreateChatMessage.processMessage(message.content);
+        message.content = content;
+        options.chatBubble = !changed;
         utils.debug('ChatMessage content modified.');
     }
 });
