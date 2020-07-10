@@ -7,7 +7,7 @@ class Utils {
         this._debugging = debugging;
         this._trace = trace;
 
-        CONFIG.debug.hooks = debugging;
+        if (debugging) CONFIG.debug.hooks = debugging;
     }
 
     private _consoleLog(output: any): void {
