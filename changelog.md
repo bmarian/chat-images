@@ -25,5 +25,9 @@
 - [x] Added a default action to the warning dialog
 
 # v1.1.2
+- [x] Restricted the image regex to only target messages with a single url.
+- [x] Tested compatibility with 0.6.5
+
+# v1.1.3
 - [ ] Add copy image right click menu
 - [ ] Permissions

@@ -2,7 +2,7 @@ import utils from "./utils";
 
 class ImageHandler {
 
-    public urlRegex = /<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>|(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    public urlRegex = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
     public imageUrlRegex = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/gi;
 
     /**
@@ -35,12 +35,11 @@ class ImageHandler {
      * This function converts all the image links into actual images
      *
      * @param match
-     * @param link - it only exists if the original link is detected and converted into a hyperlink
+     * @param link
      * @private
      */
-    private _changeLinksToImages(match: string, link?: string): string {
-        const image = link ? link : match;
-        return this._isImageUrl(image) ? this.buildImageHtml(image, false) : match;
+    private _changeLinksToImages(match: string, link: string): string {
+        return this._isImageUrl(link) ? this.buildImageHtml(link, false) : match;
     }
 
     /**
