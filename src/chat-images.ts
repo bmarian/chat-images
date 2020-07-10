@@ -17,12 +17,14 @@ Hooks.once('init', async () => {
  * manipulate the data
  */
 Hooks.on('preCreateChatMessage', (message: any, options: any): void => {
-    if (message?.content) {
-        const {content, changed} = preCreateChatMessage.processMessage(message.content);
-        message.content = content;
-        options.chatBubble = !changed;
-        utils.debug('ChatMessage content modified.');
-    }
+    if (!message?.content) return;
+
+    const {content, changed} = preCreateChatMessage.processMessage(message.content);
+    if (!changed) return;
+
+    message.content = content;
+    options.chatBubble = !changed;
+    utils.debug('ChatMessage content modified.');
 });
 
 /**

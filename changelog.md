@@ -29,5 +29,8 @@
 - [x] Tested compatibility with 0.6.5
 
 # v1.1.3
+- [x] Fixed private rolls not being private. Bubbles show what you rolled.
+
+# v1.1.4
 - [ ] Add copy image right click menu
 - [ ] Permissions
