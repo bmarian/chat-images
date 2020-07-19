@@ -32,5 +32,8 @@
 - [x] Fixed private rolls not being private. Bubbles show what you rolled.
 
 # v1.1.4
+- [x] Tested compatibility with 0.7.0
+
+# v1.1.5
 - [ ] Add copy image right click menu
 - [ ] Permissions
