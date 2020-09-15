@@ -1,5 +1,6 @@
 import ImageHandler from "../ImageHandler";
 import utils from "../Utils";
+import Settings from "../Settings";
 
 class RenderSidebarTab {
     private static _instance: RenderSidebarTab;
@@ -37,8 +38,8 @@ class RenderSidebarTab {
     /**
      * This function adds the disabled property on the chat input
      *
-     * @param chat - chat html element
-     * @param disabled - true if the chat needs to be disabled
+     * @param chat - chat html object (should be the default textarea)
+     * @param disabled - true, if the chat needs to be disabled
      * @private
      */
     private _disableChat(chat: any, disabled: boolean): void {
@@ -77,24 +78,18 @@ class RenderSidebarTab {
     }
 
     /**
-     * This function handles showing a warning dialog
+     * Build a warning dialog
      *
-     * @param warning - true if we need to show a warning
-     * @param chat - chat html element
+     * @param chat - chat html object (should be the default textarea)
      * @param image - image blob
      * @private
      */
-    private _handleWarnings(warning: boolean, chat: any, image: any): void {
-        if (!image) return;
-        if (!warning) {
-            this._sendMessageInChat(chat, image);
-            return;
-        }
-        const that = this;
+    private _createWarningDialog(chat: any, image: any): Dialog {
+        const renderSidebarTabInstance = this;
         let tookAction = false;
-        that._disableChat(chat, true);
 
-        const dialog = new Dialog({
+        this._disableChat(chat, true);
+        return new Dialog({
             title: 'Warning',
             content: 'You\'re about to send a file, are you sure?',
             buttons: {
@@ -103,7 +98,7 @@ class RenderSidebarTab {
                     label: 'Yes',
                     callback: () => {
                         tookAction = true;
-                        that._sendMessageInChat(chat, image);
+                        renderSidebarTabInstance._sendMessageInChat(chat, image);
                     }
                 },
                 cancel: {
@@ -111,51 +106,69 @@ class RenderSidebarTab {
                     label: 'No',
                     callback: () => {
                         tookAction = true;
-                        that._disableChat(chat, false);
+                        renderSidebarTabInstance._disableChat(chat, false);
                     }
                 }
             },
             default: 'ok',
             close: () => {
-                if (!tookAction) that._disableChat(chat, false);
+                if (!tookAction) {
+                    renderSidebarTabInstance._disableChat(chat, false);
+                }
             }
         });
-        dialog.render(true);
-        utils.debug('Warning dialog rendered.');
     }
 
     /**
-     * Event listener for past
+     * Show a warning if needed and send the message
+     *
+     * @param warning - true, if we need to show a warning
+     * @param chat - chat html object (should be the default textarea)
+     * @param image - image blob
+     * @private
+     */
+    private _warnAndSendMessage(warning: boolean, chat: any, image: any): void {
+        if (!chat || !image) return;
+
+        if (warning) {
+            this._createWarningDialog(chat, image).render(true);
+        } else {
+            this._sendMessageInChat(chat, image);
+        }
+    }
+
+    /**
+     * Event handler for the paste event
      *
      * @param event - paste event
      * @private
      */
     private _pasteEventListener(event: any): void {
         const chat = event.target;
-        if (chat.disabled) return;
+        if (!chat || chat.disabled) return;
 
-        const warningOnPaste = game.settings.get(utils.moduleName, 'warningOnPaste');
-        this._handleWarnings(warningOnPaste, chat, ImageHandler.getBlobFromFile(event));
+        const hasWarningOnPaste = Settings.getSetting('warningOnPaste');
+        this._warnAndSendMessage(hasWarningOnPaste, chat, ImageHandler.getBlobFromFile(event));
     }
 
     /**
-     * Event listener for drop
+     * Event handler for the drop event
      *
      * @param event - drop event
      * @private
      */
     private _dropEventListener(event: any): void {
         const chat = event.target;
-        if (chat.disabled) return;
+        if (!chat || chat.disabled) return;
 
-        const warningOnDrop = game.settings.get(utils.moduleName, 'warningOnDrop');
-        this._handleWarnings(warningOnDrop, chat, ImageHandler.getBlobFromFile(event));
+        const hasWarningOnDrop = Settings.getSetting('warningOnDrop');
+        this._warnAndSendMessage(hasWarningOnDrop, chat, ImageHandler.getBlobFromFile(event));
     }
 
     /**
      * Add event listeners for the chat textarea
      *
-     * @param chat - chat textarea
+     * @param chat - chat html object (should be the default textarea)
      * @private
      */
     private _addChatEventListeners(chat: any): void {
@@ -175,8 +188,8 @@ class RenderSidebarTab {
         const sidePanelHTML = sidePanel[0];
         if (sidePanelHTML?.id !== 'chat') return;
 
-        const chat = sidePanelHTML.querySelector("#chat-message");
-        if (chat === null) return;
+        const chat = sidePanelHTML.querySelector('#chat-message');
+        if (!chat) return;
 
         this._addChatEventListeners(chat);
     }
