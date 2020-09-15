@@ -12,6 +12,9 @@ class Init {
         return Init._instance;
     }
 
+    /**
+     * Add a hook on init, to register settings
+     */
     public async initHook(): Promise<void> {
         Settings.registerSettings();
         Utils.debug('Finished initialization');

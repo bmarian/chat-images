@@ -86,8 +86,8 @@ class RenderSidebarTab {
         that._disableChat(chat, true);
 
         const dialog = new Dialog({
-            title: 'Chat Images',
-            content: 'You are about to add an image to the chat. Are you sure you want to do that?',
+            title: 'Warning',
+            content: 'You\'re about to send a file, are you sure?',
             buttons: {
                 ok: {
                     icon: '<i class="fas fa-check"></i>',
@@ -148,9 +148,24 @@ class RenderSidebarTab {
      *
      * @param chat - chat input element
      */
-    public handleImagePasteDrop(chat: any): void {
+    private handleImagePasteDrop(chat: any): void {
         chat.addEventListener('paste', this._pasteEventListener.bind(this));
         chat.addEventListener('drop', this._dropEventListener.bind(this));
+    }
+
+    /**
+     * Add a hook on renderSidebarTab, to add the paste/drop events on the chat window
+     * TODO: and to add the image search button
+     *
+     * @param _0 - side panel object, ignored
+     * @param sidePanel - side panel html
+     */
+    public renderSidebarTabHook(_0: any, sidePanel: any): void {
+        const sidePanelHTML = sidePanel[0];
+        if (sidePanelHTML?.id !== 'chat') return;
+
+        const chat = sidePanelHTML.querySelector("#chat-message");
+        this.handleImagePasteDrop(chat);
     }
 }
 

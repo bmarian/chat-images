@@ -54,6 +54,10 @@ class Settings {
         });
     }
 
+    public getSetting(key: string): any {
+        return game?.settings?.get(Utils.moduleName, key);
+    }
+
     public static getInstance(): Settings {
         if (!Settings._instance) Settings._instance = new Settings();
         return Settings._instance;
