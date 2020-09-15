@@ -1,16 +1,13 @@
-import {registerSettings} from './module/settings.js';
-import utils from "./module/utils";
+import utils from "./module/Utils";
 import preCreateChatMessage from "./module/hooks/PreCreateChatMessage";
 import renderSidebarTab from "./module/hooks/RenderSidebarTab"
 import renderChatMessage from "./module/hooks/RenderChatMessage";
+import Init from "./module/hooks/Init";
 
 /**
  * Adding a hook on init to register settings
  */
-Hooks.once('init', async () => {
-    registerSettings();
-    utils.debug('Finished initializing the module.');
-});
+Hooks.once('init', Init.initHook.bind(Init));
 
 /**
  * Adding a hook on preCreateChatMessage to get the message before is posted in chat and to

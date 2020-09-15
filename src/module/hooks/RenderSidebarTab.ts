@@ -1,5 +1,5 @@
 import ImageHandler from "../ImageHandler";
-import utils from "../utils";
+import utils from "../Utils";
 
 class RenderSidebarTab {
 
