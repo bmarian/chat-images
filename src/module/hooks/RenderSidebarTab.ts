@@ -2,6 +2,15 @@ import ImageHandler from "../ImageHandler";
 import utils from "../Utils";
 
 class RenderSidebarTab {
+    private static _instance: RenderSidebarTab;
+
+    private constructor() {
+    }
+
+    public static getInstance(): RenderSidebarTab {
+        if (!RenderSidebarTab._instance) RenderSidebarTab._instance = new RenderSidebarTab();
+        return RenderSidebarTab._instance;
+    }
 
     /**
      * This function shows a spinner over the chat
@@ -144,11 +153,12 @@ class RenderSidebarTab {
     }
 
     /**
-     * This function adds event listeners for paste and drop
+     * Add event listeners for the chat textarea
      *
-     * @param chat - chat input element
+     * @param chat - chat textarea
+     * @private
      */
-    private handleImagePasteDrop(chat: any): void {
+    private _addChatEventListeners(chat: any): void {
         chat.addEventListener('paste', this._pasteEventListener.bind(this));
         chat.addEventListener('drop', this._dropEventListener.bind(this));
     }
@@ -159,14 +169,17 @@ class RenderSidebarTab {
      *
      * @param _0 - side panel object, ignored
      * @param sidePanel - side panel html
+     * @public
      */
     public renderSidebarTabHook(_0: any, sidePanel: any): void {
         const sidePanelHTML = sidePanel[0];
         if (sidePanelHTML?.id !== 'chat') return;
 
         const chat = sidePanelHTML.querySelector("#chat-message");
-        this.handleImagePasteDrop(chat);
+        if (chat === null) return;
+
+        this._addChatEventListeners(chat);
     }
 }
 
-export default new RenderSidebarTab();
+export default RenderSidebarTab.getInstance();
