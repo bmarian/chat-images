@@ -1,6 +1,15 @@
 import utils from "./Utils";
 
 class ImageHandler {
+    private static _instance: ImageHandler;
+
+    private constructor() {
+    }
+
+    public static getInstance(): ImageHandler {
+        if (!ImageHandler._instance) ImageHandler._instance = new ImageHandler();
+        return ImageHandler._instance;
+    }
 
     public urlRegex = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
     public imageUrlRegex = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/gi;
@@ -60,7 +69,7 @@ class ImageHandler {
      *
      * @param event - paste/drop event
      */
-    public getBlobFromFile(event: any): Blob {
+    public getBlobFromEvents(event: any): Blob {
         const items = event?.clipboardData?.items || event?.dataTransfer?.items;
 
         let blob = null;
@@ -74,4 +83,4 @@ class ImageHandler {
     }
 }
 
-export default new ImageHandler();
+export default ImageHandler.getInstance();

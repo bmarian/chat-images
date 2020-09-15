@@ -1,5 +1,5 @@
 import ImageHandler from "../ImageHandler";
-import utils from "../Utils";
+import Utils from "../Utils";
 import Settings from "../Settings";
 
 class RenderSidebarTab {
@@ -22,12 +22,12 @@ class RenderSidebarTab {
      */
     private _toggleSpinner(chat: any, enable: boolean): void {
         const chatForm = chat.parentNode;
-        let spinner = document.querySelector(`#${utils.moduleName}-spinner`);
+        let spinner = document.querySelector(`#${Utils.moduleName}-spinner`);
 
         if (enable) {
             if (!spinner) {
                 spinner = document.createElement('DIV');
-                spinner.id = `${utils.moduleName}-spinner`;
+                spinner.id = `${Utils.moduleName}-spinner`;
                 chatForm.prepend(spinner);
             }
         } else {
@@ -42,7 +42,7 @@ class RenderSidebarTab {
      * @param disabled - true, if the chat needs to be disabled
      * @private
      */
-    private _disableChat(chat: any, disabled: boolean): void {
+    private _toggleChat(chat: any, disabled: boolean): void {
         this._toggleSpinner(chat, disabled);
 
         if (disabled) {
@@ -53,42 +53,52 @@ class RenderSidebarTab {
         }
     }
 
-    /**
-     * This function adds a new ChatMessage if an image was pasted/dropped in the chat
-     *
-     * @param chat - chat html element
-     * @param image - image blob
-     * @private
-     */
-    private _sendMessageInChat(chat: any, image: any): void {
-        if (!image) return;
+    private _createChatMessageWithBlobImage(chat: any, imageBlob: Blob): void {
+        const renderSidebarTabInstance = this;
+        this._toggleChat(chat, true);
 
         const reader = new FileReader();
-        const that = this;
-
-        this._disableChat(chat, true);
         reader.onload = (event: any): any => {
             const content = ImageHandler.buildImageHtml(event.target.result, true);
             ChatMessage.create({content}).then(() => {
-                that._disableChat(chat, false);
-                utils.debug('Image rendered in chat.');
+                renderSidebarTabInstance._toggleChat(chat, false);
             });
         };
-        reader.readAsDataURL(image);
+        reader.readAsDataURL(imageBlob);
+    }
+
+    /**
+     * Create a new chat message with the pasted/dropped image
+     *
+     * @param chat - chat html element
+     * @param imageBlob - image blob
+     * @private
+     */
+    private _sendMessageInChat(chat: any, imageBlob: any): void {
+        if (!imageBlob) return;
+
+        const whereToSave = Settings.getSetting('whereToSavePastedImages');
+        if (whereToSave === 'dataFolder') {
+            FilePicker.upload('data', 'UploadedChatImages', imageBlob, {}).then(() => {
+                console.log('IT WORKED');
+            });
+        } else {
+            this._createChatMessageWithBlobImage(chat, imageBlob);
+        }
     }
 
     /**
      * Build a warning dialog
      *
      * @param chat - chat html object (should be the default textarea)
-     * @param image - image blob
+     * @param imageBlob - image blob
      * @private
      */
-    private _createWarningDialog(chat: any, image: any): Dialog {
+    private _createWarningDialog(chat: any, imageBlob: Blob): Dialog {
         const renderSidebarTabInstance = this;
         let tookAction = false;
 
-        this._disableChat(chat, true);
+        this._toggleChat(chat, true);
         return new Dialog({
             title: 'Warning',
             content: 'You\'re about to send a file, are you sure?',
@@ -98,7 +108,7 @@ class RenderSidebarTab {
                     label: 'Yes',
                     callback: () => {
                         tookAction = true;
-                        renderSidebarTabInstance._sendMessageInChat(chat, image);
+                        renderSidebarTabInstance._sendMessageInChat(chat, imageBlob);
                     }
                 },
                 cancel: {
@@ -106,14 +116,14 @@ class RenderSidebarTab {
                     label: 'No',
                     callback: () => {
                         tookAction = true;
-                        renderSidebarTabInstance._disableChat(chat, false);
+                        renderSidebarTabInstance._toggleChat(chat, false);
                     }
                 }
             },
             default: 'ok',
             close: () => {
                 if (!tookAction) {
-                    renderSidebarTabInstance._disableChat(chat, false);
+                    renderSidebarTabInstance._toggleChat(chat, false);
                 }
             }
         });
@@ -124,16 +134,16 @@ class RenderSidebarTab {
      *
      * @param warning - true, if we need to show a warning
      * @param chat - chat html object (should be the default textarea)
-     * @param image - image blob
+     * @param imageBlob - image blob
      * @private
      */
-    private _warnAndSendMessage(warning: boolean, chat: any, image: any): void {
-        if (!chat || !image) return;
+    private _warnAndSendMessage(warning: boolean, chat: any, imageBlob: Blob): void {
+        if (!chat || !imageBlob) return;
 
         if (warning) {
-            this._createWarningDialog(chat, image).render(true);
+            this._createWarningDialog(chat, imageBlob).render(true);
         } else {
-            this._sendMessageInChat(chat, image);
+            this._sendMessageInChat(chat, imageBlob);
         }
     }
 
@@ -148,7 +158,7 @@ class RenderSidebarTab {
         if (!chat || chat.disabled) return;
 
         const hasWarningOnPaste = Settings.getSetting('warningOnPaste');
-        this._warnAndSendMessage(hasWarningOnPaste, chat, ImageHandler.getBlobFromFile(event));
+        this._warnAndSendMessage(hasWarningOnPaste, chat, ImageHandler.getBlobFromEvents(event));
     }
 
     /**
@@ -162,7 +172,7 @@ class RenderSidebarTab {
         if (!chat || chat.disabled) return;
 
         const hasWarningOnDrop = Settings.getSetting('warningOnDrop');
-        this._warnAndSendMessage(hasWarningOnDrop, chat, ImageHandler.getBlobFromFile(event));
+        this._warnAndSendMessage(hasWarningOnDrop, chat, ImageHandler.getBlobFromEvents(event));
     }
 
     /**
