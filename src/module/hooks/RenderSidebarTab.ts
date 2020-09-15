@@ -53,6 +53,7 @@ class RenderSidebarTab {
         }
     }
 
+    // TODO
     private _createChatMessageWithBlobImage(chat: any, imageBlob: Blob): void {
         const renderSidebarTabInstance = this;
         this._toggleChat(chat, true);
@@ -79,6 +80,7 @@ class RenderSidebarTab {
 
         const whereToSave = Settings.getSetting('whereToSavePastedImages');
         if (whereToSave === 'dataFolder') {
+            // TODO
             FilePicker.upload('data', 'UploadedChatImages', imageBlob, {}).then(() => {
                 console.log('IT WORKED');
             });
@@ -188,7 +190,6 @@ class RenderSidebarTab {
 
     /**
      * Add a hook on renderSidebarTab, to add the paste/drop events on the chat window
-     * TODO: and to add the image search button
      *
      * @param _0 - side panel object, ignored
      * @param sidePanel - side panel html

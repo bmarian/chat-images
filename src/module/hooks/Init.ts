@@ -12,6 +12,7 @@ class Init {
         return Init._instance;
     }
 
+    // TODO
     private async _createChatImageFolder(target, folderPath) {
         let source = 'data';
         let base = await FilePicker.browse(source, folderPath);
