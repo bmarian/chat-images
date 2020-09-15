@@ -68,6 +68,20 @@ class RenderSidebarTab {
         reader.readAsDataURL(imageBlob);
     }
 
+    // TODO
+    private _createChatMessageWithFilePath(chat: any, imageBlob: File): void {
+        const renderSidebarTabInstance = this;
+        const uploadFolderPath = Settings.getUploadFolderPath();
+
+        // CHECK FOR FUCKING PERMISION
+        FilePicker.upload('data', uploadFolderPath, imageBlob, {}).then(() => {
+            const content = ImageHandler.buildImageHtml(`./${uploadFolderPath}/${imageBlob.name}`, true);
+            ChatMessage.create({content}).then(() => {
+                renderSidebarTabInstance._toggleChat(chat, false);
+            });
+        });
+    }
+
     /**
      * Create a new chat message with the pasted/dropped image
      *
@@ -75,15 +89,12 @@ class RenderSidebarTab {
      * @param imageBlob - image blob
      * @private
      */
-    private _sendMessageInChat(chat: any, imageBlob: any): void {
+    private _sendMessageInChat(chat: any, imageBlob: Blob): void {
         if (!imageBlob) return;
 
         const whereToSave = Settings.getSetting('whereToSavePastedImages');
         if (whereToSave === 'dataFolder') {
-            // TODO
-            FilePicker.upload('data', 'UploadedChatImages', imageBlob, {}).then(() => {
-                console.log('IT WORKED');
-            });
+            this._createChatMessageWithFilePath(chat, <File>imageBlob);
         } else {
             this._createChatMessageWithBlobImage(chat, imageBlob);
         }

@@ -1,5 +1,4 @@
 import Settings from "../Settings";
-import Utils from "../Utils";
 
 class Init {
     private static _instance: Init;
@@ -12,23 +11,12 @@ class Init {
         return Init._instance;
     }
 
-    // TODO
-    private async _createChatImageFolder(target, folderPath) {
-        let source = 'data';
-        let base = await FilePicker.browse(source, folderPath);
-        if (base.target === target) {
-            await FilePicker.createDirectory(source, folderPath, {});
-        }
-    }
-
     /**
-     * Add a hook on init, to register settings
+     * Add a hook on init, to register settings, and to create the Upload folder if it doesn't exist
      */
     public async initHook(): Promise<void> {
         Settings.registerSettings();
-        this._createChatImageFolder('.', 'UploadedChatImages').then(() => {
-            Utils.debug('Finished initialization');
-        });
+        Settings.createChatImageFolderIfMissing();
     }
 }
 

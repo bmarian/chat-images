@@ -5,6 +5,11 @@ class Settings {
 
     private constructor() {
     }
+
+    public static getInstance(): Settings {
+        if (!Settings._instance) Settings._instance = new Settings();
+        return Settings._instance;
+    }
     
     private getSettings(): Array<any> {
         return [
@@ -48,19 +53,29 @@ class Settings {
         ];
     }
 
+    public getSetting(key: string): any {
+        return game?.settings?.get(Utils.moduleName, key);
+    }
+
+    public getUploadFolderPath(): string {
+        return 'UploadedChatImages';
+    }
+
     public registerSettings(): void {
         this.getSettings().forEach((setting) => {
             game?.settings?.register(Utils.moduleName, setting.key, setting.settings);
         });
     }
 
-    public getSetting(key: string): any {
-        return game?.settings?.get(Utils.moduleName, key);
-    }
+    public async createChatImageFolderIfMissing(): Promise<void> {
+        const source = 'data';
+        const target = '.';
+        const uploadFolder = this.getUploadFolderPath();
 
-    public static getInstance(): Settings {
-        if (!Settings._instance) Settings._instance = new Settings();
-        return Settings._instance;
+        let base = await FilePicker.browse(source, uploadFolder);
+        if (base.target === target) {
+            await FilePicker.createDirectory(source, uploadFolder, {});
+        }
     }
 }
 export default Settings.getInstance();
