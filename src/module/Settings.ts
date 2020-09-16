@@ -41,9 +41,10 @@ class Settings {
                     name: "Files save location",
                     hint: "Do to me not having money to save images on a server you will have to choose where to save them: " +
                         "on your machine in data\\chat-images or chat.db. Some guy told me is better to save them in the data folder " +
-                        "¯\\_(ツ)_/¯. This setting applies to copy pasted and drag and dropped files, links don't need to be saved.",
+                        "¯\\_(ツ)_/¯. This setting applies to copy pasted and drag & dropped files, links don't need to be saved." +
+                        "WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
                     type: String,
-                    default: "dataFolder",
+                    default: "database",
                     choices: {dataFolder: "Data folder", database: "Database"},
                     scope: "world",
                     config: true,
