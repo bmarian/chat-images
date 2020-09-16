@@ -33,11 +33,7 @@ class ImageHandler {
      */
     public buildImageHtml(image: string | ArrayBuffer, isBase64: boolean): string {
         const img = `<img class="${utils.moduleName}-image" src="${image}" alt="${utils.moduleName}">`;
-        const link = isBase64 ? img : `<a class="hyperlink" href="${image}" target="_blank">${img}</a>`;
-        const previewButton = `<button class="${utils.moduleName}-expand-preview-button">
-                                    <i class="fas fa-expand" aria-hidden="true"></i>
-                               </button>`;
-        return `<div class="${utils.moduleName}-image-container">${previewButton}${link}</div>`;
+        return `<div class="${utils.moduleName}-image-container">${img}</div>`;
     }
 
     /**
@@ -80,6 +76,19 @@ class ImageHandler {
             }
         }
         return blob;
+    }
+
+
+    /**
+     *
+     * @param oldImageName
+     */
+    public generateRandomFileName(oldImageName: string): string {
+        const imageExtension = oldImageName.substring(oldImageName.lastIndexOf('.'), oldImageName.length) || null;
+        if (!imageExtension) return oldImageName;
+
+        const randomName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        return randomName + imageExtension;
     }
 }
 

@@ -53,7 +53,13 @@ class RenderSidebarTab {
         }
     }
 
-    // TODO
+    /**
+     * Showing images as blobs in the chat for people who don't trust their players
+     *
+     * @param chat - chat html element
+     * @param imageBlob - image blob
+     * @private
+     */
     private _createChatMessageWithBlobImage(chat: any, imageBlob: Blob): void {
         const renderSidebarTabInstance = this;
         this._toggleChat(chat, true);
@@ -68,14 +74,21 @@ class RenderSidebarTab {
         reader.readAsDataURL(imageBlob);
     }
 
-    // TODO
-    private _createChatMessageWithFilePath(chat: any, imageBlob: File): void {
+    /**
+     * Create a new chat message with a image file path from the data directory
+     *
+     * @param chat - chat html element
+     * @param image - image file
+     * @private
+     */
+    private _createChatMessageWithFilePath(chat: any, image: File): void {
         const renderSidebarTabInstance = this;
         const uploadFolderPath = Settings.getUploadFolderPath();
+        const imageName = ImageHandler.generateRandomFileName(image.name);
+        const imageToUpload = new File([image], imageName, {type: image.type})
 
-        // CHECK FOR FUCKING PERMISION
-        FilePicker.upload('data', uploadFolderPath, imageBlob, {}).then(() => {
-            const content = ImageHandler.buildImageHtml(`./${uploadFolderPath}/${imageBlob.name}`, true);
+        FilePicker.upload('data', uploadFolderPath, imageToUpload, {}).then(() => {
+            const content = ImageHandler.buildImageHtml(`./${uploadFolderPath}/${imageName}`, false);
             ChatMessage.create({content}).then(() => {
                 renderSidebarTabInstance._toggleChat(chat, false);
             });

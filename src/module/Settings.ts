@@ -40,7 +40,7 @@ class Settings {
                 settings: {
                     name: "Files save location",
                     hint: "Do to me not having money to save images on a server you will have to choose where to save them: " +
-                        "on your machine in data\\chat-images or chat.db. Some guy told me is better to save them in the data folder " +
+                        `on your machine in data\\${this.getUploadFolderPath()} or chat.db. Some guy told me is better to save them in the data folder ` +
                         "¯\\_(ツ)_/¯. This setting applies to copy pasted and drag & dropped files, links don't need to be saved." +
                         "WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
                     type: String,
@@ -59,7 +59,7 @@ class Settings {
     }
 
     public getUploadFolderPath(): string {
-        return 'UploadedChatImages';
+        return 'uploaded-chat-images';
     }
 
     public registerSettings(): void {
