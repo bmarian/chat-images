@@ -34,6 +34,9 @@
 # v1.1.4
 - [x] Tested compatibility with 0.7.0
 
-# v1.1.5
-- [ ] Add copy image right click menu
-- [ ] Permissions
+# v2.0.0
+#### This might be the last update:
+
+- [x] Support for saving images inside the data folder
+- [x] Removed the useless preview button, you can just click the chat message now
+- [x] Reworked some functions to make it easier to read

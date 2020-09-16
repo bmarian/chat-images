@@ -1,4 +1,4 @@
-import utils from "../utils";
+import utils from "../Utils";
 
 class RenderChatMessage {
 
@@ -13,7 +13,7 @@ class RenderChatMessage {
 
         const popout = new ImagePopout(image, {
             editable: false,
-            shareable: false,
+            shareable: true,
         });
         popout.render(true);
     }
@@ -25,10 +25,9 @@ class RenderChatMessage {
      * @param container - image container, contains the image and the button
      * @private
      */
-    private _buttonClickEventListener(container: any): void {
+    private _clickEventListener(container: any): void {
         const image = container.querySelector(`.${utils.moduleName}-image`);
-        const previewButton = container.querySelector(`.${utils.moduleName}-expand-preview-button`);
-        if (!image || !previewButton) return;
+        if (!image) return;
 
         this._renderPopout(image.src);
     }
@@ -38,7 +37,7 @@ class RenderChatMessage {
      *
      * @param html - The chat message html
      */
-    public addImagePreviewButton(html: any): void {
+    private _addImagePreview(html: any): void {
         if (!(html && html[0])) return;
 
         const containers = html[0].querySelectorAll(`.${utils.moduleName}-image-container`);
@@ -46,15 +45,18 @@ class RenderChatMessage {
 
         const that = this;
         containers.forEach((container: any): void => {
-            const buttons = container.querySelectorAll(`.${utils.moduleName}-expand-preview-button`);
-
-            buttons.forEach((button: any): void => {
-                button.addEventListener('click', (): void => {
-                    that._buttonClickEventListener(container);
-                });
+            container.addEventListener('click', (): void => {
+                that._clickEventListener(container);
             });
         });
-        utils.debug('Event added to preview button.', false);
+    }
+
+    /**
+     * Adding a hook on renderChatMessage to add events on all the preview buttons when
+     * they get rendered
+     */
+    public RenderChatMessageHook(_0: any, html: any): void {
+        this._addImagePreview(html);
     }
 }
 
