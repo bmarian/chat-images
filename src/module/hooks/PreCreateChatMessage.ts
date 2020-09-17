@@ -1,5 +1,4 @@
 import ImageHandler from "../ImageHandler";
-import utils from "../Utils";
 
 class PreCreateChatMessage {
     private static _instance: PreCreateChatMessage;
@@ -34,7 +33,6 @@ class PreCreateChatMessage {
 
         message.content = content;
         options.chatBubble = !changed;
-        utils.debug('ChatMessage content modified.');
     }
 }
 

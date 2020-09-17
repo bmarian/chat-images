@@ -80,8 +80,9 @@ class ImageHandler {
 
 
     /**
+     * Generate a random file name for images
      *
-     * @param oldImageName
+     * @param oldImageName - the original file name (used to get the extension for the file)
      */
     public generateRandomFileName(oldImageName: string): string {
         const imageExtension = oldImageName.substring(oldImageName.lastIndexOf('.'), oldImageName.length) || null;

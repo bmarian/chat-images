@@ -40,3 +40,10 @@
 - [x] Support for saving images inside the data folder
 - [x] Removed the useless preview button, you can just click the chat message now
 - [x] Reworked some functions to make it easier to read
+
+# v2.0.1
+#### Update v2.0.0 is a liar
+
+- [x] Fixed the spinner not showing for file upload
+- [x] Added a `cursor: pointer` to the images in chat to represent that you can click on them
+- [x] Made the path added to `image.src` to be relative

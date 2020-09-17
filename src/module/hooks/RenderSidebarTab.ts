@@ -61,10 +61,11 @@ class RenderSidebarTab {
      * @private
      */
     private _createChatMessageWithBlobImage(chat: any, imageBlob: Blob): void {
-        const renderSidebarTabInstance = this;
         this._toggleChat(chat, true);
 
+        const renderSidebarTabInstance = this;
         const reader = new FileReader();
+
         reader.onload = (event: any): any => {
             const content = ImageHandler.buildImageHtml(event.target.result, true);
             ChatMessage.create({content}).then(() => {
@@ -82,17 +83,38 @@ class RenderSidebarTab {
      * @private
      */
     private _createChatMessageWithFilePath(chat: any, image: File): void {
+        this._toggleChat(chat, true);
+
         const renderSidebarTabInstance = this;
         const uploadFolderPath = Settings.getUploadFolderPath();
         const imageName = ImageHandler.generateRandomFileName(image.name);
         const imageToUpload = new File([image], imageName, {type: image.type})
 
-        FilePicker.upload('data', uploadFolderPath, imageToUpload, {}).then(() => {
-            const content = ImageHandler.buildImageHtml(`./${uploadFolderPath}/${imageName}`, false);
+        FilePicker.upload('data', uploadFolderPath, imageToUpload, {}).then((response: any) => {
+            if (!response || response.status !== 'success' || !response.path) {
+                renderSidebarTabInstance._toggleChat(chat, false);
+                return;
+            }
+
+            const content = ImageHandler.buildImageHtml(response.path, false);
             ChatMessage.create({content}).then(() => {
                 renderSidebarTabInstance._toggleChat(chat, false);
             });
-        });
+
+        }).catch(() => renderSidebarTabInstance._toggleChat(chat, false));
+    }
+
+    /**
+     * Check if the current user can upload files to the server
+     *
+     * @private
+     */
+    private _hasPlayerFileUploadPermission(): boolean {
+        const uploadPermissions = game?.permissions?.FILES_UPLOAD;
+        // @ts-ignore
+        const userPermission = game?.user?.role;
+
+        return uploadPermissions.length && uploadPermissions.includes(userPermission);
     }
 
     /**
@@ -106,7 +128,7 @@ class RenderSidebarTab {
         if (!imageBlob) return;
 
         const whereToSave = Settings.getSetting('whereToSavePastedImages');
-        if (whereToSave === 'dataFolder') {
+        if (whereToSave === 'dataFolder' && this._hasPlayerFileUploadPermission()) {
             this._createChatMessageWithFilePath(chat, <File>imageBlob);
         } else {
             this._createChatMessageWithBlobImage(chat, imageBlob);
