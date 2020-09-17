@@ -128,10 +128,19 @@ class RenderSidebarTab {
         if (!imageBlob) return;
 
         const whereToSave = Settings.getSetting('whereToSavePastedImages');
-        if (whereToSave === 'dataFolder' && this._hasPlayerFileUploadPermission()) {
+        const saveAsBlobIfUnableToUpload = Settings.getSetting('saveAsBlobIfCantUpload');
+        const hasUploadPermission = this._hasPlayerFileUploadPermission();
+
+        if (whereToSave === 'dataFolder' && hasUploadPermission) {
             this._createChatMessageWithFilePath(chat, <File>imageBlob);
-        } else {
+        } else if (whereToSave === 'database') {
             this._createChatMessageWithBlobImage(chat, imageBlob);
+        } else {
+            if (!hasUploadPermission && !saveAsBlobIfUnableToUpload) {
+                ui?.notifications?.warn('You don\'t have permissions to upload files!');
+            } else {
+                this._createChatMessageWithBlobImage(chat, imageBlob);
+            }
         }
     }
 

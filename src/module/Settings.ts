@@ -10,7 +10,7 @@ class Settings {
         if (!Settings._instance) Settings._instance = new Settings();
         return Settings._instance;
     }
-    
+
     private getSettings(): Array<any> {
         return [
             {
@@ -51,6 +51,19 @@ class Settings {
                     restricted: true,
                 },
             },
+            {
+                key: "saveAsBlobIfCantUpload",
+                settings: {
+                    name: "Embed if upload is not possible",
+                    hint: "If you don't want to give all your players upload permissions this feature will work as before, " +
+                        "embedding images in chat messages. Keep in mind embedding them is bad for loading times, and world size",
+                    type: Boolean,
+                    default: false,
+                    scope: "world",
+                    config: true,
+                    restricted: true,
+                },
+            },
         ];
     }
 
@@ -79,4 +92,5 @@ class Settings {
         }
     }
 }
+
 export default Settings.getInstance();
