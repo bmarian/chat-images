@@ -11,7 +11,6 @@ FoundryVTT version 0.7.x: `https://raw.githubusercontent.com/bmarian/chat-images
 
 - Click Install and wait for installation to complete.
 
-
 # Usage
 At this point the features implemented are:
 
