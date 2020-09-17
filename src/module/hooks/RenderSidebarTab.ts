@@ -91,7 +91,7 @@ class RenderSidebarTab {
         const imageToUpload = new File([image], imageName, {type: image.type})
 
         FilePicker.upload('data', uploadFolderPath, imageToUpload, {}).then((response: any) => {
-            if (!response || response.status !== 'success' || !response.path) {
+            if (!response.path) {
                 renderSidebarTabInstance._toggleChat(chat, false);
                 return;
             }
