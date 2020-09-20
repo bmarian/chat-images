@@ -2,7 +2,7 @@
 A module for Foundry VTT that adds easy image support for the chat.
 
 
-# Instalation
+# Installation
 - Inside Foundry, select the Game Modules tab in the Configuration and Setup menu.
 - Click the Install Module button and enter the following URL: 
 
