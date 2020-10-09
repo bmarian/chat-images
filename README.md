@@ -1,4 +1,7 @@
 # Chat Images
+![GitHub All Releases] (https://img.shields.io/github/downloads/bmarian/chat-images/total?style=for-the-badge)
+
+
 A module for Foundry VTT that adds easy image support for the chat.
 
 
