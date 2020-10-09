@@ -22,6 +22,7 @@ class Settings {
                     default: false,
                     scope: "world",
                     config: true,
+                    restricted: false,
                 },
             },
             {
@@ -33,6 +34,7 @@ class Settings {
                     default: false,
                     scope: "world",
                     config: true,
+                    restricted: false,
                 },
             },
             {
