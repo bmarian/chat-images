@@ -1,7 +1,5 @@
 .#{$module-name} {
   &-image-container {
-    position: relative;
-
     & .#{$module-name}-image {
       cursor: pointer;
     }
