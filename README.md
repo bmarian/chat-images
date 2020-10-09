@@ -3,39 +3,34 @@
 ![GitHub Latest Release](https://img.shields.io/github/release/bmarian/chat-images?style=for-the-badge)
 ![Foundry Version](https://img.shields.io/badge/FoundryVTT-0.6.6-blueviolet?style=for-the-badge)
 
-A module for Foundry VTT that adds easy image support for the chat.
-
+The title says it all, this module adds support for images in the chat: copy-paste, drag & drop, and links are automatically converted to images.
 
 # Installation
-- Inside Foundry, select the Game Modules tab in the Configuration and Setup menu.
-- Click the Install Module button and enter the following URL: 
+- Go in the `Add-on Modules` section
+- Click `Install Module`
+- And search for Chat Images
 
-FoundryVTT version <= 0.6.5: `https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json`
-FoundryVTT version 0.7.x: `https://raw.githubusercontent.com/bmarian/chat-images/f-0.7.x/src/module.json`
 
-- Click Install and wait for installation to complete.
+Or you could install it manually, using one of these versions:
+- FoundryVTT version <= 0.6.5: https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json
+- FoundryVTT version >= 0.6.6: https://raw.githubusercontent.com/bmarian/chat-images/f-0.7.x/src/module.json
 
 # Usage
-At this point the features implemented are:
 
+### Automatically converted links
+![link](https://i.imgur.com/2g1lhod.gif)
 
-### Copy-paste images (this also means support for sharing screenshots)
-![copy-paste](https://i.imgur.com/Yx7B01a.gif)
+### Copy-paste images
+![copy-paste](https://i.imgur.com/iTRWPSS.gif)
 
+### Paste a screenshot
+![screenshot](https://i.imgur.com/psfNXnY.gif)
 
-### Transforming pasted image links, into a image preview
-![transform-link-in-image](https://i.imgur.com/LrDREu7.gif)
+### Drag & drop
+![drag-and-drop](https://i.imgur.com/1DFAjQl.gif)
 
+### Preview for uploaded images & show to players
+![preview](https://i.imgur.com/eT7vaY7.gif)
 
-### Drag and drop images from file explorer.
-![drag-and-drop](https://i.imgur.com/QGsnX2c.gif)
-
-
-### Preview for uploaded images (outdated gif, you can now just click the chat message)
-![preview](https://i.imgur.com/fGDLA1A.gif)
-
-### Configurable warning dialog.
-![dialog](https://i.imgur.com/lFHaSGg.gif)
-
-### Support for saving images in the data folder
-![file-save-location](https://i.imgur.com/alb7efo.png)
+### Warning dialog
+![dialog](https://i.imgur.com/bTV4rnl.gif)
