@@ -1,7 +1,7 @@
 {
   "name": "chat-images",
   "title": "Chat Images",
-  "description": "An extension that let's you easily use images in the chat.",
+  "description": "This module adds support for images in the chat: copy-paste, drag & drop, and links are automatically converted to images.",
   "version": "2.0.2",
   "author": "bmarian",
   "esmodules": ["chat-images.js"],
