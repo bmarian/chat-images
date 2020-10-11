@@ -47,3 +47,6 @@
 - [x] Fixed the spinner not showing for file upload
 - [x] Added a `cursor: pointer` to the images in chat to represent that you can click on them
 - [x] Made the path added to `image.src` to be relative
+
+# v2.0.3
+- [x] Moved the warning settings to be at user level

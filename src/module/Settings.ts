@@ -20,9 +20,7 @@ class Settings {
                     hint: "Enables a warning dialog when dropping a file in the chat.",
                     type: Boolean,
                     default: false,
-                    scope: "world",
                     config: true,
-                    restricted: false,
                 },
             },
             {
@@ -32,9 +30,7 @@ class Settings {
                     hint: "Enables a warning dialog when pasting a file in the chat.",
                     type: Boolean,
                     default: false,
-                    scope: "world",
                     config: true,
-                    restricted: false,
                 },
             },
             {
