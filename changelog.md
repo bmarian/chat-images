@@ -50,3 +50,6 @@
 
 # v2.0.3
 - [x] Moved the warning settings to be at user level
+
+# v2.0.3
+- [x] Updated it for foundry 0.7.4

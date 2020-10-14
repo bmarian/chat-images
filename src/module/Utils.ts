@@ -48,4 +48,4 @@ class Utils {
     }
 }
 
-export default Utils.getInstance(true, true);
+export default Utils.getInstance(false, false);

@@ -2,14 +2,14 @@
   "name": "chat-images",
   "title": "Chat Images",
   "description": "This module adds support for images in the chat: copy-paste, drag & drop, and links are automatically converted to images.",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "author": "bmarian",
   "esmodules": ["chat-images.js"],
   "styles": ["chat-images.css"],
   "minimumCoreVersion": "0.6.2",
-  "compatibleCoreVersion": "0.7.3",
+  "compatibleCoreVersion": "0.7.4",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/f-0.7.x/src/module.json",
-  "download": "https://github.com/bmarian/chat-images/raw/f-0.7.x/package/chat-images-v2.0.3.zip",
+  "download": "https://github.com/bmarian/chat-images/raw/f-0.7.x/package/chat-images-v2.0.4.zip",
   "changelog": "https://github.com/bmarian/chat-images/releases"
 }
