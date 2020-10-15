@@ -104,6 +104,17 @@ class RenderSidebarTab {
         }).catch(() => renderSidebarTabInstance._toggleChat(chat, false));
     }
 
+    private _createChatMessageWithLinkFromClipboard(chat: any, image: string): void {
+        this._toggleChat(chat, true);
+
+        const renderSidebarTabInstance = this;
+
+        const content = ImageHandler.buildImageHtml(image, false);
+        ChatMessage.create({content}).then(() => {
+            renderSidebarTabInstance._toggleChat(chat, false);
+        });
+    }
+
     /**
      * Check if the current user can upload files to the server
      *
@@ -124,8 +135,12 @@ class RenderSidebarTab {
      * @param imageBlob - image blob
      * @private
      */
-    private _sendMessageInChat(chat: any, imageBlob: Blob): void {
+    private _sendMessageInChat(chat: any, imageBlob: any): void {
         if (!imageBlob) return;
+
+        if (typeof imageBlob === 'string') {
+            return this._createChatMessageWithLinkFromClipboard(chat, imageBlob)
+        }
 
         const whereToSave = Settings.getSetting('whereToSavePastedImages');
         const saveAsBlobIfUnableToUpload = Settings.getSetting('saveAsBlobIfCantUpload');
@@ -151,7 +166,7 @@ class RenderSidebarTab {
      * @param imageBlob - image blob
      * @private
      */
-    private _createWarningDialog(chat: any, imageBlob: Blob): Dialog {
+    private _createWarningDialog(chat: any, imageBlob: any): Dialog {
         const renderSidebarTabInstance = this;
         let tookAction = false;
 
@@ -194,7 +209,7 @@ class RenderSidebarTab {
      * @param imageBlob - image blob
      * @private
      */
-    private _warnAndSendMessage(warning: boolean, chat: any, imageBlob: Blob): void {
+    private _warnAndSendMessage(warning: boolean, chat: any, imageBlob: any): void {
         if (!chat || !imageBlob) return;
 
         if (warning) {

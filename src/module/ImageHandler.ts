@@ -2,6 +2,7 @@ import utils from "./Utils";
 
 class ImageHandler {
     private static _instance: ImageHandler;
+    private _domParser = new DOMParser();
 
     private constructor() {
     }
@@ -60,14 +61,31 @@ class ImageHandler {
         };
     }
 
+    private _extractLinkFromClipboard(data: any): string {
+        if (!data) return null;
+        const html = data?.getData('text/html');
+        if (!html) return null;
+
+        const parsed = this._domParser.parseFromString(html, 'text/html') ;
+        const img = parsed.querySelector('img');
+
+        return img ? img.src : null;
+    }
+
     /**
      * This function extracts the image from a paste event or from a drop event.
      *
      * @param event - paste/drop event
      */
-    public getBlobFromEvents(event: any): Blob {
-        const items = event?.clipboardData?.items || event?.dataTransfer?.items;
+    public getBlobFromEvents(event: any): any {
+        const data = event?.clipboardData || event?.dataTransfer;
 
+        // If the clipboard info contains a link we return that instead of making an image
+        // to save same space on the DMs computer/The Forge
+        const originalLink = this._extractLinkFromClipboard(data);
+        if(originalLink !== null) return originalLink;
+
+        const items = data?.items;
         let blob = null;
         for (let i = 0; i < items.length; i++) {
             if (items[i]?.type.includes('image')) {
