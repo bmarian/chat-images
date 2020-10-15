@@ -56,3 +56,6 @@
 
 # v2.1.0
 - [x] Don't upload images if not necessary
+
+# v2.1.1
+- [ ] Do a refactor...
