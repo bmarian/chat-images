@@ -1,6 +1,15 @@
-import utils from "./utils";
+import utils from "./Utils";
 
 class ImageHandler {
+    private static _instance: ImageHandler;
+
+    private constructor() {
+    }
+
+    public static getInstance(): ImageHandler {
+        if (!ImageHandler._instance) ImageHandler._instance = new ImageHandler();
+        return ImageHandler._instance;
+    }
 
     public urlRegex = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
     public imageUrlRegex = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/gi;
@@ -24,11 +33,7 @@ class ImageHandler {
      */
     public buildImageHtml(image: string | ArrayBuffer, isBase64: boolean): string {
         const img = `<img class="${utils.moduleName}-image" src="${image}" alt="${utils.moduleName}">`;
-        const link = isBase64 ? img : `<a class="hyperlink" href="${image}" target="_blank">${img}</a>`;
-        const previewButton = `<button class="${utils.moduleName}-expand-preview-button">
-                                    <i class="fas fa-expand" aria-hidden="true"></i>
-                               </button>`;
-        return `<div class="${utils.moduleName}-image-container">${previewButton}${link}</div>`;
+        return `<div class="${utils.moduleName}-image-container">${img}</div>`;
     }
 
     /**
@@ -60,7 +65,7 @@ class ImageHandler {
      *
      * @param event - paste/drop event
      */
-    public getBlobFromFile(event: any): Blob {
+    public getBlobFromEvents(event: any): Blob {
         const items = event?.clipboardData?.items || event?.dataTransfer?.items;
 
         let blob = null;
@@ -72,6 +77,20 @@ class ImageHandler {
         }
         return blob;
     }
+
+
+    /**
+     * Generate a random file name for images
+     *
+     * @param oldImageName - the original file name (used to get the extension for the file)
+     */
+    public generateRandomFileName(oldImageName: string): string {
+        const imageExtension = oldImageName.substring(oldImageName.lastIndexOf('.'), oldImageName.length) || null;
+        if (!imageExtension) return oldImageName;
+
+        const randomName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        return randomName + imageExtension;
+    }
 }
 
-export default new ImageHandler();
+export default ImageHandler.getInstance();
