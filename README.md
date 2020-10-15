@@ -12,9 +12,7 @@ The title says it all, this module adds support for images in the chat: copy-pas
 - And search for Chat Images
 
 
-Or you could install it manually, using one of these versions:
-- FoundryVTT version <= 0.6.5: https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json
-- FoundryVTT version >= 0.6.6: https://raw.githubusercontent.com/bmarian/chat-images/f-0.7.x/src/module.json
+Or you could install it manually, using one the following link: https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json
 
 # Settings
  - `Warning on drop` / `Warning on paste`: will enable a warning dialog on drop/paste, to prevent accidental sharing.
