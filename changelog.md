@@ -58,4 +58,8 @@
 - [x] Don't upload images if not necessary
 
 # v2.1.1
+- [x] Updated it for foundry 0.7.5
+
+
+# v2.1.1
 - [ ] Do a refactor...
