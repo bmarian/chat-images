@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import {MODULE_NAME} from "./util";
 
 class Settings {
     private static _instance: Settings;
@@ -66,7 +66,7 @@ class Settings {
     }
 
     public getSetting(key: string): any {
-        return game?.settings?.get(Utils.moduleName, key);
+        return game?.settings?.get(MODULE_NAME, key);
     }
 
     public getUploadFolderPath(): string {
@@ -75,7 +75,7 @@ class Settings {
 
     public registerSettings(): void {
         this.getSettings().forEach((setting) => {
-            game?.settings?.register(Utils.moduleName, setting.key, setting.settings);
+            game?.settings?.register(MODULE_NAME, setting.key, setting.settings);
         });
     }
 

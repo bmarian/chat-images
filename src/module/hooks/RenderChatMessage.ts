@@ -1,4 +1,4 @@
-import utils from "../Utils";
+import {MODULE_NAME} from "../util";
 
 class RenderChatMessage {
 
@@ -26,7 +26,7 @@ class RenderChatMessage {
      * @private
      */
     private _clickEventListener(container: any): void {
-        const image = container.querySelector(`.${utils.moduleName}-image`);
+        const image = container.querySelector(`.${MODULE_NAME}-image`);
         if (!image) return;
 
         this._renderPopout(image.src);
@@ -40,7 +40,7 @@ class RenderChatMessage {
     private _addImagePreview(html: any): void {
         if (!(html && html[0])) return;
 
-        const containers = html[0].querySelectorAll(`.${utils.moduleName}-image-container`);
+        const containers = html[0].querySelectorAll(`.${MODULE_NAME}-image-container`);
         if (!containers) return;
 
         const that = this;

@@ -1,4 +1,4 @@
-import utils from "./Utils";
+import {MODULE_NAME} from "./util";
 
 class ImageHandler {
     private static _instance: ImageHandler;
@@ -33,8 +33,8 @@ class ImageHandler {
      * @private
      */
     public buildImageHtml(image: string | ArrayBuffer, isBase64: boolean): string {
-        const img = `<img class="${utils.moduleName}-image" src="${image}" alt="${utils.moduleName}">`;
-        return `<div class="${utils.moduleName}-image-container">${img}</div>`;
+        const img = `<img class="${MODULE_NAME}-image" src="${image}" alt="${MODULE_NAME}">`;
+        return `<div class="${MODULE_NAME}-image-container">${img}</div>`;
     }
 
     /**

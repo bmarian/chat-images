@@ -1,6 +1,6 @@
 import ImageHandler from "../ImageHandler";
-import Utils from "../Utils";
 import Settings from "../Settings";
+import {MODULE_NAME} from "../util";
 
 class RenderSidebarTab {
     private static _instance: RenderSidebarTab;
@@ -22,12 +22,12 @@ class RenderSidebarTab {
      */
     private _toggleSpinner(chat: any, enable: boolean): void {
         const chatForm = chat.parentNode;
-        let spinner = document.querySelector(`#${Utils.moduleName}-spinner`);
+        let spinner = document.querySelector(`#${MODULE_NAME}-spinner`);
 
         if (enable) {
             if (!spinner) {
                 spinner = document.createElement('DIV');
-                spinner.id = `${Utils.moduleName}-spinner`;
+                spinner.id = `${MODULE_NAME}-spinner`;
                 chatForm.prepend(spinner);
             }
         } else {
