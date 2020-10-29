@@ -1,6 +1,6 @@
 import ImageHandler from "../ImageHandler";
-import Settings from "../Settings";
 import {MODULE_NAME} from "../util";
+import {getSetting, UPLOAD_FOLDER_PATH} from "../settings";
 
 class RenderSidebarTab {
     private static _instance: RenderSidebarTab;
@@ -86,7 +86,7 @@ class RenderSidebarTab {
         this._toggleChat(chat, true);
 
         const renderSidebarTabInstance = this;
-        const uploadFolderPath = Settings.getUploadFolderPath();
+        const uploadFolderPath = UPLOAD_FOLDER_PATH;
         const imageName = ImageHandler.generateRandomFileName(image.name);
         const imageToUpload = new File([image], imageName, {type: image.type})
 
@@ -142,8 +142,8 @@ class RenderSidebarTab {
             return this._createChatMessageWithLinkFromClipboard(chat, imageBlob)
         }
 
-        const whereToSave = Settings.getSetting('whereToSavePastedImages');
-        const saveAsBlobIfUnableToUpload = Settings.getSetting('saveAsBlobIfCantUpload');
+        const whereToSave = getSetting('whereToSavePastedImages');
+        const saveAsBlobIfUnableToUpload = getSetting('saveAsBlobIfCantUpload');
         const hasUploadPermission = this._hasPlayerFileUploadPermission();
 
         if (whereToSave === 'dataFolder' && hasUploadPermission) {
@@ -229,7 +229,7 @@ class RenderSidebarTab {
         const chat = event.target;
         if (!chat || chat.disabled) return;
 
-        const hasWarningOnPaste = Settings.getSetting('warningOnPaste');
+        const hasWarningOnPaste = getSetting('warningOnPaste');
         this._warnAndSendMessage(hasWarningOnPaste, chat, ImageHandler.getBlobFromEvents(event));
     }
 
@@ -243,7 +243,7 @@ class RenderSidebarTab {
         const chat = event.target;
         if (!chat || chat.disabled) return;
 
-        const hasWarningOnDrop = Settings.getSetting('warningOnDrop');
+        const hasWarningOnDrop = getSetting('warningOnDrop');
         this._warnAndSendMessage(hasWarningOnDrop, chat, ImageHandler.getBlobFromEvents(event));
     }
 

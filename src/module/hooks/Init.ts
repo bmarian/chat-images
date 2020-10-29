@@ -1,4 +1,5 @@
-import Settings from "../Settings";
+import {registerSettings, createUploadFolderIfMissing} from "../settings";
+
 
 class Init {
     private static _instance: Init;
@@ -15,8 +16,8 @@ class Init {
      * Add a hook on init, to register settings, and to create the Upload folder if it doesn't exist
      */
     public async initHook(): Promise<void> {
-        Settings.registerSettings();
-        Settings.createChatImageFolderIfMissing();
+        registerSettings();
+        await createUploadFolderIfMissing();
     }
 }
 
