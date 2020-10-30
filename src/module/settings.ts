@@ -24,6 +24,21 @@ const SETTINGS = [
         },
     },
     {
+        key: "compression",
+        options: {
+            name: "Image quality",
+            hint: "The level of compression used for uploaded images. The lower the more compressed.",
+            type: Number,
+            default: 1,
+            range: {
+                min: 0.1,
+                step: 0.1,
+                max: 1,
+            },
+            config: true,
+        }
+    },
+    {
         key: "whereToSavePastedImages",
         options: {
             name: "Files save location",
