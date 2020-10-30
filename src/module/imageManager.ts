@@ -1,4 +1,5 @@
 import {MODULE_NAME} from "./util";
+import Compressor from './compressor/compressor.esm.js'
 
 const DOM_PARSER = new DOMParser();
 const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
