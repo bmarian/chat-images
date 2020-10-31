@@ -239,13 +239,13 @@ const sendMessage = (chat: HTMLTextAreaElement, image: string | File): void | Pr
     if (typeof image === 'string') return createMessageWithURL(<string>image, toggleChatFun);
 
     const whereToSave = getSetting('whereToSavePastedImages');
-    if (whereToSave === 'database') return createMessageWithEmbedded(image, toggleChatFun);
+    if (whereToSave === 'database') return createMessageWithEmbedded(<File>image, toggleChatFun);
 
     const saveFallback = getSetting('saveAsBlobIfCantUpload');
     const uploadPermission = canUserUpload();
 
-    if (uploadPermission) return createMessageWithFilePath(image, toggleChatFun);
-    if (saveFallback) return createMessageWithEmbedded(image, toggleChatFun);
+    if (uploadPermission) return createMessageWithFilePath(<File>image, toggleChatFun);
+    if (saveFallback) return createMessageWithEmbedded(<File>image, toggleChatFun);
 
     ui?.notifications?.warn('You don\'t have permissions to upload files!');
     toggleChatFun(false)(); // just in case
