@@ -5,22 +5,12 @@ import Compressor from '../compressor/compressor.esm.js'
 
 class RenderSidebarTab {
     private static _instance: RenderSidebarTab;
-
     private constructor() {
     }
-
     public static getInstance(): RenderSidebarTab {
         if (!RenderSidebarTab._instance) RenderSidebarTab._instance = new RenderSidebarTab();
         return RenderSidebarTab._instance;
     }
-
-    /**
-     * This function shows a spinner over the chat
-     *
-     * @param chat - chat html element
-     * @param enable - true if the spinner needs to be displayed
-     * @private
-     */
     private _toggleSpinner(chat: any, enable: boolean): void {
         const chatForm = chat.parentNode;
         let spinner = document.querySelector(`#${MODULE_NAME}-spinner`);
@@ -35,14 +25,6 @@ class RenderSidebarTab {
             if (spinner) chatForm.removeChild(spinner);
         }
     }
-
-    /**
-     * This function adds the disabled property on the chat input
-     *
-     * @param chat - chat html object (should be the default textarea)
-     * @param disabled - true, if the chat needs to be disabled
-     * @private
-     */
     private _toggleChat(chat: any, disabled: boolean): void {
         this._toggleSpinner(chat, disabled);
 
@@ -207,79 +189,6 @@ class RenderSidebarTab {
         });
     }
 
-    /**
-     * Show a warning if needed and send the message
-     *
-     * @param warning - true, if we need to show a warning
-     * @param chat - chat html object (should be the default textarea)
-     * @param imageBlob - image blob
-     * @private
-     */
-    private _warnAndSendMessage(warning: boolean, chat: any, imageBlob: any): void {
-        if (!chat || !imageBlob) return;
-
-        if (warning) {
-            this._createWarningDialog(chat, imageBlob).render(true);
-        } else {
-            this._sendMessageInChat(chat, imageBlob);
-        }
-    }
-
-    /**
-     * Event handler for the paste event
-     *
-     * @param event - paste event
-     * @private
-     */
-    private _pasteEventListener(event: any): void {
-        const chat = event.target;
-        if (!chat || chat.disabled) return;
-
-        const hasWarningOnPaste = getSetting('warningOnPaste');
-        this._warnAndSendMessage(hasWarningOnPaste, chat, ImageHandler.getBlobFromEvents(event));
-    }
-
-    /**
-     * Event handler for the drop event
-     *
-     * @param event - drop event
-     * @private
-     */
-    private _dropEventListener(event: any): void {
-        const chat = event.target;
-        if (!chat || chat.disabled) return;
-
-        const hasWarningOnDrop = getSetting('warningOnDrop');
-        this._warnAndSendMessage(hasWarningOnDrop, chat, ImageHandler.getBlobFromEvents(event));
-    }
-
-    /**
-     * Add event listeners for the chat textarea
-     *
-     * @param chat - chat html object (should be the default textarea)
-     * @private
-     */
-    private _addChatEventListeners(chat: any): void {
-        chat.addEventListener('paste', this._pasteEventListener.bind(this));
-        chat.addEventListener('drop', this._dropEventListener.bind(this));
-    }
-
-    /**
-     * Add a hook on renderSidebarTab, to add the paste/drop events on the chat window
-     *
-     * @param _0 - side panel object, ignored
-     * @param sidePanel - side panel html
-     * @public
-     */
-    public renderSidebarTabHook(_0: any, sidePanel: any): void {
-        const sidePanelHTML = sidePanel[0];
-        if (sidePanelHTML?.id !== 'chat') return;
-
-        const chat = sidePanelHTML.querySelector('#chat-message');
-        if (!chat) return;
-
-        this._addChatEventListeners(chat);
-    }
 }
 
 export default RenderSidebarTab.getInstance();

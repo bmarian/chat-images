@@ -6,9 +6,11 @@ const DOM_PARSER = new DOMParser();
 const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
 const IMAGE_REGEX = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/ig;
 
+
 //============================\\
 // CONVERT MESSAGES TO IMAGES \\
 //============================\\
+
 
 // builds a string template for a image message
 const buildImageHTML = (options: any): string => `<div class="${options.MODULE_NAME}-container"><img src="${options.url}" alt="${options.MODULE_NAME}"></div>`;
@@ -33,6 +35,7 @@ const convertMessageToImage = (message: string): any => isURL(message) && messag
 // ADDS POPOUT ON IMAGE CLICK \\
 //============================\\
 
+
 // creates an image popout from an image url
 const renderPopout = (url: string): Application =>
     new ImagePopout(url, {editable: false, shareable: true}).render(true);
@@ -44,6 +47,7 @@ const createPopoutOnClick = (imgHTML: HTMLImageElement): Application => renderPo
 //=============================\\
 //   CONVERT FILES TO IMAGES   \\
 //=============================\\
+
 
 // returns the file extension from a given file name
 const getFileExtensionFromName = (fileName: string): string => fileName.substring(fileName.lastIndexOf('.'), fileName.length) || null;
@@ -100,14 +104,67 @@ const getImageFromEvent = (event: any): string | File => {
     return url !== null ? url : extractFileFromData(data);
 };
 
-const handleChatInteraction = (showWarning: boolean, chat: HTMLTextAreaElement, event: any): void => {
+// handles the extraction of the image from the event and calls the appropriate
+// action: directly send the message in chat or warn the user first
+const handleChatInteraction = (showWarning: boolean, chat: HTMLTextAreaElement, event: any): void | Promise<void> => {
     if (!chat || chat.disabled) return;
 
     const image = getImageFromEvent(event);
     if (image === null) return;
 
+    return showWarning ? warn(chat, image) : sendMessage(chat, image);
+};
 
-    log(showWarning, chat, image);
+
+//============================\\
+//       CHAT MANAGEMENT      \\
+//============================\\
+
+
+// toggle a spinner over the chat element
+const toggleSpinner = (chatForm: HTMLFormElement, toggle: boolean): any => {
+    const spinnerId = `${MODULE_NAME}-spinner`;
+    const spinner = document.querySelector(`#${spinnerId}`);
+
+    if (!toggle && spinner) return chatForm.removeChild(spinner);
+
+    if (toggle && !spinner) {
+        const newSpinner = document.createElement('DIV');
+        newSpinner.setAttribute('id', spinnerId);
+        chatForm.prepend(newSpinner);
+    }
+};
+
+// toggles the spinner and disables the chat
+const toggleChat = (chat: HTMLTextAreaElement) => (toggle: boolean) => (): any => {
+    toggleSpinner(<HTMLFormElement>chat.parentNode, toggle);
+    if (toggle) return chat.setAttribute('disabled', 'true');
+
+    chat.removeAttribute('disabled');
+    chat.focus();
+};
+
+// creates a new chat message with a given content, then calls cb if it's a function
+const createChatMessage = (content: string, cb: Function): Promise<void> => ChatMessage.create({content}).then(() => typeof cb === 'function' && cb());
+
+// handles the creation of a chat message from an url
+const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<void> => {
+    toggleChatFun(true)();
+    return createChatMessage(buildImageHTML({MODULE_NAME, url}), toggleChatFun(false));
+}
+
+// create a chat message with the image
+const sendMessage = (chat: HTMLTextAreaElement, image: string | File): Promise<void> => {
+    const toggleChatFun = toggleChat(chat);
+
+    if (typeof image === 'string') {
+        return createMessageWithURL(<string>image, toggleChatFun);
+    }
+
+};
+
+// warn the user before creating a chat message
+const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
 };
 
 export {convertMessageToImage, createPopoutOnClick, handleChatInteraction};

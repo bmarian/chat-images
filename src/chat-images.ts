@@ -29,6 +29,6 @@ Hooks.on('renderSidebarTab', (_0: any, html: HTMLElement): void => {
     const chat = html[0]?.querySelector('#chat-message');
     if (!chat) return;
 
-    chat.addEventListener('paste', (event: any): void => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
-    chat.addEventListener('drop', (event: any): void => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+    chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
+    chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
 });
