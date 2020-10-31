@@ -24,12 +24,27 @@ const SETTINGS = [
         },
     },
     {
-        key: "compression",
+        key: "uploadCompression",
         options: {
-            name: "Image quality",
+            name: "Uploaded images quality",
             hint: "The level of compression used for uploaded images. The lower the more compressed.",
             type: Number,
             default: 1,
+            range: {
+                min: 0.1,
+                step: 0.1,
+                max: 1,
+            },
+            config: true,
+        }
+    },
+    {
+        key: "embeddedCompression",
+        options: {
+            name: "Embedded images quality",
+            hint: "The level of compression used for embedded images. The lower the more compressed.",
+            type: Number,
+            default: 0.6,
             range: {
                 min: 0.1,
                 step: 0.1,

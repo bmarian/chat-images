@@ -1,6 +1,7 @@
 import ImageHandler from "../ImageHandler";
 import {MODULE_NAME} from "../util";
 import {getSetting, UPLOAD_FOLDER_PATH} from "../settings";
+import Compressor from '../compressor/compressor.esm.js'
 
 class RenderSidebarTab {
     private static _instance: RenderSidebarTab;
@@ -66,13 +67,18 @@ class RenderSidebarTab {
         const renderSidebarTabInstance = this;
         const reader = new FileReader();
 
-        reader.onload = (event: any): any => {
-            const content = ImageHandler.buildImageHtml(event.target.result, true);
-            ChatMessage.create({content}).then(() => {
-                renderSidebarTabInstance._toggleChat(chat, false);
-            });
-        };
-        reader.readAsDataURL(imageBlob);
+        new Compressor(imageBlob, {
+            quality: 0.5,
+            success: (result) => {
+                reader.onload = (event: any): any => {
+                    const content = ImageHandler.buildImageHtml(event.target.result, true);
+                    ChatMessage.create({content}).then(() => {
+                        renderSidebarTabInstance._toggleChat(chat, false);
+                    });
+                };
+                reader.readAsDataURL(result);
+            }
+        });
     }
 
     /**

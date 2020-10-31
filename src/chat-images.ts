@@ -1,12 +1,13 @@
 import RenderSidebarTab from "./module/hooks/RenderSidebarTab"
-import {createUploadFolderIfMissing, registerSettings} from "./module/settings";
-import {convertMessageToImage, createPopoutOnClick} from "./module/imageManager";
+import {createUploadFolderIfMissing, getSetting, registerSettings} from "./module/settings";
+import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/imageManager";
 import {MODULE_NAME} from "./module/util";
 
 Hooks.once('init', async () => {
     registerSettings();
     await createUploadFolderIfMissing();
 });
+
 Hooks.on('preCreateChatMessage', (message: any, options: any): void => {
     const content = convertMessageToImage(message.content);
     if (!content) return;
@@ -14,6 +15,7 @@ Hooks.on('preCreateChatMessage', (message: any, options: any): void => {
     message.content = content;
     options.chatBubble = false;
 });
+
 Hooks.on('renderChatMessage', (_0: any, html: HTMLElement): void => {
     if (!html || !html[0]) return;
 
@@ -23,4 +25,10 @@ Hooks.on('renderChatMessage', (_0: any, html: HTMLElement): void => {
     img.addEventListener('click', () => createPopoutOnClick(img));
 });
 
-Hooks.on('renderSidebarTab', RenderSidebarTab.renderSidebarTabHook.bind(RenderSidebarTab));
+Hooks.on('renderSidebarTab', (_0: any, html: HTMLElement): void => {
+    const chat = html[0]?.querySelector('#chat-message');
+    if (!chat) return;
+
+    chat.addEventListener('paste', (event: any): void => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
+    chat.addEventListener('drop', (event: any): void => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+});
