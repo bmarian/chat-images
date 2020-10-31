@@ -1,7 +1,6 @@
 import {log, MODULE_NAME} from "./util";
-import {getSetting} from "./settings";
+import {getSetting, UPLOAD_FOLDER_PATH} from "./settings";
 import Compressor from './compressor/compressor.esm.js'
-import ImageHandler from "./ImageHandler";
 
 const DOM_PARSER = new DOMParser();
 const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
@@ -90,7 +89,7 @@ const extractFileFromData = (data: any): File => {
     const items = data?.items;
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        if (item?.type?.includes('image')) return item;
+        if (item?.type?.includes('image')) return item.getAsFile();
     }
     return null;
 };
@@ -125,6 +124,9 @@ const handleChatInteraction = (showWarning: boolean, chat: HTMLTextAreaElement, 
 // determines if the user type has upload permission (default > assistant)
 // @ts-ignore
 const canUserUpload = (): boolean => game?.permissions?.FILES_UPLOAD?.includes(game?.user?.role);
+
+// check if a file is a gif
+const isGif = (image: File): boolean => image?.type?.includes('gif');
 
 // toggle a spinner over the chat element
 const toggleSpinner = (chatForm: HTMLFormElement, toggle: boolean): any => {
@@ -185,7 +187,46 @@ const createMessageWithEmbedded = (image: File, toggleChatFun: Function): void =
     toggleChatFun(true)();
 
     const quality = getSetting('embeddedCompression');
-    return quality !== 1 ? compressEmbedded(image, quality, toggleChatFun) : displayEmbedded(toggleChatFun)(image);
+    return quality !== 1 && !isGif(image) ? compressEmbedded(image, quality, toggleChatFun) : displayEmbedded(toggleChatFun)(image);
+};
+
+// upload a file
+const uploadFile = (source: string, uploadFolder: string, options: {}, sCb: any, fCb: any) => (file: File): void => {
+    FilePicker.upload(source, uploadFolder, file, options).then(sCb).catch(fCb);
+};
+
+// compress a file and upload it afterwords if successfully compressed
+const compressFile = (image: File, compression: number, uploadCallback: Function, toggleChatFun: Function): void => {
+    const com = compress(image, compression);
+    const sCallback = (response: Blob) => {
+        // Fix for when the response from compression.js comes as a Blob
+        const newImage = new File([response], image.name, {type: response.type});
+        uploadCallback(newImage);
+    };
+    const fCallback = (err) => {
+        log(err);
+        toggleChatFun(false)()
+    };
+    return com(sCallback, fCallback);
+};
+
+// create a message with a file path
+const createMessageWithFilePath = (image: File, toggleChatFun: Function): void => {
+    toggleChatFun(true)();
+
+    const fileName = generateRandomFileName(image.name);
+    const newImage = new File([image], fileName, {type: image.type});
+
+    const sCb = (response: any): Promise<void> => {
+        const path = response.path;
+        if (!path) return toggleChatFun(false)();
+        return createChatMessage(buildImageHTML({MODULE_NAME, url: path}), toggleChatFun(false));
+    };
+    const fCb = (): void => toggleChatFun(false)();
+    const upload = uploadFile('data', UPLOAD_FOLDER_PATH, {}, sCb, fCb);
+
+    const quality = getSetting('uploadCompression');
+    return quality !== 1 && !isGif(newImage) ? compressFile(newImage, quality, upload, toggleChatFun) : upload(newImage);
 };
 
 // create a chat message with the image
@@ -203,8 +244,8 @@ const sendMessage = (chat: HTMLTextAreaElement, image: string | File): void | Pr
     const saveFallback = getSetting('saveAsBlobIfCantUpload');
     const uploadPermission = canUserUpload();
 
-    if (uploadPermission) return; // TODO: createChatMessageWithFilePath
-    if (saveFallback) return; // TODO: createChatMessageWithBlobImage
+    if (uploadPermission) return createMessageWithFilePath(image, toggleChatFun);
+    if (saveFallback) return createMessageWithEmbedded(image, toggleChatFun);
 
     ui?.notifications?.warn('You don\'t have permissions to upload files!');
     toggleChatFun(false)(); // just in case

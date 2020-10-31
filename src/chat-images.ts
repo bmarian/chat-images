@@ -1,4 +1,3 @@
-import RenderSidebarTab from "./module/hooks/RenderSidebarTab"
 import {createUploadFolderIfMissing, getSetting, registerSettings} from "./module/settings";
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/imageManager";
 import {MODULE_NAME} from "./module/util";
