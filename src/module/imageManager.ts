@@ -1,6 +1,7 @@
 import {log, MODULE_NAME} from "./util";
 import {getSetting} from "./settings";
 import Compressor from './compressor/compressor.esm.js'
+import ImageHandler from "./ImageHandler";
 
 const DOM_PARSER = new DOMParser();
 const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
@@ -155,19 +156,49 @@ const createChatMessage = (content: string, cb: Function): Promise<void> => Chat
 const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<void> => {
     toggleChatFun(true)();
     return createChatMessage(buildImageHTML({MODULE_NAME, url}), toggleChatFun(false));
-}
+};
+
+// creates a base64 image from a file and creates a new chat message with it
+const displayEmbedded = (toggleChatFun: Function) => (image: File) => {
+    const reader = new FileReader();
+
+    reader.onload = (event: any): Promise<void> =>
+        createChatMessage(buildImageHTML({MODULE_NAME, url: event.target.result}), toggleChatFun(false));
+
+    reader.readAsDataURL(image);
+};
+
+// compress an embedded image if successful creates a new chat message with the new compressed file
+const compressEmbedded = (image: File, compression: number, toggleChatFun: Function): void => {
+    const com = compress(image, compression);
+    const sCallback = displayEmbedded(toggleChatFun);
+    const fCallback = (err) => {
+        log(err);
+        toggleChatFun(false)()
+    };
+
+    return com(sCallback, fCallback);
+};
+
+// create a message with an embedded image
+const createMessageWithEmbedded = (image: File, toggleChatFun: Function): void => {
+    toggleChatFun(true)();
+
+    const quality = getSetting('embeddedCompression');
+    return quality !== 1 ? compressEmbedded(image, quality, toggleChatFun) : displayEmbedded(toggleChatFun)(image);
+};
 
 // create a chat message with the image
 // url - typeof image === 'string'
 // blob - whereToSave = database || !uploadPermission && saveFallback
 // file path - whereToSave != database && uploadPermission
-const sendMessage = (chat: HTMLTextAreaElement, image: string | File): Promise<void> => {
+const sendMessage = (chat: HTMLTextAreaElement, image: string | File): void | Promise<void> => {
     const toggleChatFun = toggleChat(chat);
 
     if (typeof image === 'string') return createMessageWithURL(<string>image, toggleChatFun);
 
     const whereToSave = getSetting('whereToSavePastedImages');
-    if (whereToSave === 'database') return ; // TODO: createChatMessageWithBlobImage
+    if (whereToSave === 'database') return createMessageWithEmbedded(image, toggleChatFun);
 
     const saveFallback = getSetting('saveAsBlobIfCantUpload');
     const uploadPermission = canUserUpload();
@@ -176,10 +207,40 @@ const sendMessage = (chat: HTMLTextAreaElement, image: string | File): Promise<v
     if (saveFallback) return; // TODO: createChatMessageWithBlobImage
 
     ui?.notifications?.warn('You don\'t have permissions to upload files!');
+    toggleChatFun(false)(); // just in case
 };
 
 // warn the user before creating a chat message
 const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
+    const toggleChatFun = toggleChat(chat);
+    toggleChatFun(true)();
+
+    let tookAction = false;
+    const toggleChatFunFalse = toggleChatFun(false);
+    new Dialog({
+        title: 'Warning',
+        content: 'You\'re about to send a file, are you sure?',
+        buttons: {
+            ok: {
+                icon: '<i class="fas fa-check"></i>',
+                label: 'Yes',
+                callback: () => {
+                    tookAction = true;
+                    return sendMessage(chat, image);
+                }
+            },
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: 'No',
+                callback: () => {
+                    tookAction = true;
+                    return toggleChatFunFalse();
+                }
+            }
+        },
+        default: 'ok',
+        close: () => !tookAction && toggleChatFunFalse(),
+    }).render(true);
 };
 
 export {convertMessageToImage, createPopoutOnClick, handleChatInteraction};

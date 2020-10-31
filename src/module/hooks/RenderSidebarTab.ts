@@ -141,48 +141,6 @@ class RenderSidebarTab {
         }
     }
 
-    /**
-     * Build a warning dialog
-     *
-     * @param chat - chat html object (should be the default textarea)
-     * @param imageBlob - image blob
-     * @private
-     */
-    private _createWarningDialog(chat: any, imageBlob: any): Dialog {
-        const renderSidebarTabInstance = this;
-        let tookAction = false;
-
-        this._toggleChat(chat, true);
-        return new Dialog({
-            title: 'Warning',
-            content: 'You\'re about to send a file, are you sure?',
-            buttons: {
-                ok: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: 'Yes',
-                    callback: () => {
-                        tookAction = true;
-                        renderSidebarTabInstance._sendMessageInChat(chat, imageBlob);
-                    }
-                },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: 'No',
-                    callback: () => {
-                        tookAction = true;
-                        renderSidebarTabInstance._toggleChat(chat, false);
-                    }
-                }
-            },
-            default: 'ok',
-            close: () => {
-                if (!tookAction) {
-                    renderSidebarTabInstance._toggleChat(chat, false);
-                }
-            }
-        });
-    }
-
 }
 
 export default RenderSidebarTab.getInstance();
