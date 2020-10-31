@@ -35,7 +35,9 @@ const SETTINGS = [
                 step: 0.1,
                 max: 1,
             },
+            scope: "world",
             config: true,
+            restricted: true,
         }
     },
     {
@@ -50,7 +52,9 @@ const SETTINGS = [
                 step: 0.1,
                 max: 1,
             },
+            scope: "world",
             config: true,
+            restricted: true,
         }
     },
     {
