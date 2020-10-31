@@ -18,10 +18,11 @@ Or you could install it manually, using the following link: https://raw.githubus
 
 # Settings
  - `Warning on drop` / `Warning on paste`: will enable a warning dialog on drop/paste, to prevent accidental sharing.
+ - `Uploaded`/`Embedded images quality`: Determines the level of quality for the uploaded images, if set to `1` the image will be uploaded as is. A lower value will save space but will reduce the image quality.
  - `Files save location`: this has 2 options `Data folder` and `Database`, for `Data folder` all the images will be saved in your data folder `data\uploaded-chat-images`; for `Database`, all the images are embedded in the chat message and saved in chat.db, only use this method if you don't want to give your players file upload permissions because this leads to slower loading times and if you are using Forge this will fill your game storage super fast.
  - `Embed if upload is not possible`: this option will allow a user that doesn't have upload privileges to still upload images using the embed method described above.
 
-![settings](https://i.imgur.com/4pngZtr.png)
+![settings](https://i.imgur.com/YG3VKPR.png)
 
 # Examples
 ### Automatically converted links
