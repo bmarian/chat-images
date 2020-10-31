@@ -35,6 +35,13 @@ class RenderSidebarTab {
             chat.focus();
         }
     }
+    private _hasPlayerFileUploadPermission(): boolean {
+        const uploadPermissions = game?.permissions?.FILES_UPLOAD;
+        // @ts-ignore
+        const userPermission = game?.user?.role;
+
+        return uploadPermissions.length && uploadPermissions.includes(userPermission);
+    }
 
     /**
      * Showing images as blobs in the chat for people who don't trust their players
@@ -101,19 +108,6 @@ class RenderSidebarTab {
         ChatMessage.create({content}).then(() => {
             renderSidebarTabInstance._toggleChat(chat, false);
         });
-    }
-
-    /**
-     * Check if the current user can upload files to the server
-     *
-     * @private
-     */
-    private _hasPlayerFileUploadPermission(): boolean {
-        const uploadPermissions = game?.permissions?.FILES_UPLOAD;
-        // @ts-ignore
-        const userPermission = game?.user?.role;
-
-        return uploadPermissions.length && uploadPermissions.includes(userPermission);
     }
 
     /**

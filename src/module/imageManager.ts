@@ -121,6 +121,10 @@ const handleChatInteraction = (showWarning: boolean, chat: HTMLTextAreaElement, 
 //============================\\
 
 
+// determines if the user type has upload permission (default > assistant)
+// @ts-ignore
+const canUserUpload = (): boolean => game?.permissions?.FILES_UPLOAD?.includes(game?.user?.role);
+
 // toggle a spinner over the chat element
 const toggleSpinner = (chatForm: HTMLFormElement, toggle: boolean): any => {
     const spinnerId = `${MODULE_NAME}-spinner`;
@@ -154,13 +158,24 @@ const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<voi
 }
 
 // create a chat message with the image
+// url - typeof image === 'string'
+// blob - whereToSave = database || !uploadPermission && saveFallback
+// file path - whereToSave != database && uploadPermission
 const sendMessage = (chat: HTMLTextAreaElement, image: string | File): Promise<void> => {
     const toggleChatFun = toggleChat(chat);
 
-    if (typeof image === 'string') {
-        return createMessageWithURL(<string>image, toggleChatFun);
-    }
+    if (typeof image === 'string') return createMessageWithURL(<string>image, toggleChatFun);
 
+    const whereToSave = getSetting('whereToSavePastedImages');
+    if (whereToSave === 'database') return ; // TODO: createChatMessageWithBlobImage
+
+    const saveFallback = getSetting('saveAsBlobIfCantUpload');
+    const uploadPermission = canUserUpload();
+
+    if (uploadPermission) return; // TODO: createChatMessageWithFilePath
+    if (saveFallback) return; // TODO: createChatMessageWithBlobImage
+
+    ui?.notifications?.warn('You don\'t have permissions to upload files!');
 };
 
 // warn the user before creating a chat message
