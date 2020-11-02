@@ -13,9 +13,6 @@ The title says it all, this module adds support for images in the chat: copy-pas
 - Click `Install Module`
 - And search for Chat Images
 
-
-Or you could install it manually, using the following link: https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json
-
 # Settings
  - `Warning on drop` / `Warning on paste`: will enable a warning dialog on drop/paste, to prevent accidental sharing.
  - `Uploaded`/`Embedded images quality`: Determines the level of quality for the uploaded images, if set to `1` the image will be uploaded as is. A lower value will save space but will reduce the image quality.
