@@ -2,14 +2,14 @@
   "name": "chat-images",
   "title": "Chat Images",
   "description": "Adds support for easily sending images in chat.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "bmarian",
   "esmodules": ["chat-images.js"],
   "styles": ["chat-images.css"],
   "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "1.0.0",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
-  "download": "https://github.com/bmarian/chat-images/releases/download/v2.2.0/chat-images-v2.2.0.zip",
+  "download": "https://github.com/bmarian/chat-images/releases/download/v2.2.1/chat-images-v2.2.1.zip",
   "changelog": "https://github.com/bmarian/chat-images/releases"
 }
