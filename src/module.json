@@ -7,7 +7,7 @@
   "esmodules": ["chat-images.js"],
   "styles": ["chat-images.css"],
   "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "1.0.0",
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
   "download": "https://github.com/bmarian/chat-images/releases/download/v2.2.1/chat-images-v2.2.1.zip",
