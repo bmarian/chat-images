@@ -6,8 +6,6 @@
 
 The title says it all, this module adds support for images in the chat: copy-paste, drag & drop, and links are automatically converted to images.
 
-<a href='https://ko-fi.com/O4O72IHXC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi4.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-
 # Installation
 - Go in the `Add-on Modules` section
 - Click `Install Module`
