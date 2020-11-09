@@ -1,0 +1,32 @@
+{
+  "I18N.LANGUAGE": "Español",
+  "I18N.MAINTAINERS": "@Viriato139ac#0342",
+
+  "chat-images.title": "Chat Images",
+
+  "chat-images.settings.warningOnDrop.name": "Mostrar aviso al soltar",
+  "chat-images.settings.warningOnDrop.hint": "Muestra un mensaje de aviso cuando se suelta un fichero en el chat.",
+
+  "chat-images.settings.warningOnPaste.name": "Mostrar aviso al pegar",
+  "chat-images.settings.warningOnPaste.hint": "Muestra un mensaje de aviso cuando se pega un fichero en el chat.",
+
+  "chat-images.settings.uploadCompression.name": "Calidad de las imágenes subidas",
+  "chat-images.settings.uploadCompression.hint": "Nivel de compresión que se usa al subir imágenes. Cuanto menor, mayor compresión.",
+
+  "chat-images.settings.embeddedCompression.name": "Calidad de las imágenes incrustradas",
+  "chat-images.settings.embeddedCompression.hint": "Nivel de compresión que se usa al incrustrar imágenes. Cuanto menor, mayor compresión.",
+
+  "chat-images.settings.whereToSavePastedImages.name": "Lugar de guardado de los ficheros",
+  "chat-images.settings.whereToSavePastedImages.hint": "Tendrá que seleccionar donde guardar las imágenes en el servidor: en data\\uploaded-chat-images o en chat.db. Alguien me comentó que era mejor hacerlo en el directorio de datos ¯\\_(ツ)_/¯. Este ajuste se usa tanto para las imágenes copiadas y pegadas como a las arrastrads y soltadas, no hace falta guardar los enlaces. AVISO: ¡¡¡NECESITA DAR A LOS JUGADORES PERMISOS PARA SUBIR FICHEROS SI USA LA OPCIÓN DIRECTORIO DE DATOS!!!",
+  "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "Directorio de datos",
+  "chat-images.settings.whereToSavePastedImages.choices.database": "Base de datos",
+
+  "chat-images.settings.saveAsBlobIfCantUpload.name": "Incrustar si no se puede subir",
+  "chat-images.settings.saveAsBlobIfCantUpload.hint": "Si no quiere dar a todos los jugadores permisos para subir ficheros, este módulo funcionará como hasta ahora, es decir, incrustando imágenes en mensajes del chat. Tenga en cuenta que incrustrar imágenes suele ser una mala idea porque aumenta los tiempos de carga y el tamaño del mundo.",
+
+  "chat-images.imageManager.noPermissionWarning": "¡No tiene permisos para subir ficheros!",
+  "chat-images.imageManager.warn.title": "Aviso",
+  "chat-images.imageManager.warn.content": "Va a enviar un fichero, ¿está seguro?",
+  "chat-images.imageManager.warn.buttons.ok": "Sí",
+  "chat-images.imageManager.warn.buttons.cancel": "No"
+}
