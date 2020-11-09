@@ -14,6 +14,5 @@ const consoleTrace = (...output: any): any => {
 const consoleLog = (...output: any): any => console.log(...consoleMessagePreset, ...output);
 const log = (...output: any): void => DEBUGGING && (TRACE ? consoleTrace(...output) : consoleLog(...output));
 const localize = (path: string): string => game.i18n.localize(`${MODULE_NAME}.${path}`);
-const format = (path: string, data: any): string => game.i18n.format(`${MODULE_NAME}.${path}`, data);
 
-export {MODULE_TITLE, MODULE_NAME, log, localize, format};
+export {MODULE_TITLE, MODULE_NAME, log, localize};

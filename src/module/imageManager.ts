@@ -1,4 +1,4 @@
-import {log, MODULE_NAME} from "./util";
+import {localize, log, MODULE_NAME} from "./util";
 import {getSetting, UPLOAD_FOLDER_PATH} from "./settings";
 import Compressor from './compressor/compressor.esm.js'
 
@@ -254,7 +254,7 @@ const sendMessage = (chat: HTMLTextAreaElement, image: string | File): void | Pr
     if (uploadPermission) return createMessageWithFilePath(<File>image, toggleChatFun);
     if (saveFallback) return createMessageWithEmbedded(<File>image, toggleChatFun);
 
-    ui?.notifications?.warn('You don\'t have permissions to upload files!');
+    ui?.notifications?.warn(localize('imageManager.noPermissionWarning'));
     toggleChatFun(false)(); // just in case
 };
 
@@ -266,12 +266,12 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
     let tookAction = false;
     const toggleChatFunFalse = toggleChatFun(false);
     new Dialog({
-        title: 'Warning',
-        content: 'You\'re about to send a file, are you sure?',
+        title: localize('imageManager.warn.title'),
+        content: localize('imageManager.warn.content'),
         buttons: {
             ok: {
                 icon: '<i class="fas fa-check"></i>',
-                label: 'Yes',
+                label: localize('imageManager.warn.buttons.ok'),
                 callback: () => {
                     tookAction = true;
                     return sendMessage(chat, image);
@@ -279,7 +279,7 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
             },
             cancel: {
                 icon: '<i class="fas fa-times"></i>',
-                label: 'No',
+                label: localize('imageManager.warn.buttons.cancel'),
                 callback: () => {
                     tookAction = true;
                     return toggleChatFunFalse();
