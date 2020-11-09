@@ -72,6 +72,13 @@ const compress = (file: Blob | File, compression: number): Function =>
             error: eCallback,
         });
 
+// determines if the url is one of the special ones that can't be opened without cookies or other things
+// looking at you wiki whatever
+const determineIfSpecialCaseURL = (url: string): string => {
+    const special = ['static.wikia'];
+    return (new RegExp(special.join('|')).test(url)) ? null : url;
+}
+
 // if the pasted/dropped data comes from a website it should have an image.src,
 // so we just use that instead of generating a new file (this saves A LOT of space)
 const extractURLFromData = (data: any): string => {
@@ -81,7 +88,7 @@ const extractURLFromData = (data: any): string => {
     const parsed = DOM_PARSER.parseFromString(html, 'text/html');
     const img = parsed.querySelector('img');
 
-    return img ? img.src : null;
+    return img ? determineIfSpecialCaseURL(img.src) : null;
 };
 
 // extract the image file from the paste/drop event
