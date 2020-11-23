@@ -25,9 +25,18 @@ Hooks.on('renderChatMessage', (_0: any, html: HTMLElement): void => {
 });
 
 Hooks.on('renderSidebarTab', (_0: any, html: HTMLElement): void => {
-    const chat = html[0]?.querySelector('#chat-message');
-    if (!chat) return;
+    const bindEventsToChat = (chat) => {
+        if (!chat) return;
+        chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
+        chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+    };
 
-    chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
-    chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+    const chatMessage = html[0]?.querySelector('#chat-message');
+    bindEventsToChat(chatMessage);
+
+    const hasMeme = game?.modules?.get("markdown-editor")?.active;
+    if (!hasMeme) return;
+
+    const meme = html[0]?.querySelector('.EasyMDEContainer');
+    bindEventsToChat(meme);
 });

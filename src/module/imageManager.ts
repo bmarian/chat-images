@@ -159,7 +159,8 @@ const toggleChat = (chat: HTMLTextAreaElement) => (toggle: boolean) => (): any =
 };
 
 // creates a new chat message with a given content, then calls cb if it's a function
-const createChatMessage = (content: string, cb: Function): Promise<void> => ChatMessage.create({content}).then(() => typeof cb === 'function' && cb());
+// fix for #20: added a `type OOC`, I have no idea for what it is used but sure.
+const createChatMessage = (content: string, cb: Function): Promise<void> => ChatMessage.create({content, type: CONST?.CHAT_MESSAGE_TYPES?.OOC || 1}).then(() => typeof cb === 'function' && cb());
 
 // handles the creation of a chat message from an url
 const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<void> => {
@@ -291,4 +292,4 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
     }).render(true);
 };
 
-export {convertMessageToImage, createPopoutOnClick, handleChatInteraction};
+export {convertMessageToImage, createPopoutOnClick, handleChatInteraction, compressFile, compressEmbedded};
