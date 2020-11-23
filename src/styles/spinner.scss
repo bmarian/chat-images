@@ -4,6 +4,7 @@
 
 ##{$module-name} {
   &-spinner {
+    z-index: 1;
     border: 5px solid #b2c3ff;
     border-top: 5px solid #5d49ff;
     border-radius: 50%;

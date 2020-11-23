@@ -1,6 +1,6 @@
 import {createUploadFolderIfMissing, getSetting, registerSettings} from "./module/settings";
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/imageManager";
-import {MODULE_NAME} from "./module/util";
+import {log, MODULE_NAME} from "./module/util";
 
 Hooks.once('init', async () => {
     registerSettings();
@@ -25,9 +25,17 @@ Hooks.on('renderChatMessage', (_0: any, html: HTMLElement): void => {
 });
 
 Hooks.on('renderSidebarTab', (_0: any, html: HTMLElement): void => {
-    const chat = html[0]?.querySelector('#chat-message');
-    if (!chat) return;
+    const bindEventsToChat = (chat) => {
+        if (!chat) return;
+        console.log(chat);
 
-    chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
-    chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+        chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
+        chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
+    };
+
+    const chatMessage = html[0]?.querySelector('#chat-message');
+    const meme = html[0]?.querySelector('.EasyMDEContainer');
+
+    bindEventsToChat(chatMessage);
+    bindEventsToChat(meme);
 });
