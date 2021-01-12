@@ -292,4 +292,10 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
     }).render(true);
 };
 
-export {convertMessageToImage, createPopoutOnClick, handleChatInteraction, compressFile, compressEmbedded};
+export {
+    compressFile,
+    compressEmbedded,
+    convertMessageToImage,
+    createPopoutOnClick,
+    handleChatInteraction,
+};
