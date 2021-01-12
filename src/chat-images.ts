@@ -1,44 +1,48 @@
 'use strict';
 
-import {createUploadFolderIfMissing, getSetting, registerSettings} from "./module/settings";
+import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./module/settings";
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/image-manager";
-import {MODULE_NAME} from "./module/utils";
+import {log, MODULE_NAME} from "./module/utils";
 
-Hooks.once('init', async () => {
+Hooks.once('init', () => {
+    // register all the module's settings
     registerSettings();
-    await createUploadFolderIfMissing();
+    // create the folder for uploading images if it doesn't exist
+    createUploadFolderIfMissing()
+        .then(() => log(`${UPLOAD_FOLDER_PATH} created.`));
 });
 
-Hooks.on('preCreateChatMessage', (message: any, options: any): void => {
+Hooks.on('preCreateChatMessage', (message, options) => {
+    // if a message has only an url and it's an image url convert it to an img tag
     const content = convertMessageToImage(message.content);
     if (!content) return;
 
     message.content = content;
+    // this is used to prevent the message from showing as a bubble
+    // because it will not be rendered correctly
     options.chatBubble = false;
 });
 
-Hooks.on('renderChatMessage', (_0: any, html: HTMLElement): void => {
-    if (!html || !html[0]) return;
-
-    const img = html[0].querySelector(`.${MODULE_NAME}-container`)?.children?.[0];
+Hooks.on('renderChatMessage', (_0, html) => {
+    const img = html?.[0]?.querySelector(`.${MODULE_NAME}-container`)?.children?.[0];
     if (!img) return;
 
+    // everytime a message is rendered in chat, if it's a chat-images message we add
+    // the popout on click
     img.addEventListener('click', () => createPopoutOnClick(img));
 });
 
-Hooks.on('renderSidebarTab', (_0: any, html: HTMLElement): void => {
-    const bindEventsToChat = (chat) => {
-        if (!chat) return;
-        chat.addEventListener('paste', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
-        chat.addEventListener('drop', (event: any): void | Promise<void> => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
-    };
+Hooks.on('renderSidebarTab', (_0, html) => {
+    // we need a special case to handle the markdown editor module because
+    // it changes the chat textarea with an EasyMDEContainer
+    const hasMeme = game.modules.get('markdown-editor')?.active;
+    const chat = html[0]?.querySelector(hasMeme ? '.EasyMDEContainer' : '#chat-message');
 
-    const chatMessage = html[0]?.querySelector('#chat-message');
-    bindEventsToChat(chatMessage);
-
-    const hasMeme = game?.modules?.get("markdown-editor")?.active;
-    if (!hasMeme) return;
-
-    const meme = html[0]?.querySelector('.EasyMDEContainer');
-    bindEventsToChat(meme);
+    if (!chat) return;
+    // we add events on paste and drop to get the info from the user's clipboard, if it's an image
+    // we upload it to the chat or show an warning message
+    chat.addEventListener('paste', event => handleChatInteraction(getSetting('warningOnPaste'), chat, event));
+    // KNOWN ISSUE: on windows if using the standalone application without opening it in admin mode
+    // you can't upload images by dragging and dropping
+    chat.addEventListener('drop', event => handleChatInteraction(getSetting('warningOnDrop'), chat, event));
 });
