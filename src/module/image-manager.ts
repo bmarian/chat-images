@@ -1,4 +1,4 @@
-import {localize, log, MODULE_NAME} from "./util";
+import {localize, log, MODULE_NAME} from "./utils";
 import {getSetting, UPLOAD_FOLDER_PATH} from "./settings";
 import Compressor from './compressor/compressor.esm.js'
 

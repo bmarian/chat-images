@@ -1,6 +1,8 @@
+'use strict';
+
 import {createUploadFolderIfMissing, getSetting, registerSettings} from "./module/settings";
-import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/imageManager";
-import {MODULE_NAME} from "./module/util";
+import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/image-manager";
+import {MODULE_NAME} from "./module/utils";
 
 Hooks.once('init', async () => {
     registerSettings();

@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 const MODULE_TITLE = 'Chat Images',
     MODULE_NAME = 'chat-images',
@@ -27,7 +27,7 @@ function consoleTrace(...output) {
  * @param {*} output - the output to be displayed in the console
  */
 function consoleLog(...output) {
-    console.log(...CONSOLE_MESSAGE_PRESET, ...output)
+    console.log(...CONSOLE_MESSAGE_PRESET, ...output);
 }
 
 /**
@@ -49,6 +49,7 @@ function log(...output) {
  * and returns the localize string
  *
  * @param {string} path
+ *
  * @return {string}
  */
 function localize(path) {
