@@ -14,7 +14,7 @@ const DOM_PARSER = new DOMParser();
  *
  * @return {string}
  */
-function imageMessageTemplate(URL) {
+function messageTemplate(URL) {
     return `<div class="${MODULE_NAME}-container"><img src="${URL}" alt="${MODULE_NAME}"></div>`;
 }
 
@@ -155,7 +155,7 @@ const createChatMessage = (content: string, cb: Function): Promise<void> => Chat
 // handles the creation of a chat message from an url
 const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<void> => {
     toggleChatFun(true)();
-    return createChatMessage(imageMessageTemplate(url), toggleChatFun(false));
+    return createChatMessage(messageTemplate(url), toggleChatFun(false));
 };
 
 // creates a base64 image from a file and creates a new chat message with it
@@ -163,7 +163,7 @@ const displayEmbedded = (toggleChatFun: Function) => (image: File) => {
     const reader = new FileReader();
 
     reader.onload = (event: any): Promise<void> =>
-        createChatMessage(imageMessageTemplate( event.target.result), toggleChatFun(false));
+        createChatMessage(messageTemplate( event.target.result), toggleChatFun(false));
 
     reader.readAsDataURL(image);
 };
@@ -218,7 +218,7 @@ const createMessageWithFilePath = (image: File, toggleChatFun: Function): void =
     const sCb = (response: any): Promise<void> => {
         const path = response.path;
         if (!path) return toggleChatFun(false)();
-        return createChatMessage(imageMessageTemplate(path), toggleChatFun(false));
+        return createChatMessage(messageTemplate(path), toggleChatFun(false));
     };
     const fCb = (): void => toggleChatFun(false)();
     const upload = uploadFile('data', UPLOAD_FOLDER_PATH, {}, sCb, fCb);
@@ -292,7 +292,7 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
  */
 function convertMessageToImage(message) {
     if (!isImageURL(message)) return null;
-    return message.replace(URL_REGEX, (_0, URL) => imageMessageTemplate(URL));
+    return message.replace(URL_REGEX, (_0, URL) => messageTemplate(URL));
 }
 
 export {
