@@ -1,35 +1,22 @@
-import {localize, log, MODULE_NAME} from "./utils";
-import {getSetting, UPLOAD_FOLDER_PATH} from "./settings";
-import Compressor from './compressor/compressor.esm.js'
+'use strict';
+
+import Compressor from '../compressor/compressor.esm.js'
+import {localize, log, MODULE_NAME} from "../utils";
+import {getSetting, UPLOAD_FOLDER_PATH} from "../settings";
+import {isImageURL, URL_REGEX} from "./url-checking";
 
 const DOM_PARSER = new DOMParser();
-const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
-const IMAGE_REGEX = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/ig;
 
-
-//============================\\
-// CONVERT MESSAGES TO IMAGES \\
-//============================\\
-
-
-// builds a string template for a image message
-const buildImageHTML = (options: any): string => `<div class="${options.MODULE_NAME}-container"><img src="${options.url}" alt="${options.MODULE_NAME}"></div>`;
-
-// checks if message has only a url
-const isURL = (message: string): boolean => !!message.match(URL_REGEX);
-
-// checks if an url is an image url
-const isImageURL = (url: string): boolean => !!url.match(IMAGE_REGEX);
-
-// generates an image message
-const genImageHTML = (url: string): string => buildImageHTML({MODULE_NAME, url});
-
-// a handler for .replace that returns a string with the buildImageHTML structure or the original string
-const replaceMessageWithImage = (text: string, url: string): string => isImageURL(url) ? genImageHTML(url) : text;
-
-// returns an image template from a message content
-const convertMessageToImage = (message: string): any => isURL(message) && message.replace(URL_REGEX, replaceMessageWithImage);
-
+/**
+ * Creates an HTML template with an image wrapped in the module's container
+ *
+ * @param {string} URL
+ *
+ * @return {string}
+ */
+function imageMessageTemplate(URL) {
+    return `<div class="${MODULE_NAME}-container"><img src="${URL}" alt="${MODULE_NAME}"></div>`;
+}
 
 //============================\\
 // ADDS POPOUT ON IMAGE CLICK \\
@@ -160,12 +147,15 @@ const toggleChat = (chat: HTMLTextAreaElement) => (toggle: boolean) => (): any =
 
 // creates a new chat message with a given content, then calls cb if it's a function
 // fix for #20: added a `type OOC`, I have no idea for what it is used but sure.
-const createChatMessage = (content: string, cb: Function): Promise<void> => ChatMessage.create({content, type: CONST?.CHAT_MESSAGE_TYPES?.OOC || 1}).then(() => typeof cb === 'function' && cb());
+const createChatMessage = (content: string, cb: Function): Promise<void> => ChatMessage.create({
+    content,
+    type: CONST?.CHAT_MESSAGE_TYPES?.OOC || 1
+}).then(() => typeof cb === 'function' && cb());
 
 // handles the creation of a chat message from an url
 const createMessageWithURL = (url: string, toggleChatFun: Function): Promise<void> => {
     toggleChatFun(true)();
-    return createChatMessage(buildImageHTML({MODULE_NAME, url}), toggleChatFun(false));
+    return createChatMessage(imageMessageTemplate(url), toggleChatFun(false));
 };
 
 // creates a base64 image from a file and creates a new chat message with it
@@ -173,7 +163,7 @@ const displayEmbedded = (toggleChatFun: Function) => (image: File) => {
     const reader = new FileReader();
 
     reader.onload = (event: any): Promise<void> =>
-        createChatMessage(buildImageHTML({MODULE_NAME, url: event.target.result}), toggleChatFun(false));
+        createChatMessage(imageMessageTemplate( event.target.result), toggleChatFun(false));
 
     reader.readAsDataURL(image);
 };
@@ -228,7 +218,7 @@ const createMessageWithFilePath = (image: File, toggleChatFun: Function): void =
     const sCb = (response: any): Promise<void> => {
         const path = response.path;
         if (!path) return toggleChatFun(false)();
-        return createChatMessage(buildImageHTML({MODULE_NAME, url: path}), toggleChatFun(false));
+        return createChatMessage(imageMessageTemplate(path), toggleChatFun(false));
     };
     const fCb = (): void => toggleChatFun(false)();
     const upload = uploadFile('data', UPLOAD_FOLDER_PATH, {}, sCb, fCb);
@@ -292,10 +282,23 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
     }).render(true);
 };
 
+
+/**
+ * If the message is an img url returns an HTML template with an actual img tag
+ *
+ * @param {string} message - the content of a chat message
+ *
+ * @return {string}
+ */
+function convertMessageToImage(message) {
+    if (!isImageURL(message)) return null;
+    return message.replace(URL_REGEX, (_0, URL) => imageMessageTemplate(URL));
+}
+
 export {
+    convertMessageToImage,
     compressFile,
     compressEmbedded,
-    convertMessageToImage,
     createPopoutOnClick,
     handleChatInteraction,
 };
