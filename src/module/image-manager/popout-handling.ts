@@ -5,7 +5,7 @@
  *
  * @param {HTMLImageElement} imageHTML
  */
-function createPopoutOnClick(imageHTML) {
+function createPopout(imageHTML) {
     return new ImagePopout(imageHTML.src, {
         editable: false,
         shareable: true
@@ -13,5 +13,5 @@ function createPopoutOnClick(imageHTML) {
 }
 
 export {
-    createPopoutOnClick
+    createPopout
 };

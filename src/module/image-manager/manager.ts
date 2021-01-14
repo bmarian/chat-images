@@ -4,7 +4,8 @@ import Compressor from '../compressor/compressor.esm.js'
 import {localize, log, MODULE_NAME, randomString} from "../utils";
 import {getSetting, UPLOAD_FOLDER_PATH} from "../settings";
 import {isImageURL, URL_REGEX} from "./url-checking";
-import {extractImageFromEvent} from "./extraction-manager";
+import {extractImageFromEvent} from "./image-extraction";
+import {createPopout} from "./popout-handling";
 
 
 /**
@@ -245,7 +246,17 @@ function convertMessageToImage(message) {
     return message.replace(URL_REGEX, (_0, URL) => messageTemplate(URL));
 }
 
+/**
+ * Creates an ImagePopout with a given imageHTML url and renders it immediately
+ *
+ * @param {HTMLImageElement} imageHTML
+ */
+function createPopoutOnClick(imageHTML) {
+    return createPopout(imageHTML);
+}
+
 export {
     convertMessageToImage,
     handleChatInteraction,
+    createPopoutOnClick,
 };
