@@ -56,9 +56,19 @@ function localize(path) {
     return game.i18n.localize(`${MODULE_NAME}.${path}`);
 }
 
+/**
+ * Generates a random string with 30 characters
+ *
+ * @return {string}
+ */
+function randomString() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
 export {
     MODULE_TITLE,
     MODULE_NAME,
     log,
-    localize
+    localize,
+    randomString,
 };

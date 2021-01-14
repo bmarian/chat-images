@@ -1,8 +1,9 @@
 'use strict';
 
-import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./module/settings";
-import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./module/image-manager/image-manager";
 import {log, MODULE_NAME} from "./module/utils";
+import {createPopoutOnClick} from "./module/image-manager/popout-manager";
+import {convertMessageToImage, handleChatInteraction} from "./module/image-manager/image-manager";
+import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./module/settings";
 
 Hooks.once('init', () => {
     // register all the module's settings

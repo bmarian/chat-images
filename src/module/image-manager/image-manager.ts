@@ -1,11 +1,11 @@
 'use strict';
 
 import Compressor from '../compressor/compressor.esm.js'
-import {localize, log, MODULE_NAME} from "../utils";
+import {localize, log, MODULE_NAME, randomString} from "../utils";
 import {getSetting, UPLOAD_FOLDER_PATH} from "../settings";
 import {isImageURL, URL_REGEX} from "./url-checking";
+import {extractImageFromEvent} from "./extraction-manager";
 
-const DOM_PARSER = new DOMParser();
 
 /**
  * Creates an HTML template with an image wrapped in the module's container
@@ -18,19 +18,6 @@ function messageTemplate(URL) {
     return `<div class="${MODULE_NAME}-container"><img src="${URL}" alt="${MODULE_NAME}"></div>`;
 }
 
-//============================\\
-// ADDS POPOUT ON IMAGE CLICK \\
-//============================\\
-
-
-// creates an image popout from an image url
-const renderPopout = (url: string): Application =>
-    new ImagePopout(url, {editable: false, shareable: true}).render(true);
-
-// the on click event that is added for all the images in the chat
-const createPopoutOnClick = (imgHTML: HTMLImageElement): Application => renderPopout(imgHTML.src);
-
-
 //=============================\\
 //   CONVERT FILES TO IMAGES   \\
 //=============================\\
@@ -39,15 +26,12 @@ const createPopoutOnClick = (imgHTML: HTMLImageElement): Application => renderPo
 // returns the file extension from a given file name
 const getFileExtensionFromName = (fileName: string): string => fileName.substring(fileName.lastIndexOf('.'), fileName.length) || null;
 
-// generates a long random string used as a file name
-const generateRandomString = (): string => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-
 // generates a random file name keeping the file extension
 const generateRandomFileName = (fileName: string): string => {
     const fileExtension = getFileExtensionFromName(fileName);
     if (!fileExtension) return fileName;
 
-    return fileExtension ? generateRandomString() + fileExtension : fileName;
+    return fileExtension ? randomString() + fileExtension : fileName;
 };
 
 // compress a given image (Blob/File) and trigger a callback
@@ -58,57 +42,6 @@ const compress = (file: Blob | File, compression: number): Function =>
             success: sCallback,
             error: eCallback,
         });
-
-// determines if the url is one of the special ones that can't be opened without cookies or other things
-// looking at you wiki whatever
-const determineIfSpecialCaseURL = (url: string): string => {
-    const special = ['static.wikia'];
-    return (new RegExp(special.join('|')).test(url)) ? null : url;
-}
-
-// if the pasted/dropped data comes from a website it should have an image.src,
-// so we just use that instead of generating a new file (this saves A LOT of space)
-const extractURLFromData = (data: any): string => {
-    const html = data?.getData('text/html');
-    if (!html) return null;
-
-    const parsed = DOM_PARSER.parseFromString(html, 'text/html');
-    const img = parsed.querySelector('img');
-
-    return img ? determineIfSpecialCaseURL(img.src) : null;
-};
-
-// extract the image file from the paste/drop event
-const extractFileFromData = (data: any): File => {
-    const items = data?.items;
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        if (item?.type?.includes('image')) return item.getAsFile();
-    }
-    return null;
-};
-
-// returns an image from a paste/drop event
-// this could be a url/blob depending on the available options
-const getImageFromEvent = (event: any): string | File => {
-    const data = event?.clipboardData || event?.dataTransfer;
-    if (!data) return null;
-
-    const url = extractURLFromData(data);
-    return url !== null ? url : extractFileFromData(data);
-};
-
-// handles the extraction of the image from the event and calls the appropriate
-// action: directly send the message in chat or warn the user first
-const handleChatInteraction = (showWarning: boolean, chat: HTMLTextAreaElement, event: any): void | Promise<void> => {
-    if (!chat || chat.disabled) return;
-
-    const image = getImageFromEvent(event);
-    if (image === null) return;
-
-    return showWarning ? warn(chat, image) : sendMessage(chat, image);
-};
-
 
 //============================\\
 //       CHAT MANAGEMENT      \\
@@ -282,6 +215,23 @@ const warn = (chat: HTMLTextAreaElement, image: string | File): void => {
     }).render(true);
 };
 
+/**
+ * Calls the appropriate action depending on the showWarning:
+ * directly send the message in chat or warn the user first
+ *
+ * @param {boolean} showWarning - determines if a warning should be sent first
+ * @param {HTMLElement} chat
+ * @param {Event} event
+ */
+function handleChatInteraction(showWarning, chat, event) {
+    if (chat.disabled) return;
+
+    const image = extractImageFromEvent(event);
+    if (!image) return;
+
+    const action = showWarning ? warn : sendMessage;
+    action(chat, image);
+}
 
 /**
  * If the message is an img url returns an HTML template with an actual img tag
@@ -297,8 +247,5 @@ function convertMessageToImage(message) {
 
 export {
     convertMessageToImage,
-    compressFile,
-    compressEmbedded,
-    createPopoutOnClick,
     handleChatInteraction,
 };
