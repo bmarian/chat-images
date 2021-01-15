@@ -99,7 +99,7 @@ function registerSettings() {
                 name: localize('settings.uploadCompression.name'),
                 hint: localize('settings.uploadCompression.hint'),
                 type: Number,
-                default: 1,
+                default: 0.6,
                 range: {
                     min: 0.1,
                     step: 0.1,

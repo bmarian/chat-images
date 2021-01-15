@@ -6,11 +6,7 @@ import {createPopout} from "./popout-handling";
 import {messageTemplate, sendMessage, warnThanSendMessage} from "./chat-handling";
 
 
-//=============================\\
-//   CONVERT FILES TO IMAGES   \\
-//=============================\\
-
-
+//
 // // returns the file extension from a given file name
 // const getFileExtensionFromName = (fileName: string): string => fileName.substring(fileName.lastIndexOf('.'), fileName.length) || null;
 //
@@ -20,52 +16,6 @@ import {messageTemplate, sendMessage, warnThanSendMessage} from "./chat-handling
 //     if (!fileExtension) return fileName;
 //
 //     return fileExtension ? randomString() + fileExtension : fileName;
-// };
-//
-// // compress a given image (Blob/File) and trigger a callback
-// const compress = (file: Blob | File, compression: number): Function =>
-//     (sCallback: Function, eCallback: Function): void =>
-//         new Compressor(file, {
-//             quality: compression,
-//             success: sCallback,
-//             error: eCallback,
-//         });
-//
-// //============================\\
-// //       CHAT MANAGEMENT      \\
-// //============================\\
-//
-// // check if a file is a gif
-// const isGif = (image: File): boolean => image?.type?.includes('gif');
-//
-// // creates a base64 image from a file and creates a new chat message with it
-// const displayEmbedded = (toggleChatFun: Function) => (image: File) => {
-//     const reader = new FileReader();
-//
-//     reader.onload = (event: any): Promise<void> =>
-//         createChatMessage(messageTemplate( event.target.result), toggleChatFun(false));
-//
-//     reader.readAsDataURL(image);
-// };
-//
-// // compress an embedded image if successful creates a new chat message with the new compressed file
-// const compressEmbedded = (image: File, compression: number, toggleChatFun: Function): void => {
-//     const com = compress(image, compression);
-//     const sCallback = displayEmbedded(toggleChatFun);
-//     const fCallback = (err) => {
-//         log(err);
-//         toggleChatFun(false)()
-//     };
-//
-//     return com(sCallback, fCallback);
-// };
-//
-// // create a message with an embedded image
-// const createMessageWithEmbedded = (image: File, toggleChatFun: Function): void => {
-//     toggleChatFun(true)();
-//
-//     const quality = getSetting('embeddedCompression');
-//     return quality !== 1 && !isGif(image) ? compressEmbedded(image, quality, toggleChatFun) : displayEmbedded(toggleChatFun)(image);
 // };
 //
 // // upload a file

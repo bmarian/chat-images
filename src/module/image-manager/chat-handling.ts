@@ -2,6 +2,7 @@
 
 import {getUploadPermissionStatus, localize, MODULE_NAME} from "../utils";
 import {getSetting} from "../settings";
+import {compressAndSendEmbedded, isGif} from "./file-manager";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container
@@ -86,25 +87,25 @@ function getUploadingStates(chat) {
  * Creates a chat message from an embedded file
  *
  * @param {File} image
- * @param {Object} uploadState
- * @param {Function} uploadState.on
- * @param {Function} uploadState.off
+ * @param {Function} uploadStateOff
  */
-function createMessageWithEmbedded(image, uploadState) {
-    // TODO
+function createMessageWithEmbedded(image, uploadStateOff) {
+    const gif = isGif(image);
+    const quality = gif ? 1 : getSetting('embeddedCompression');
+    const sendMessageCb = image => createChatMessage(image, uploadStateOff);
+
+    return compressAndSendEmbedded(image, quality, sendMessageCb, uploadStateOff);
 }
 
 /**
  * Creates a chat message from an file
  *
  * @param {File} image
- * @param {Object} uploadState
- * @param {Function} uploadState.on
- * @param {Function} uploadState.off
+ * @param {Function} uploadStateOff
  *
  * @return {Promise<*>}
  */
-function createMessageWithFile(image, uploadState) {
+function createMessageWithFile(image, uploadStateOff) {
     // TODO
 }
 
@@ -112,15 +113,12 @@ function createMessageWithFile(image, uploadState) {
  * Creates a chat message from an url
  *
  * @param {string} image
- * @param {Object} uploadState
- * @param {Function} uploadState.on
- * @param {Function} uploadState.off
+ * @param {Function} uploadStateOff
  *
  * @return {Promise<*>}
  */
-function createMessageWithURL(image, uploadState) {
-    uploadState.on();
-    return createChatMessage(image, uploadState.off);
+function createMessageWithURL(image, uploadStateOff) {
+    return createChatMessage(image, uploadStateOff);
 }
 
 /**
@@ -164,7 +162,8 @@ function sendMessage(chat, image) {
     const uploadState = getUploadingStates(chat);
     const sendFn = determineSendFunction(image, uploadState);
 
-    sendFn(image, uploadState)
+    uploadState.on();
+    sendFn(image, uploadState.off)
 }
 
 /**
