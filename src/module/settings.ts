@@ -120,7 +120,7 @@ function registerSettings() {
                 range: {
                     min: 0.1,
                     step: 0.1,
-                    max: 1,
+                    max: 0.6,
                 },
                 scope: "world",
                 config: true,
