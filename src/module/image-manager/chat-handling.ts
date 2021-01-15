@@ -1,8 +1,8 @@
 'use strict';
 
+import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager";
 import {getUploadPermissionStatus, localize, MODULE_NAME} from "../utils";
 import {getSetting} from "../settings";
-import {compressAndSendEmbedded, isGif} from "./file-manager";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container
@@ -106,7 +106,11 @@ function createMessageWithEmbedded(image, uploadStateOff) {
  * @return {Promise<*>}
  */
 function createMessageWithFile(image, uploadStateOff) {
-    // TODO
+    const gif = isGif(image);
+    const quality = gif ? 1 : getSetting('uploadCompression');
+    const sendMessageCb = image => createChatMessage(image, uploadStateOff);
+
+    return compressAndSendFile(image, quality, sendMessageCb, uploadStateOff);
 }
 
 /**

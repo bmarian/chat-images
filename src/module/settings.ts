@@ -160,4 +160,4 @@ function registerSettings() {
     settings.forEach(registerSetting);
 }
 
-export {UPLOAD_FOLDER_PATH, getSetting, registerSettings, createUploadFolderIfMissing};
+export {ORIGIN_FOLDER, UPLOAD_FOLDER_PATH, getSetting, registerSettings, createUploadFolderIfMissing};
