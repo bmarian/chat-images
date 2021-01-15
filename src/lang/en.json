@@ -1,6 +1,6 @@
 {
   "I18N.LANGUAGE": "English",
-  "I18N.MAINTAINERS": "bmarian",
+  "I18N.MAINTAINERS": "Marian#8010",
 
   "chat-images.title": "Chat Images",
 
@@ -10,19 +10,19 @@
   "chat-images.settings.warningOnPaste.name": "Warning on paste",
   "chat-images.settings.warningOnPaste.hint": "Enables a warning dialog when pasting a file in the chat.",
 
-  "chat-images.settings.uploadCompression.name": "Uploaded images quality",
-  "chat-images.settings.uploadCompression.hint": "The level of compression used for uploaded images. The lower the more compressed.",
+  "chat-images.settings.uploadCompression.name": "Uploaded files quality",
+  "chat-images.settings.uploadCompression.hint": "The level of compression used for uploaded files. The lower the more compressed.",
 
-  "chat-images.settings.embeddedCompression.name": "Embedded images quality",
-  "chat-images.settings.embeddedCompression.hint": "The level of compression used for embedded images. The lower the more compressed.",
+  "chat-images.settings.embeddedCompression.name": "Embedded files quality",
+  "chat-images.settings.embeddedCompression.hint": "The level of compression used for embedded files. The lower the more compressed.",
 
   "chat-images.settings.whereToSavePastedImages.name": "Files save location",
-  "chat-images.settings.whereToSavePastedImages.hint": "Do to me not having money to save images on a server you will have to choose where to save them: in data\\uploaded-chat-images or chat.db. Some guy told me is better to save them in the data folder ¯\\_(ツ)_/¯. This setting applies to copy pasted and drag & dropped files, links don't need to be saved. WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
+  "chat-images.settings.whereToSavePastedImages.hint": "Choose where to save the files: in data\\uploaded-chat-images or embed them in chat.db (not recommended). This setting applies to copy pasted and drag & dropped files, links don't need to be saved. WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
   "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "Data folder",
   "chat-images.settings.whereToSavePastedImages.choices.database": "Database",
 
   "chat-images.settings.saveAsBlobIfCantUpload.name": "Embed if upload is not possible",
-  "chat-images.settings.saveAsBlobIfCantUpload.hint": "If you don't want to give all your players upload permissions this feature will work as before, embedding images in chat messages. Keep in mind embedding them is bad for loading times, and world size",
+  "chat-images.settings.saveAsBlobIfCantUpload.hint": "If you don't want to give all your players permission to upload files, enabling this feature will embed the files for those players. Keep in mind embedding them is bad for load times, and world size.",
 
   "chat-images.imageManager.noPermissionWarning": "You don't have permissions to upload files!",
   "chat-images.imageManager.warn.title": "Warning",
