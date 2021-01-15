@@ -6,6 +6,7 @@
   "author": "bmarian",
   "esmodules": ["chat-images.js"],
   "styles": ["chat-images.css"],
+  "scripts": ["/module/freezeframe/freezeframe.min.js"],
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "1.0.0",
   "languages": [
