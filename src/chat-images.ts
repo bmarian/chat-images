@@ -3,6 +3,7 @@
 import {log, MODULE_NAME} from "./module/utils";
 import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./module/settings";
 import {convertMessageToImage, handleChatInteraction, createPopoutOnClick} from "./module/image-manager/manager";
+import {freezeGif} from "./module/image-manager/gif-freez";
 
 Hooks.once('init', () => {
     // register all the module's settings
@@ -30,6 +31,10 @@ Hooks.on('renderChatMessage', (_0, html) => {
     // everytime a message is rendered in chat, if it's a chat-images message we add
     // the popout on click
     img.addEventListener('click', () => createPopoutOnClick(img));
+
+    // try to freeze the gif so it's not so unpleasant when a short
+    // one loops
+    freezeGif(img);
 });
 
 Hooks.on('renderSidebarTab', (_0, html) => {
