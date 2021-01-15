@@ -72,11 +72,11 @@ function toggleSpinner(chatForm, toggle) {
  */
 function getUploadingStates(chat) {
     return {
-        on: () => {
+        on() {
             toggleChat(chat, false);
             toggleSpinner(chat.parentNode, true);
         },
-        off: () => {
+        off() {
             toggleChat(chat, true);
             toggleSpinner(chat.parentNode, false);
         },
