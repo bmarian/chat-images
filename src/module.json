@@ -5,7 +5,6 @@
   "version": "2.4.0",
   "author": "bmarian",
   "esmodules": ["chat-images.js"],
-  "scripts": ["/module/giffer/giffer.min.js"],
   "styles": ["chat-images.css"],
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "1.0.0",
