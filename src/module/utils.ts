@@ -65,10 +65,21 @@ function randomString() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
+/**
+ * Determines if the current user can upload files
+ *
+ * @return {boolean}
+ */
+function getUploadPermissionStatus() {
+    // @ts-ignore
+    return game?.permissions?.FILES_UPLOAD?.includes(game?.user?.role);
+}
+
 export {
     MODULE_TITLE,
     MODULE_NAME,
     log,
     localize,
     randomString,
+    getUploadPermissionStatus
 };
