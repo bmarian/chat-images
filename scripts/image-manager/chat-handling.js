@@ -1,8 +1,8 @@
 'use strict';
 
-import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager";
-import {getUploadPermissionStatus, localize, MODULE_NAME} from "../utils";
-import {getSetting} from "../settings";
+import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager.js";
+import {getUploadPermissionStatus, localize, MODULE_NAME} from "../utils.js";
+import {getSetting} from "../settings.js";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container

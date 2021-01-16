@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 /*!
  * Compressor.js v1.0.7
  * https://fengyuanchen.github.io/compressorjs

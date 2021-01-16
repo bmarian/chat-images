@@ -1,8 +1,8 @@
 'use strict';
 
-import Compressor from '../compressor/compressor.esm.js'
-import {log, randomString} from "../utils";
-import {ORIGIN_FOLDER, UPLOAD_FOLDER_PATH} from "../settings";
+import Compressor from '../lib/compressor/compressor.esm.js'
+import {log, randomString} from "../utils.js";
+import {ORIGIN_FOLDER, UPLOAD_FOLDER_PATH} from "../settings.js";
 
 /**
  * Determines if an image file is a gif

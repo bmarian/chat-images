@@ -1,6 +1,6 @@
 'use strict';
 
-import {localize, log, MODULE_NAME} from "./utils";
+import {localize, log, MODULE_NAME} from "./utils.js";
 
 // the path of the foundry data folder
 const ORIGIN_FOLDER = 'data',

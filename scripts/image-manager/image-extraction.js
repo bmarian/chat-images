@@ -24,7 +24,7 @@ function handleSpecialURL(URL) {
  *
  * @param {Object} evData
  *
- * @return {string}
+ * @return {string | null}
  */
 function extractURLFromEventData(evData) {
     const HTML = evData.getData('text/html');
