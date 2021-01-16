@@ -3,7 +3,15 @@
   "title": "Chat Images",
   "description": "Adds support for easily sending images in chat.",
   "version": "2.4.1",
+  "manifestPlusVersion": "1.0.0",
   "author": "bmarian",
+  "authors": [
+    {
+      "name": "bmarian",
+      "discord": "Marian#8010",
+      "url": "https://github.com/bmarian"
+    }
+  ],
   "esmodules": [
     "scripts/chat-images.js"
   ],
@@ -28,7 +36,7 @@
     }
   ],
   "url": "https://github.com/bmarian/chat-images",
-  "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
-  "download": "https://github.com/bmarian/chat-images/releases/download/v2.4.1/chat-images-v2.4.1.zip",
+  "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/releases/latest/download/module.json",
+  "download": "https://github.com/bmarian/chat-images/releases/download/2.4.1/module.zip",
   "changelog": "https://github.com/bmarian/chat-images/releases"
 }
