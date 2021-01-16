@@ -1,0 +1,34 @@
+{
+  "name": "chat-images",
+  "title": "Chat Images",
+  "description": "Adds support for easily sending images in chat.",
+  "version": "2.4.1",
+  "author": "bmarian",
+  "esmodules": [
+    "scripts/chat-images.js"
+  ],
+  "styles": [
+    "styles/chat-images.css"
+  ],
+  "scripts": [
+    "scripts/lib/freezeframe/freezeframe.min.js"
+  ],
+  "minimumCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "1.0.0",
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "languages/es.json"
+    }
+  ],
+  "url": "https://github.com/bmarian/chat-images",
+  "manifest": "https://raw.githubusercontent.com/bmarian/chat-images/master/src/module.json",
+  "download": "https://github.com/bmarian/chat-images/releases/download/v2.4.1/chat-images-v2.4.1.zip",
+  "changelog": "https://github.com/bmarian/chat-images/releases"
+}

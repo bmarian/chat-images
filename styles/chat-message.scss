@@ -1,0 +1,22 @@
+.#{$module-name}-container {
+  & img {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .3);
+    }
+  }
+
+  & .ff-container {
+    & .ff-overlay {
+      background-image: url("../assets/gif.svg");
+      width: 45px;
+      height: 40px;
+
+      top: -5px;
+      left: initial;
+      bottom: initial;
+      right: 0;
+    }
+  }
+}
