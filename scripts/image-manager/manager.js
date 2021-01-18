@@ -1,9 +1,9 @@
 'use strict';
 
-import {isImageURL, URL_REGEX} from "./url-checking.js";
-import {extractImageFromEvent} from "./image-extraction.js";
-import {createPopout} from "./popout-handling.js";
-import {messageTemplate, sendMessage, warnThanSendMessage} from "./chat-handling.js";
+import { isImageURL, URL_REGEX } from "./url-checking.js";
+import { extractImageFromEvent } from "./image-extraction.js";
+import { createPopout } from "./popout-handling.js";
+import { messageTemplate, sendMessage, warnThanSendMessage } from "./chat-handling.js";
 
 /**
  * Calls the appropriate action depending on the showWarning:

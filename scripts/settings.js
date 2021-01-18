@@ -1,6 +1,6 @@
 'use strict';
 
-import {localize, log, MODULE_NAME} from "./utils.js";
+import { localize, log, MODULE_NAME } from "./utils.js";
 
 // the path of the foundry data folder
 const ORIGIN_FOLDER = 'data',
@@ -160,4 +160,10 @@ function registerSettings() {
     settings.forEach(registerSetting);
 }
 
-export {ORIGIN_FOLDER, UPLOAD_FOLDER_PATH, getSetting, registerSettings, createUploadFolderIfMissing};
+export { 
+    ORIGIN_FOLDER, 
+    UPLOAD_FOLDER_PATH, 
+    getSetting, 
+    registerSettings, 
+    createUploadFolderIfMissing 
+};
