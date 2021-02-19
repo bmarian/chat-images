@@ -30,7 +30,7 @@ function createChatMessage(content, cb) {
         // appear in the OOC tab with tabbed chat
         type: CONST.CHAT_MESSAGE_TYPES.OOC || 1,
     };
-    if (isFoundry8()) messageData['user'] = game.user.data._id;
+    if (isFoundry8()) messageData['user'] = game.user;
 
     return ChatMessage.create(messageData).then(cb);
 }
