@@ -4,7 +4,7 @@
 import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./settings.js";
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./image-manager/manager.js";
 import {freezeGif} from "./image-manager/gif-freez.js";
-import {log, MODULE_NAME} from "./utils.js";
+import {isFoundry8, log, MODULE_NAME} from "./utils.js";
 
 Hooks.once('init', () => {
     // register all the module's settings
@@ -15,11 +15,13 @@ Hooks.once('init', () => {
 });
 
 Hooks.on('preCreateChatMessage', (message, options) => {
+    const messageSource = isFoundry8() ? message.data._source : message;
+
     // if a message has only an url and it's an image url convert it to an img tag
-    const content = convertMessageToImage(message.content);
+    const content = convertMessageToImage(messageSource.content);
     if (!content) return;
 
-    message.content = content;
+    messageSource.content = content;
     // this is used to prevent the message from showing as a bubble
     // because it will not be rendered correctly
     options.chatBubble = false;

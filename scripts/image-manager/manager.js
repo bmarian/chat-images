@@ -28,7 +28,7 @@ function handleChatInteraction(showWarning, chat, event) {
  *
  * @param {string} message - the content of a chat message
  *
- * @return {string}
+ * @return {string|null}
  */
 function convertMessageToImage(message) {
     if (!isImageURL(message)) return null;

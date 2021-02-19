@@ -75,11 +75,32 @@ function getUploadPermissionStatus() {
     return game?.permissions?.FILES_UPLOAD?.includes(game?.user?.role);
 }
 
+/**
+ * Returns the foundry version
+ *
+ * @return {number | string | undefined}
+ */
+function getFoundryVersion() {
+    return game?.data?.version;
+}
+
+/**
+ * Returns if the foundry version is 0.8.x
+ *
+ * @return {boolean}
+ */
+function isFoundry8() {
+    const foundryVersion = getFoundryVersion();
+    return foundryVersion >= '0.8.0' && foundryVersion < '0.9.0';
+}
+
 export {
     MODULE_TITLE,
     MODULE_NAME,
     log,
     localize,
     randomString,
-    getUploadPermissionStatus
+    getUploadPermissionStatus,
+    getFoundryVersion,
+    isFoundry8
 };
