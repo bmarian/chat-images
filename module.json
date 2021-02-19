@@ -2,7 +2,7 @@
   "name": "chat-images",
   "title": "Chat Images",
   "description": "Adds support for easily sending images in chat.",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "manifestPlusVersion": "1.0.0",
   "author": "bmarian",
   "authors": [

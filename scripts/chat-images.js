@@ -1,10 +1,10 @@
 'use strict';
 
 
-import { createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH } from "./settings.js";
-import { convertMessageToImage, createPopoutOnClick, handleChatInteraction } from "./image-manager/manager.js";
-import { freezeGif } from "./image-manager/gif-freez.js";
-import { log, MODULE_NAME } from "./utils.js";
+import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./settings.js";
+import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./image-manager/manager.js";
+import {freezeGif} from "./image-manager/gif-freez.js";
+import {log, MODULE_NAME} from "./utils.js";
 
 Hooks.once('init', () => {
     // register all the module's settings
