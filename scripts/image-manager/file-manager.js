@@ -1,8 +1,8 @@
 'use strict';
 
 import Compressor from '../lib/compressor/compressor.esm.js'
-import { log, randomString } from "../utils.js";
-import { ORIGIN_FOLDER, UPLOAD_FOLDER_PATH } from "../settings.js";
+import {log, randomString} from "../utils.js";
+import {ORIGIN_FOLDER, UPLOAD_FOLDER_PATH} from "../settings.js";
 
 /**
  * Determines if an image file is a gif
@@ -87,7 +87,7 @@ function getFileDetails(fileName) {
  * @return {string}
  */
 function generateRandomFileName(oldFileName) {
-    const { fileName, fileExtension } = getFileDetails(oldFileName);
+    const {fileName, fileExtension} = getFileDetails(oldFileName);
 
     const randomName = randomString();
     const concatFileName = `${fileName}_${randomName}`
@@ -142,7 +142,7 @@ function compressAndSendFile(image, quality, sendMessageCb, uploadStateOff) {
         quality,
         response => {
             // fixes the case where compressor.js returns a Blob instead of a file
-            const fixedBlob = new File([response], newName, { type: response.type });
+            const fixedBlob = new File([response], newName, {type: response.type});
             return upload(fixedBlob);
         },
         error

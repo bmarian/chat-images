@@ -1,8 +1,8 @@
 'use strict';
 
-import { compressAndSendEmbedded, compressAndSendFile, isGif } from "./file-manager.js";
-import { getUploadPermissionStatus, localize, MODULE_NAME } from "../utils.js";
-import { getSetting } from "../settings.js";
+import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager.js";
+import {getUploadPermissionStatus, localize, isFoundry8, MODULE_NAME} from "../utils.js";
+import {getSetting} from "../settings.js";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container
@@ -24,12 +24,15 @@ function messageTemplate(URL) {
  * @return {Promise<*>}
  */
 function createChatMessage(content, cb) {
-    return ChatMessage.create({
+    const messageData = {
         content: messageTemplate(content),
         // fix for #20: added a `type OOC`, so the message will
         // appear in the OOC tab with tabbed chat
         type: CONST.CHAT_MESSAGE_TYPES.OOC || 1,
-    }).then(cb);
+    };
+    if (isFoundry8()) messageData['user'] = game.user.data._id;
+
+    return ChatMessage.create(messageData).then(cb);
 }
 
 /**
