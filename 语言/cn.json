@@ -1,0 +1,32 @@
+{
+  "I18N.LANGUAGE": "Chinese",
+  "I18N.MAINTAINERS": "长耳",
+
+  "chat-images.title": "聊天图像",
+
+  "chat-images.settings.warningOnDrop.name": "停止警告",
+  "chat-images.settings.warningOnDrop.hint": "在聊天中删除文件时启用警告对话框。",
+
+  "chat-images.settings.warningOnPaste.name": "粘贴警告",
+  "chat-images.settings.warningOnPaste.hint": "在聊天室中粘贴文件时启用警告对话框。",
+
+  "chat-images.settings.uploadCompression.name": "上传文件质量",
+  "chat-images.settings.uploadCompression.hint": "用于上载文件的压缩级别。越低越压缩。",
+
+  "chat-images.settings.embeddedCompression.name": "嵌入式文件质量",
+  "chat-images.settings.embeddedCompression.hint": "用于嵌入文件的压缩级别。越低越压缩。",
+
+  "chat-images.settings.whereToSavePastedImages.name": "文件保存位置",
+  "chat-images.settings.whereToSavePastedImages.hint": "选择保存文件的位置：在data\\uploaded chat images中或将其嵌入chat.db（不推荐）。此设置适用于复制粘贴和拖放文件，链接不需要保存。警告：如果你使用数据文件夹选项，你需要给玩家文件上传权限！！！",
+  "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "数据文件夹",
+  "chat-images.settings.whereToSavePastedImages.choices.database": "数据库",
+
+  "chat-images.settings.saveAsBlobIfCantUpload.name": "无法上传时嵌入",
+  "chat-images.settings.saveAsBlobIfCantUpload.hint": "如果您不想授予所有玩家上载文件的权限，启用此功能将嵌入这些玩家的文件。请记住，嵌入它们对加载时间和世界大小都不好。",
+
+  "chat-images.imageManager.noPermissionWarning": "您没有上载文件的权限！",
+  "chat-images.imageManager.warn.title": "警告",
+  "chat-images.imageManager.warn.content": "您将要发送一个文件，确定吗？",
+  "chat-images.imageManager.warn.buttons.ok": "是",
+  "chat-images.imageManager.warn.buttons.cancel": "否"
+}
