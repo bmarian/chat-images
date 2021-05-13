@@ -33,6 +33,11 @@
       "lang": "es",
       "name": "Español",
       "path": "languages/es.json"
+    },
+    {
+      "lang": "cn",
+      "name": "Chinese",
+      "path": "languages/cn.json"
     }
   ],
   "url": "https://github.com/bmarian/chat-images",
