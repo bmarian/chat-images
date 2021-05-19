@@ -12,13 +12,7 @@ function freezeGif(img) {
         overlay: true,
     };
 
-    const isEmbeddedGif = src.startsWith('data:image/gif');
-    // @ts-ignore
-    if (isEmbeddedGif) return new Freezeframe(img, options);
-
-    const isGifUrl = src.endsWith('gif');
-    // @ts-ignore
-    if (isGifUrl) return new Freezeframe(img, options);
+    if (src.startsWith('data:image/gif') || src.endsWith('gif')) return new Freezeframe(img, options);
 }
 
 export {
