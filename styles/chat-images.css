@@ -39,4 +39,41 @@
   right: 0;
 }
 
+.chat-images-first-time-setup-app .note {
+  margin-bottom: 1rem;
+}
+.chat-images-first-time-setup-app .table-header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border: 1px solid #191813;
+  text-align: center;
+  color: #f0f0e0;
+  font-weight: bold;
+  text-shadow: 1px 1px #000;
+}
+.chat-images-first-time-setup-app .permissions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  overflow: hidden auto;
+}
+.chat-images-first-time-setup-app .permission {
+  padding: 5px;
+}
+.chat-images-first-time-setup-app .permission .form-fields {
+  justify-content: space-around;
+}
+.chat-images-first-time-setup-app .index {
+  flex: 0 0 200px;
+  text-align: left;
+  font-weight: bold;
+}
+.chat-images-first-time-setup-app .hint {
+  flex: 0 0 100%;
+  color: #4b4a44;
+  font-size: 13px;
+  margin: 5px 0 0;
+}
+
 /*# sourceMappingURL=chat-images.css.map */

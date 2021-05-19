@@ -1,0 +1,30 @@
+<form class="{{moduleName}}-form">
+    <h3 class="note">{{localize 'chat-images.firstTimeSetup.notes'}}</h3>
+
+    <header class="table-header flexrow">
+        <label class="index">{{localize 'chat-images.firstTimeSetup.permission'}}</label>
+        <label>{{localize 'chat-images.firstTimeSetup.player'}}</label>
+        <label>{{localize 'chat-images.firstTimeSetup.trustedPlayer'}}</label>
+        <label>{{localize 'chat-images.firstTimeSetup.assistantGM'}}</label>
+        <label>{{localize 'chat-images.firstTimeSetup.GM'}}</label>
+    </header>
+
+    <ul class="permissions-list">
+        <li class="permission form-group">
+            <label class="index">{{localize 'chat-images.firstTimeSetup.uploadFiles'}}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="FILES_UPLOAD.1" {{#if filesUpload.p}} checked {{/if}}>
+                <input type="checkbox" name="FILES_UPLOAD.2" {{#if filesUpload.tp}} checked {{/if}}>
+                <input type="checkbox" name="FILES_UPLOAD.3" {{#if filesUpload.agm}} checked {{/if}}>
+                <input type="checkbox" name="FILES_UPLOAD.4" {{#if filesUpload.gm}} checked {{/if}} disabled>
+            </div>
+            <p class="hint">{{localize 'chat-images.firstTimeSetup.hint'}}</p>
+        </li>
+    </ul>
+
+    <footer class="{{moduleName}}-footer sheet-footer flexrow">
+        <button type="submit" name="submit" class="{{moduleName}}-footer_button submit">
+            <i class="fa fa-check"></i> <span>{{localize 'chat-images.firstTimeSetup.save'}}</span>
+        </button>
+    </footer>
+</form>

@@ -4,12 +4,18 @@ import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "../image-manager/manager.js";
 import {freezeGif} from "../image-manager/gif-freez.js";
 import {isFoundry8, log, MODULE_NAME} from "../CIUtils.js";
+import CIFirstTimeSetupApp from "./CIFirstTimeSetupApp.js";
 
 Hooks.once('init', () => {
   // register all the module's settings
   registerSettings();
   // create the folder for uploading images if it doesn't exist
   createUploadFolderIfMissing().then(() => log(`Folder ${UPLOAD_FOLDER_PATH} is ready.`));
+});
+
+Hooks.once('ready', () => {
+  // the first time setup, will allow gms to set the permissions at a glance without having to open the settings
+  if (game?.user?.isGM && getSetting('showFirstTimeSetup')) new CIFirstTimeSetupApp().render(true);
 });
 
 Hooks.on('preCreateChatMessage', (message, options) => {

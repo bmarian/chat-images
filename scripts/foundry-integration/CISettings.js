@@ -56,6 +56,18 @@ const getSetting = (key) => {
 }
 
 /**
+ * The function sets a value for a register setting
+ *
+ * @param {string} key - the name of the setting
+ * @param {*} value - the value of the setting
+ *
+ * @return {*}
+ */
+const setSetting = (key, value) => {
+  return game.settings.set(MODULE_NAME, key, value);
+}
+
+/**
  * The function calls the foundry register setting function with the module name
  *
  * @param {Object} setting
@@ -70,6 +82,19 @@ const registerSetting = (setting) => {
  * Register all the module's settings
  */
 const registerSettings = () => {
+  // a list of hidden settings
+  const hiddenSettings = [
+    {
+      key: "showFirstTimeSetup",
+      options: {
+        type: Boolean,
+        scope: "world",
+        default: true,
+        config: false,
+      },
+    },
+  ];
+
   // a list of all the module's settings
   // initialized here to be able to localize the strings
   const settings = [
@@ -157,13 +182,14 @@ const registerSettings = () => {
     },
   ];
 
-  settings.forEach(registerSetting);
+  [...settings, ...hiddenSettings].forEach(registerSetting);
 }
 
 export {
   ORIGIN_FOLDER,
   UPLOAD_FOLDER_PATH,
   getSetting,
+  setSetting,
   registerSettings,
   createUploadFolderIfMissing
 };

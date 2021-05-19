@@ -28,5 +28,15 @@
   "chat-images.imageManager.warn.title": "Warning",
   "chat-images.imageManager.warn.content": "You're about to send a file, are you sure?",
   "chat-images.imageManager.warn.buttons.ok": "Yes",
-  "chat-images.imageManager.warn.buttons.cancel": "No"
+  "chat-images.imageManager.warn.buttons.cancel": "No",
+
+  "chat-images.firstTimeSetup.save": "Save",
+  "chat-images.firstTimeSetup.notes": "This dialog will be shown only once. For your convenience you can quickly change the upload permissions here. Players need this permissions to be able to upload images. You can always change it later in Permission Configuration.",
+  "chat-images.firstTimeSetup.permission": "Permission",
+  "chat-images.firstTimeSetup.player": "Player",
+  "chat-images.firstTimeSetup.trustedPlayer": "Trusted Player",
+  "chat-images.firstTimeSetup.assistantGM": "Assistant GM",
+  "chat-images.firstTimeSetup.GM": "Game Master",
+  "chat-images.firstTimeSetup.uploadFiles": "Upload New Files",
+  "chat-images.firstTimeSetup.hint": "Allow players with this role to upload content to the server using the File Picker."
 }
