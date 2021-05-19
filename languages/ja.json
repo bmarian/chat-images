@@ -1,0 +1,33 @@
+{
+    "I18N.LANGUAGE": "日本語",
+    "I18N.MAINTAINERS": "Marian#8010",
+  
+    "chat-images.title": "チャット画像",
+  
+    "chat-images.settings.warningOnDrop.name": "ドロップ時に警告",
+    "chat-images.settings.warningOnDrop.hint": "チャットにファイルをドロップしたときの警告ダイアログを有効にします。",
+  
+    "chat-images.settings.warningOnPaste.name": "貼り付け時に警告",
+    "chat-images.settings.warningOnPaste.hint": "チャットにファイルを貼り付けたときの警告ダイアログを有効にします。",
+  
+    "chat-images.settings.uploadCompression.name": "アップロードファイルの品質",
+    "chat-images.settings.uploadCompression.hint": "アップロードされたファイルに使用される圧縮レベル。低いほど圧縮されます。",
+  
+    "chat-images.settings.embeddedCompression.name": "埋め込みファイルの品質",
+    "chat-images.settings.embeddedCompression.hint": "埋め込みファイルに使用される圧縮レベル。低いほど圧縮されます。",
+  
+    "chat-images.settings.whereToSavePastedImages.name": "ファイルの保存場所",
+    "chat-images.settings.whereToSavePastedImages.hint": "ファイルを保存する場所を選択します：data\\uploaded-chat-imagesに入れるか、chat.dbに埋め込みます（非推奨）。この設定は、貼り付けられたファイルとドラッグ＆ドロップされたファイルのコピーに適用されます。リンクを保存する必要はありません。警告：データフォルダオプションを使用している場合は、プレイヤーにファイルのアップロード許可を与える必要があります!!!",
+    "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "データフォルダ",
+    "chat-images.settings.whereToSavePastedImages.choices.database": "データベース",
+  
+    "chat-images.settings.saveAsBlobIfCantUpload.name": "アップロードできない時は埋め込む",
+    "chat-images.settings.saveAsBlobIfCantUpload.hint": "すべてのプレイヤーにファイルのアップロードを許可したくない場合、この機能を有効にすると、プレイヤーのファイルが埋め込まれます。埋め込みした場合、ロード時間とワールドサイズへの負担になることに注意してください。",
+  
+    "chat-images.imageManager.noPermissionWarning": "ファイルをアップロードする権限がありません！",
+    "chat-images.imageManager.warn.title": "警告",
+    "chat-images.imageManager.warn.content": "ファイルを送信しようとしています、よろしいですか？",
+    "chat-images.imageManager.warn.buttons.ok": "はい",
+    "chat-images.imageManager.warn.buttons.cancel": "いいえ"
+  }
+  
