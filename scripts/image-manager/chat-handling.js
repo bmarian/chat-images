@@ -1,8 +1,8 @@
 'use strict';
 
 import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager.js";
-import {getUploadPermissionStatus, localize, isFoundry8, MODULE_NAME} from "../utils.js";
-import {getSetting} from "../settings.js";
+import {getUploadPermissionStatus, localize, isFoundry8, MODULE_NAME} from "../CIUtils.js";
+import {getSetting} from "../foundry-integration/CISettings.js";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container

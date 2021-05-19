@@ -13,13 +13,14 @@
     }
   ],
   "esmodules": [
-    "scripts/chat-images.js"
+    "scripts/foundry-integration/CIMain.js"
   ],
   "styles": [
     "styles/chat-images.css"
   ],
   "scripts": [
-    "scripts/lib/freezeframe/freezeframe.min.js"
+    "scripts/lib/freezeframe/freezeframe.min.js",
+    "scripts/lib/rxjs/rxjs.umd.min.js"
   ],
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "1.0.0",

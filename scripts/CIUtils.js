@@ -91,7 +91,7 @@ function getFoundryVersion() {
  */
 function isFoundry8() {
     const foundryVersion = getFoundryVersion();
-    return foundryVersion >= '0.8.0' && foundryVersion < '0.9.0';
+    return foundryVersion >= '0.8.0';
 }
 
 export {
