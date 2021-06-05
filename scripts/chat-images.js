@@ -15,13 +15,14 @@ Hooks.once('init', () => {
 });
 
 Hooks.on('preCreateChatMessage', (message, options) => {
-    const messageSource = isFoundry8() ? message.data._source : message;
+    const messageSource = isFoundry8() ? message.data : message;
 
     // if a message has only an url and it's an image url convert it to an img tag
     const content = convertMessageToImage(messageSource.content);
     if (!content) return;
 
     messageSource.content = content;
+    if (isFoundry8()) messageSource._source.content = content;
     // this is used to prevent the message from showing as a bubble
     // because it will not be rendered correctly
     options.chatBubble = false;
