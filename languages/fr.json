@@ -1,0 +1,32 @@
+{
+  "I18N.LANGUAGE": "French",
+  "I18N.MAINTAINERS": "Padhiver#1916",
+
+  "chat-images.title": "Chat Images",
+
+  "chat-images.settings.warningOnDrop.name": "Avertissement avant d'envoyer",
+  "chat-images.settings.warningOnDrop.hint": "Active un dialogue d'avertissement lors du dépôt d'un fichier dans le chat.",
+
+  "chat-images.settings.warningOnPaste.name": "Avertissement sur un collé",
+  "chat-images.settings.warningOnPaste.hint": "Active un dialogue d'avertissement lors du collage d'un fichier dans le chat.",
+
+  "chat-images.settings.uploadCompression.name": "Qualité des fichiers téléchargés",
+  "chat-images.settings.uploadCompression.hint": "Le niveau de compression utilisé pour les fichiers téléchargés. Plus il est faible, plus la compression est élevée.",
+
+  "chat-images.settings.embeddedCompression.name": "Qualité des fichiers incorporés",
+  "chat-images.settings.embeddedCompression.hint": "Le niveau de compression utilisé pour les fichiers incorporés. Plus il est faible, plus la compression est élevée.",
+
+  "chat-images.settings.whereToSavePastedImages.name": "Emplacement de sauvegarde des fichiers",
+  "chat-images.settings.whereToSavePastedImages.hint": "Choisissez où enregistrer les fichiers : dans data\\uploaded-chat-images ou les intégrer dans chat.db (non recommandé). Ce paramètre s'applique aux fichiers copiés-collés et glissés-déposés, les liens n'ont pas besoin d'être enregistrés. AVERTISSEMENT : VOUS DEVEZ DONNER AUX JOUEURS LA PERMISSION DE TÉLÉCHARGER DES FICHIERS SI VOUS UTILISEZ L'OPTION DE DOSSIER DE DONNÉES ! !!",
+  "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "Dossier de données",
+  "chat-images.settings.whereToSavePastedImages.choices.database": "Base de données",
+
+  "chat-images.settings.saveAsBlobIfCantUpload.name": "Incorporer si le téléchargement n'est pas possible",
+  "chat-images.settings.saveAsBlobIfCantUpload.hint": "Si vous ne voulez pas donner à tous vos joueurs la permission de télécharger des fichiers, l'activation de cette fonction permettra d'incorporer les fichiers pour ces joueurs. Gardez à l'esprit qu'incorporer des fichiers est mauvaise pour les temps de chargement et la taille du monde.",
+
+  "chat-images.imageManager.noPermissionWarning": "Vous n'avez pas le droit de télécharger des fichiers !",
+  "chat-images.imageManager.warn.title": "Avertissement",
+  "chat-images.imageManager.warn.content": "Vous êtes sur le point d'envoyer un fichier, vous êtes sûr ?",
+  "chat-images.imageManager.warn.buttons.ok": "Oui",
+  "chat-images.imageManager.warn.buttons.cancel": "Non"
+}
