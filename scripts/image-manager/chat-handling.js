@@ -1,7 +1,7 @@
 'use strict';
 
 import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager.js";
-import {getUploadPermissionStatus, localize, isFoundry8, MODULE_NAME} from "../utils.js";
+import {getUploadPermissionStatus, localize, isAfterFoundry8, MODULE_NAME} from "../utils.js";
 import {getSetting} from "../settings.js";
 
 /**
@@ -30,7 +30,7 @@ function createChatMessage(content, cb) {
         // appear in the OOC tab with tabbed chat
         type: CONST.CHAT_MESSAGE_TYPES.OOC || 1,
     };
-    if (isFoundry8()) messageData['user'] = game.user;
+    if (isAfterFoundry8()) messageData['user'] = game.user;
 
     return ChatMessage.create(messageData).then(cb);
 }

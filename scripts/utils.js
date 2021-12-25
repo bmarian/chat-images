@@ -89,9 +89,9 @@ function getFoundryVersion() {
  *
  * @return {boolean}
  */
-function isFoundry8() {
+function isAfterFoundry8() {
     const foundryVersion = getFoundryVersion();
-    return foundryVersion >= '0.8.0' && foundryVersion < '0.9.0';
+    return foundryVersion >= '0.8.0';
 }
 
 export {
@@ -102,5 +102,5 @@ export {
     randomString,
     getUploadPermissionStatus,
     getFoundryVersion,
-    isFoundry8
+    isAfterFoundry8
 };
