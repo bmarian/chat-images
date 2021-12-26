@@ -41,7 +41,7 @@ function createFolder(source, target, options = {}) {
 function createUploadFolderIfMissing() {
     return getFolder(ORIGIN_FOLDER, UPLOAD_FOLDER_PATH)
         .then(location => location.target === '.' && createFolder(ORIGIN_FOLDER, UPLOAD_FOLDER_PATH))
-        .catch(err => log(err));
+        .catch(() => createFolder(ORIGIN_FOLDER, UPLOAD_FOLDER_PATH));
 }
 
 /**
