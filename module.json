@@ -22,7 +22,7 @@
     "scripts/lib/freezeframe/freezeframe.min.js"
   ],
   "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "1.0.0",
+  "compatibleCoreVersion": "9",
   "languages": [
     {
       "lang": "en",
