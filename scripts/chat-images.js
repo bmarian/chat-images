@@ -11,7 +11,8 @@ Hooks.once('init', () => {
     registerSettings();
     // create the folder for uploading images if it doesn't exist
     createUploadFolderIfMissing()
-        .then(() => log(`Folder ${UPLOAD_FOLDER_PATH} is ready.`));
+        .then(() => log(`Folder ${UPLOAD_FOLDER_PATH} is ready.`))
+        .catch(() => log(`User doesn't have permission to create the upload folder ${UPLOAD_FOLDER_PATH}.`));
 });
 
 Hooks.on('preCreateChatMessage', (message, options) => {
