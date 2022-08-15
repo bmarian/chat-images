@@ -1,8 +1,9 @@
 'use strict';
 
-import {compressAndSendEmbedded, compressAndSendFile, isGif} from "./file-manager.js";
-import {getUploadPermissionStatus, localize, isAfterFoundry8, MODULE_NAME} from "../utils.js";
-import {getSetting} from "../settings.js";
+import { compressAndSendEmbedded, compressAndSendFile, isGif } from "./file-manager.js";
+import { getUploadPermissionStatus, localize, isAfterFoundry8, MODULE_NAME, chatContainsWhisper, appendChat } from "../utils.js";
+import { getSetting } from "../settings.js";
+import { htmlPrefilter } from "jquery";
 
 /**
  * Creates an HTML template with an image wrapped in the module's container
@@ -24,6 +25,8 @@ function messageTemplate(URL) {
  * @return {Promise<*>}
  */
 function createChatMessage(content, cb) {
+    const template = messageTemplate(content);
+    const content = chatContainsWhisper() ? template : appendChat(template);
     const messageData = {
         content: messageTemplate(content),
         // fix for #20: added a `type OOC`, so the message will

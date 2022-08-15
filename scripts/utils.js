@@ -75,6 +75,19 @@ function getUploadPermissionStatus() {
     return game?.permissions?.FILES_UPLOAD?.includes(game?.user?.role);
 }
 
+function chatContainsWhisper() {
+    const whisperRe = new RegExp('^\/w\s\S+')
+    let $chat = html.find('#chat-form textarea');
+    let chat_val = String($chat.val());
+    return whisperRe.test(chat_val);
+}
+
+function appendChat(message) {
+    let $chat = html.find('#chat-form textarea');
+    let chat_val = String($chat.val());
+    return chat_val + ' ' + message;
+}
+
 /**
  * Returns the foundry version
  *
