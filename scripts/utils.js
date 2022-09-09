@@ -81,18 +81,24 @@ function getUploadPermissionStatus() {
  * @return {number | string | undefined}
  */
 function getFoundryVersion() {
-    return game?.data?.version;
+    return game?.data?.version || game?.version;
 }
 
-/**
- * Returns if the foundry version is 0.8.x
- *
- * @return {boolean}
- */
-function isAfterFoundry8() {
+function versionBetween8And9() {
+    const foundryVersion = getFoundryVersion();
+    return foundryVersion >= '0.8.0' && Number(foundryVersion) < 10;
+}
+
+function versionAfter8() {
     const foundryVersion = getFoundryVersion();
     return foundryVersion >= '0.8.0';
 }
+
+function versionAfter9() {
+    const foundryVersion = getFoundryVersion();
+    return Number(foundryVersion) > 9;
+}
+
 
 export {
     MODULE_TITLE,
@@ -102,5 +108,7 @@ export {
     randomString,
     getUploadPermissionStatus,
     getFoundryVersion,
-    isAfterFoundry8
+    versionAfter8,
+    versionAfter9,
+    versionBetween8And9
 };

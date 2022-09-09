@@ -4,7 +4,7 @@
 import {createUploadFolderIfMissing, getSetting, registerSettings, UPLOAD_FOLDER_PATH} from "./settings.js";
 import {convertMessageToImage, createPopoutOnClick, handleChatInteraction} from "./image-manager/manager.js";
 import {freezeGif} from "./image-manager/gif-freez.js";
-import {isAfterFoundry8, log, MODULE_NAME} from "./utils.js";
+import {log, MODULE_NAME, versionAfter8, versionAfter9, versionBetween8And9} from "./utils.js";
 
 Hooks.once('init', () => {
     // register all the module's settings
@@ -15,18 +15,20 @@ Hooks.once('init', () => {
         .catch(() => log(`User doesn't have permission to create the upload folder ${UPLOAD_FOLDER_PATH}.`));
 });
 
-Hooks.on('preCreateChatMessage', (message, options) => {
-    const messageSource = isAfterFoundry8() ? message.data : message;
+Hooks.on('preCreateChatMessage', (message, options, v10Options) => {
+    const messageSource = versionBetween8And9() ? message.data : message;
 
     // if a message has only an url, and it's an image url convert it to an img tag
     const content = convertMessageToImage(messageSource.content);
     if (!content) return;
 
     messageSource.content = content;
-    if (isAfterFoundry8()) messageSource._source.content = content;
+    if (versionAfter8()) messageSource._source.content = content;
+
     // this is used to prevent the message from showing as a bubble
     // because it will not be rendered correctly
-    options.chatBubble = false;
+    if (versionAfter9()) v10Options.chatBubble = false;
+    else options.chatBubble = false;
 });
 
 Hooks.on('renderChatMessage', (_0, html) => {
@@ -37,7 +39,7 @@ Hooks.on('renderChatMessage', (_0, html) => {
     // the popout on click
     img.addEventListener('click', () => createPopoutOnClick(img));
 
-    // try to freeze the gif so it's not so unpleasant when a short
+    // try to freeze the gif, so it's not so unpleasant when a short
     // one loops
     freezeGif(img);
 });

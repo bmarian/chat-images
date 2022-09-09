@@ -1,9 +1,15 @@
 'use strict';
+import { versionAfter9 } from "../utils.js";
 
-// regex for finding a message that only has an anchor
-const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig,
-    // regex for determining if an url is an image
-    IMAGE_REGEX = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/ig;
+// regex for determining if an url is an image
+const IMAGE_REGEX = /\w+\.(jpg|jpeg|gif|png|tiff|bmp)/ig;
+
+function getUrlRegex() {
+    // regex for finding a message that only has an anchor
+    return versionAfter9()
+        ? /^(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])$/ig
+        : /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])<\/a>$/ig;
+}
 
 /**
  * Determines if a message has only an URL
@@ -13,7 +19,7 @@ const URL_REGEX = /^<a.*>(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A
  * @return {boolean}
  */
 function isURL(message) {
-    return !!message.match(URL_REGEX);
+    return !!message.match(getUrlRegex());
 }
 
 /**
@@ -30,6 +36,6 @@ function isImageURL(URL) {
 export {
     isURL,
     isImageURL,
-    URL_REGEX,
+    getUrlRegex,
     IMAGE_REGEX
 }

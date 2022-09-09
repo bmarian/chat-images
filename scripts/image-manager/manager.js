@@ -1,6 +1,6 @@
 'use strict';
 
-import {isImageURL, URL_REGEX} from "./url-checking.js";
+import {isImageURL, getUrlRegex} from "./url-checking.js";
 import {extractImageFromEvent} from "./image-extraction.js";
 import {createPopout} from "./popout-handling.js";
 import {messageTemplate, sendMessage, warnThanSendMessage} from "./chat-handling.js";
@@ -32,7 +32,7 @@ function handleChatInteraction(showWarning, chat, event) {
  */
 function convertMessageToImage(message) {
     if (!isImageURL(message)) return null;
-    return message.replace(URL_REGEX, (_0, URL) => messageTemplate(URL));
+    return message.replace(getUrlRegex(), (_0, URL) => messageTemplate(URL));
 }
 
 /**
