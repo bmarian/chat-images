@@ -96,7 +96,7 @@ function versionAfter8() {
 
 function versionAfter9() {
     const foundryVersion = getFoundryVersion();
-    return Number(foundryVersion) > 9;
+    return Number(foundryVersion) >= 10;
 }
 
 
