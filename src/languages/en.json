@@ -1,0 +1,32 @@
+{
+  "I18N.LANGUAGE": "English",
+  "I18N.MAINTAINERS": "Marian#8010",
+
+  "chat-images.title": "Chat Images",
+
+  "chat-images.settings.warningOnDrop.name": "Warning on drop",
+  "chat-images.settings.warningOnDrop.hint": "Enables a warning dialog when dropping a file in the chat.",
+
+  "chat-images.settings.warningOnPaste.name": "Warning on paste",
+  "chat-images.settings.warningOnPaste.hint": "Enables a warning dialog when pasting a file in the chat.",
+
+  "chat-images.settings.uploadCompression.name": "Uploaded files quality",
+  "chat-images.settings.uploadCompression.hint": "The level of compression used for uploaded files. The lower the more compressed.",
+
+  "chat-images.settings.embeddedCompression.name": "Embedded files quality",
+  "chat-images.settings.embeddedCompression.hint": "The level of compression used for embedded files. The lower the more compressed.",
+
+  "chat-images.settings.whereToSavePastedImages.name": "Files save location",
+  "chat-images.settings.whereToSavePastedImages.hint": "Choose where to save the files: in data\\uploaded-chat-images or embed them in chat.db (not recommended). This setting applies to copy pasted and drag & dropped files, links don't need to be saved. WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
+  "chat-images.settings.whereToSavePastedImages.choices.dataFolder": "Data folder",
+  "chat-images.settings.whereToSavePastedImages.choices.database": "Database",
+
+  "chat-images.settings.saveAsBlobIfCantUpload.name": "Embed if upload is not possible",
+  "chat-images.settings.saveAsBlobIfCantUpload.hint": "If you don't want to give all your players permission to upload files, enabling this feature will embed the files for those players. Keep in mind embedding them is bad for load times, and world size.",
+
+  "chat-images.imageManager.noPermissionWarning": "You don't have permissions to upload files!",
+  "chat-images.imageManager.warn.title": "Warning",
+  "chat-images.imageManager.warn.content": "You're about to send a file, are you sure?",
+  "chat-images.imageManager.warn.buttons.ok": "Yes",
+  "chat-images.imageManager.warn.buttons.cancel": "No"
+}

@@ -11,10 +11,12 @@ const everyWordToUpperCase = (sentence: string) => sentence
 export default defineConfig({
   build: {
     watch: {},
+    sourcemap: 'inline',
     lib: {
       entry: normalizePath(resolve(__dirname, 'src/chat-images.ts')),
       name: everyWordToUpperCase(moduleName),
-      fileName: moduleName
+      fileName: moduleName,
+      formats: ['es'],
     },
     rollupOptions: {
       // @ts-ignore
@@ -29,8 +31,12 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'templates/*',
+          src: 'src/templates/*',
           dest: 'templates',
+        },
+        {
+          src: 'src/languages/*',
+          dest: 'languages',
         },
         {
           src: 'module.json',
