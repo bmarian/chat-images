@@ -1,5 +1,5 @@
 import "./chat-images.scss"
 
 Hooks.on("ready", () => {
-  console.log("Hello World")
+  console.log("Hello World ")
 })

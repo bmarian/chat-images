@@ -1,6 +1,7 @@
-import {name} from "./package.json"
-import {resolve} from 'path'
-import {defineConfig} from 'vite'
+import {name as moduleName} from "./package.json"
+import {resolve} from "path"
+import {normalizePath, defineConfig} from "vite"
+import {viteStaticCopy} from "vite-plugin-static-copy"
 
 const everyWordToUpperCase = (sentence: string) => sentence
   .split(' ')
@@ -9,22 +10,34 @@ const everyWordToUpperCase = (sentence: string) => sentence
 
 export default defineConfig({
   build: {
+    watch: {},
     lib: {
-      entry: resolve(__dirname, 'src/chat-images.ts'),
-      name: everyWordToUpperCase(name),
-      fileName: name
+      entry: normalizePath(resolve(__dirname, 'src/chat-images.ts')),
+      name: everyWordToUpperCase(moduleName),
+      fileName: moduleName
     },
     rollupOptions: {
+      // @ts-ignore
       output: {
         assetFileNames(assetInfo) {
-          const {name: assetName} = assetInfo
-          if (assetName !== 'style.css') return assetName
-
-          return `${name}.css`
+          return assetInfo.name === 'style.css' ? `${moduleName}.css` : assetInfo.name
         }
       }
     },
-    watch: {}
-  }
+  },
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'templates/*',
+          dest: 'templates',
+        },
+        {
+          src: 'module.json',
+          dest: '',
+        }
+      ]
+    })
+  ]
 })
 
