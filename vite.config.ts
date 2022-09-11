@@ -4,25 +4,25 @@ import {normalizePath, defineConfig} from "vite"
 import {viteStaticCopy} from "vite-plugin-static-copy"
 
 const everyWordToUpperCase = (sentence: string) => sentence
-  .split(' ')
+  .split(" ")
   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-  .join(' ')
+  .join(" ")
 
 export default defineConfig({
   build: {
     watch: {},
-    sourcemap: 'inline',
+    sourcemap: "inline",
     lib: {
-      entry: normalizePath(resolve(__dirname, 'src/chat-images.ts')),
+      entry: normalizePath(resolve(__dirname, "src/chat-images.ts")),
       name: everyWordToUpperCase(moduleName),
       fileName: moduleName,
-      formats: ['es'],
+      formats: ["es"],
     },
     rollupOptions: {
       // @ts-ignore
       output: {
         assetFileNames(assetInfo) {
-          return assetInfo.name === 'style.css' ? `${moduleName}.css` : assetInfo.name
+          return assetInfo.name === "style.css" ? `${moduleName}.css` : assetInfo.name
         }
       }
     },
@@ -31,16 +31,16 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'src/templates/*',
-          dest: 'templates',
+          src: "src/templates/*",
+          dest: "templates",
         },
         {
-          src: 'src/languages/*',
-          dest: 'languages',
+          src: "src/languages/*",
+          dest: "languages",
         },
         {
-          src: 'module.json',
-          dest: '',
+          src: "module.json",
+          dest: "",
         }
       ]
     })

@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "tsc && vite build -c vite.config.ts"
   },
+  "dependencies": {
+    "rxjs": "^7.5.6"
+  },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
     "sass": "^1.54.9",
