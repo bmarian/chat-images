@@ -51,7 +51,8 @@ const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
     const newName = generateFileName(saveValue)
     const compressedImage = await imageCompression(saveValue.file as File, {maxSizeMB: 1.5, useWebWorker: true, alwaysKeepResolution: true})
     const newImage = new File([compressedImage as File], newName, {type: saveValue.type})
-    const imageLocation = await FilePicker.upload(ORIGIN_FOLDER, UPLOAD_FOLDER, newImage, {})
+    // @ts-ignore
+    const imageLocation = await FilePicker.upload(ORIGIN_FOLDER, UPLOAD_FOLDER, newImage, {}, {notify: false})
 
     if (!imageLocation || !(imageLocation as FilePicker.UploadResult)?.path) return saveValue.imageSrc as string
     return (imageLocation as FilePicker.UploadResult)?.path
@@ -69,7 +70,6 @@ const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
 
   if (saveValue.file) saveValue.imageSrc = await uploadImage(saveValue)
 
-  console.log(saveValue)
   removeClass(uploadArea, 'hidden')
   append(uploadArea, imagePreview)
   imageQueue.push(saveValue)
