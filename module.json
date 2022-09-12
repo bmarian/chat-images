@@ -2,7 +2,7 @@
   "name": "chat-images",
   "title": "Chat Images",
   "description": "Extends chat functionality with image support.",
-  "version": "3.0.0",
+  "version": "3.0",
   "author": "bmarian",
   "authors": [
     {
