@@ -2,25 +2,5 @@
   "I18N.LANGUAGE": "English",
   "I18N.MAINTAINERS": "bmarian",
 
-  "CI.Chat Images": "Chat Images",
-
-  "CI.Warning on drop": "Warning on drop",
-  "CI.Enables a warning dialog when dropping a file in the chat.": "Enables a warning dialog when dropping a file in the chat.",
-
-  "CI.settings.warningOnPaste.name": "Warning on paste",
-  "CI.settings.warningOnPaste.hint": "Enables a warning dialog when pasting a file in the chat.",
-
-  "CI.settings.uploadCompression.name": "Uploaded files quality",
-  "CI.settings.uploadCompression.hint": "The level of compression used for uploaded files. The lower the more compressed.",
-
-  "CI.settings.embeddedCompression.name": "Embedded files quality",
-  "CI.settings.embeddedCompression.hint": "The level of compression used for embedded files. The lower the more compressed.",
-
-  "CI.settings.whereToSavePastedImages.name": "Files save location",
-  "CI.settings.whereToSavePastedImages.hint": "Choose where to save the files: in data\\uploaded-chat-images or embed them in chat.db (not recommended). This setting applies to copy pasted and drag & dropped files, links don't need to be saved. WARNING: YOU NEED TO GIVE PLAYERS FILE UPLOAD PERMISSION IF YOU ARE USING THE DATA FOLDER OPTION!!!",
-  "CI.settings.whereToSavePastedImages.choices.dataFolder": "Data folder",
-  "CI.settings.whereToSavePastedImages.choices.database": "Database",
-
-  "CI.settings.saveAsBlobIfCantUpload.name": "Embed if upload is not possible",
-  "CI.settings.saveAsBlobIfCantUpload.hint": "If you don't want to give all your players permission to upload files, enabling this feature will embed the files for those players. Keep in mind embedding them is bad for load times, and world size."
+  "CI.uploadButtonTitle": "Upload an image"
 }

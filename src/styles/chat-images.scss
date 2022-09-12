@@ -1,4 +1,13 @@
-$module-name: 'chat-images';
+#ci-chat-upload-area {
+  flex: unset;
+  max-height: fit-content;
+}
 
-@import './spinner.scss';
-@import 'chat-message';
+#chat-controls .control-buttons {
+  flex: 0 0 72px;
+}
+
+.ci-upload-image-hidden-input {
+  opacity: 0;
+  width: 0;
+}
