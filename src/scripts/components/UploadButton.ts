@@ -11,6 +11,21 @@ const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryE
   const hiddenUploadInputChangeEventHandler = (evt: Event) => {
     const currentTarget: HTMLInputElement = evt.currentTarget as HTMLInputElement
     console.log(currentTarget.files)
+    /*
+    function readImage(file) {
+  // Check if the file is an image.
+  if (file.type && !file.type.startsWith('image/')) {
+    console.log('File is not an image.', file.type, file);
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener('load', (event) => {
+    img.src = event.target.result;
+  });
+  reader.readAsDataURL(file);
+}
+    */
   }
   const uploadButtonClickEventHandler = (evt: Event) => {
     evt.preventDefault()
