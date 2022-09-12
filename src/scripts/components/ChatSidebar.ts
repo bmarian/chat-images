@@ -5,6 +5,7 @@ import {t} from '../utils/Utils'
 let hookIsHandlingTheMessage = false
 
 const imageTemplate = (imageProps: SaveValueType): string => `<div class="ci-message-image"><img src="${imageProps.imageSrc}" alt="${imageProps.name || t('unableToLoadImage')}"></div>`
+
 const messageTemplate = (imageQueue: SaveValueType[]) => {
   const imageTemplates: string[] = imageQueue.map((imageProps: SaveValueType): string => imageTemplate(imageProps))
   return `<div class="ci-message">${imageTemplates.join('')}</div>`

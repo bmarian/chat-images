@@ -3,8 +3,20 @@ import {initUploadArea} from './scripts/components/UploadArea'
 import {initUploadButton} from './scripts/components/UploadButton'
 import {initChatSidebar} from './scripts/components/ChatSidebar'
 
-Hooks.once('init', () => {
-  console.log('Init')
+const createUploadFolder = async () => {
+  const origin = 'data'
+  const folderPath = 'uploaded-chat-images'
+
+  try {
+    const location = await FilePicker.browse(origin, folderPath)
+    if (location.target === '.') await FilePicker.createDirectory(origin, folderPath, {})
+  } catch (e) {
+    await FilePicker.createDirectory(origin, folderPath, {})
+  }
+}
+
+Hooks.once('init', async () => {
+  await createUploadFolder()
 })
 
 Hooks.on('renderSidebarTab', (_0: never, sidebar: JQuery) => {
