@@ -1,6 +1,6 @@
 import {append, create, find, on, trigger} from '../utils/JqueryWrappers'
 import {t} from '../utils/Utils'
-import {processUploadedImages} from '../processors/FileProcessor'
+import {processImageFiles} from '../processors/FileProcessor'
 
 const createUploadButton = (): JQuery => create(`<a id="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-images"></i></a>`)
 
@@ -12,7 +12,7 @@ const setupEvents = (uploadButton: JQuery, hiddenUploadInput: JQuery, sidebar: J
     const files: FileList | null = currentTarget.files
     if (!files) return
 
-    processUploadedImages(files, sidebar)
+    processImageFiles(files, sidebar)
     currentTarget.value = ''
   }
   const uploadButtonClickEventHandler = (evt: Event) => {
