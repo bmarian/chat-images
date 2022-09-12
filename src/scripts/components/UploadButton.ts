@@ -1,11 +1,8 @@
 import {append, create, find, on, trigger} from '../utils/JqueryWrappers'
 import {t} from '../utils/Utils'
 
-let savedSidebarJQueryElement: JQuery | null = null
-
 const createUploadButtonJqueryElement = (): JQuery => create(`<a class="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-upload"></i></a>`)
-const createHiddenUploadInputJqueryElement = (): JQuery => create(`<input type="file" accept="image/*" class="ci-upload-image-hidden-input">`)
-const getuploadButtonJqueryElement = (): JQuery | null => savedSidebarJQueryElement ? find('.ci-upload-image', savedSidebarJQueryElement) : null
+const createHiddenUploadInputJqueryElement = (): JQuery => create(`<input type="file" multiple accept="image/*" class="ci-upload-image-hidden-input">`)
 
 const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryElement: JQuery) => {
   const hiddenUploadInputChangeEventHandler = (evt: Event) => {
@@ -37,9 +34,7 @@ const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryE
 }
 
 export const initUploadButton = (sidebarJQueryElement: JQuery) => {
-  if (!savedSidebarJQueryElement) savedSidebarJQueryElement = sidebarJQueryElement
-
-  const controlButtonsJqueryElement: JQuery = find('.control-buttons', savedSidebarJQueryElement)
+  const controlButtonsJqueryElement: JQuery = find('.control-buttons', sidebarJQueryElement)
   const uploadButtonJqueryElement: JQuery = createUploadButtonJqueryElement()
   const hiddenUploadInputJqueryElement: JQuery = createHiddenUploadInputJqueryElement()
 
