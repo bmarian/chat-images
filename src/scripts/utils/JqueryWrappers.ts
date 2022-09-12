@@ -6,4 +6,5 @@ export const append = (parentNode: JQuery, newNode: JQuery): JQuery => parentNod
 // @ts-ignore
 export const on = (parentNode: JQuery, eventType: string, eventFunction: Function): JQuery => parentNode.on(eventType, eventFunction)
 export const trigger = (parentNode: JQuery, eventType: string): JQuery => parentNode.trigger(eventType)
-
+export const removeClass = (parentNode: JQuery, classString: string): JQuery => parentNode.removeClass(classString)
+export const addClass = (parentNode: JQuery, classString: string): JQuery => parentNode.addClass(classString)

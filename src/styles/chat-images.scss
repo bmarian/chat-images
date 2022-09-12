@@ -1,13 +1,37 @@
-#ci-chat-upload-area {
-  flex: unset;
-  max-height: fit-content;
-}
-
 #chat-controls .control-buttons {
   flex: 0 0 72px;
 }
 
-.ci-upload-image-hidden-input {
+#ci-upload-image-hidden-input {
   opacity: 0;
   width: 0;
+}
+
+#ci-chat-upload-area {
+  flex: unset;
+  max-height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.ci-upload-area-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  min-height: 100px;
+  min-width: 100px;
+  margin: 3px;
+
+  & img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+  }
 }

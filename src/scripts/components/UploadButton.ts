@@ -1,28 +1,17 @@
 import {append, create, find, on, trigger} from '../utils/JqueryWrappers'
 import {t} from '../utils/Utils'
+import {processUploadedImages} from '../processors/FileProcessor'
 
-const createUploadButtonJqueryElement = (): JQuery => create(`<a class="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-upload"></i></a>`)
-const createHiddenUploadInputJqueryElement = (): JQuery => create(`<input type="file" multiple accept="image/*" class="ci-upload-image-hidden-input">`)
+const createUploadButtonJqueryElement = (): JQuery => create(`<a id="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-upload"></i></a>`)
+const createHiddenUploadInputJqueryElement = (): JQuery => create(`<input type="file" multiple accept="image/*" id="ci-upload-image-hidden-input">`)
 
-const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryElement: JQuery) => {
+const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryElement: JQuery, sidebarJqueryElement: JQuery) => {
   const hiddenUploadInputChangeEventHandler = (evt: Event) => {
     const currentTarget: HTMLInputElement = evt.currentTarget as HTMLInputElement
-    console.log(currentTarget.files)
-    /*
-    function readImage(file) {
-  // Check if the file is an image.
-  if (file.type && !file.type.startsWith('image/')) {
-    console.log('File is not an image.', file.type, file);
-    return;
-  }
+    const files: FileList | null = currentTarget.files
+    if (!files) return
 
-  const reader = new FileReader();
-  reader.addEventListener('load', (event) => {
-    img.src = event.target.result;
-  });
-  reader.readAsDataURL(file);
-}
-    */
+    processUploadedImages(files, sidebarJqueryElement)
   }
   const uploadButtonClickEventHandler = (evt: Event) => {
     evt.preventDefault()
@@ -33,13 +22,13 @@ const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryE
   on(uploadButtonJqueryElement, 'click', uploadButtonClickEventHandler)
 }
 
-export const initUploadButton = (sidebarJQueryElement: JQuery) => {
-  const controlButtonsJqueryElement: JQuery = find('.control-buttons', sidebarJQueryElement)
+export const initUploadButton = (sidebarJqueryElement: JQuery) => {
+  const controlButtonsJqueryElement: JQuery = find('.control-buttons', sidebarJqueryElement)
   const uploadButtonJqueryElement: JQuery = createUploadButtonJqueryElement()
   const hiddenUploadInputJqueryElement: JQuery = createHiddenUploadInputJqueryElement()
 
   append(controlButtonsJqueryElement, uploadButtonJqueryElement)
   append(controlButtonsJqueryElement, hiddenUploadInputJqueryElement)
-  setupEvents(uploadButtonJqueryElement, hiddenUploadInputJqueryElement)
+  setupEvents(uploadButtonJqueryElement, hiddenUploadInputJqueryElement, sidebarJqueryElement)
 }
 

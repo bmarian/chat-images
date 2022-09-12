@@ -6,13 +6,13 @@ Hooks.once('init', () => {
   console.log('Init')
 })
 
-Hooks.on('renderSidebarTab', (_0: never, sidebarJQueryElement: JQuery) => {
-  const sidebarHtmlElement: HTMLElement | null = sidebarJQueryElement[0]
+Hooks.on('renderSidebarTab', (_0: never, sidebarJqueryElement: JQuery) => {
+  const sidebarHtmlElement: HTMLElement | null = sidebarJqueryElement[0]
   if (!sidebarHtmlElement) return
 
   const hasChatElement = sidebarHtmlElement.querySelector('#chat-message')
   if (!hasChatElement) return
 
-  initUploadArea(sidebarJQueryElement)
-  initUploadButton(sidebarJQueryElement)
+  initUploadArea(sidebarJqueryElement)
+  initUploadButton(sidebarJqueryElement)
 })
