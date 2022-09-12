@@ -11,7 +11,6 @@ const createImagePreviewJqueryElement = ({imageSrc, id}: {type: string, imageSrc
         </div>`)
 
 const addImageToQueue = (saveValue: {type: string, imageSrc: string | ArrayBuffer | null, id: string}, sidebarJqueryElement: JQuery) => {
-  console.log('addImageToQueue')
   const uploadAreaJqueryElement: JQuery = find('#ci-chat-upload-area', sidebarJqueryElement)
   if (!uploadAreaJqueryElement || !uploadAreaJqueryElement[0]) return
 

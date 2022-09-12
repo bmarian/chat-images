@@ -2,7 +2,8 @@ import {append, create, find, on, trigger} from '../utils/JqueryWrappers'
 import {t} from '../utils/Utils'
 import {processUploadedImages} from '../processors/FileProcessor'
 
-const createUploadButtonJqueryElement = (): JQuery => create(`<a id="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-upload"></i></a>`)
+const createUploadButtonJqueryElement = (): JQuery => create(`<a id="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-images"></i></a>`)
+
 const createHiddenUploadInputJqueryElement = (): JQuery => create(`<input type="file" multiple accept="image/*" id="ci-upload-image-hidden-input">`)
 
 const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryElement: JQuery, sidebarJqueryElement: JQuery) => {
@@ -12,6 +13,7 @@ const setupEvents = (uploadButtonJqueryElement: JQuery, hiddenUploadInputJqueryE
     if (!files) return
 
     processUploadedImages(files, sidebarJqueryElement)
+    currentTarget.value = ''
   }
   const uploadButtonClickEventHandler = (evt: Event) => {
     evt.preventDefault()
