@@ -8,3 +8,4 @@ export const on = (parentNode: JQuery, eventType: string, eventFunction: Functio
 export const trigger = (parentNode: JQuery, eventType: string): JQuery => parentNode.trigger(eventType)
 export const removeClass = (parentNode: JQuery, classString: string): JQuery => parentNode.removeClass(classString)
 export const addClass = (parentNode: JQuery, classString: string): JQuery => parentNode.addClass(classString)
+export const remove = (node: JQuery): JQuery => node.remove()
