@@ -10,7 +10,7 @@ type SaveValueType = {
 
 let imageQueue: SaveValueType[] = []
 
-const isFileIsImage = (file: File) => file.type && file.type.startsWith('image/')
+const isFileImage = (file: File) => file.type && file.type.startsWith('image/')
 
 const createImagePreview = ({imageSrc, id}: SaveValueType): JQuery => create(
     `<div id="${id}" class="ci-upload-area-image">
@@ -55,10 +55,16 @@ const uploadedImagesFileReaderHandler = (file: File, sidebar: JQuery) => (evt: E
 export const processUploadedImages = (files: FileList, sidebar: JQuery) => {
   for (let i = 0; i < files.length; i++) {
     const file: File = files[i]
-    if (!isFileIsImage(file)) continue
+    if (!isFileImage(file)) continue
 
     const reader: FileReader = new FileReader()
     reader.addEventListener('load', uploadedImagesFileReaderHandler(file, sidebar))
     reader.readAsDataURL(file)
   }
+}
+
+export const getImageQueue = (): SaveValueType[] => imageQueue
+
+export const removeAllFromQueue = (sideBar: JQuery) => {
+  imageQueue = []
 }
