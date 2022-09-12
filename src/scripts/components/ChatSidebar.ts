@@ -3,37 +3,40 @@ import {getImageQueue, processDropAndPasteImages, removeAllFromQueue} from '../p
 
 let hookIsHandlingTheMessage = false
 
+const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: ChatMessage, userOptions: never, messageOptions: never) => {
+  hookIsHandlingTheMessage = true
+  const imageQueue = getImageQueue()
+  if (!imageQueue.length) return
+
+  // TODO Implement
+  console.log('Hook is handling it')
+  removeAllFromQueue(sidebar)
+  hookIsHandlingTheMessage = false
+}
+
+const emptyChatEventHandler = (sidebar: JQuery) => (evt: KeyboardEvent) => {
+  if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter')) return
+
+  const imageQueue = getImageQueue()
+  if (!imageQueue.length) return
+
+  // TODO Implement
+  console.log('Enter was pressed')
+}
+
+const pastAndDropEventHandler = (sidebar: JQuery) => (evt: any) => {
+  const originalEvent: ClipboardEvent | DragEvent = evt.originalEvent
+  const eventData: DataTransfer | null = (originalEvent as ClipboardEvent).clipboardData || (originalEvent as DragEvent).dataTransfer
+  if (!eventData) return
+
+  processDropAndPasteImages(eventData, sidebar)
+}
+
 export const initChatSidebar = (sidebar: JQuery) => {
-  const preCreateChatMessageHandler = (chatMessage: ChatMessage, userOptions: never, messageOptions: never) => {
-    hookIsHandlingTheMessage = true
-    const imageQueue = getImageQueue()
-    if (!imageQueue.length) return
+  Hooks.on('preCreateChatMessage', preCreateChatMessageHandler(sidebar))
 
-    // TODO Implement
-    console.log('Hook is handling it')
-    removeAllFromQueue(sidebar)
-    hookIsHandlingTheMessage = false
-  }
-  Hooks.on('preCreateChatMessage', preCreateChatMessageHandler)
-
-  const emptyChatEventHandler = (evt: KeyboardEvent) => {
-    if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter')) return
-
-    const imageQueue = getImageQueue()
-    if (!imageQueue.length) return
-
-    // TODO Implement
-    console.log('Enter was pressed')
-  }
   // This should only run when there is nothing in the chat
-  on(sidebar, 'keyup', emptyChatEventHandler)
+  on(sidebar, 'keyup', emptyChatEventHandler(sidebar))
 
-  const pastAndDropEventHandler = (evt: any) => {
-    const originalEvent: ClipboardEvent | DragEvent = evt.originalEvent
-    const eventData: DataTransfer | null = (originalEvent as ClipboardEvent).clipboardData || (originalEvent as DragEvent).dataTransfer
-    if (!eventData) return
-
-    processDropAndPasteImages(eventData, sidebar)
-  }
-  on(sidebar, 'paste drop', pastAndDropEventHandler)
+  on(sidebar, 'paste drop', pastAndDropEventHandler(sidebar))
 }

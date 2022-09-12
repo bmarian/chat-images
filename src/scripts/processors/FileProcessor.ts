@@ -108,7 +108,15 @@ export const processDropAndPasteImages = (eventData: DataTransfer, sidebar: JQue
 
 export const getImageQueue = (): SaveValueType[] => imageQueue
 
-export const removeAllFromQueue = (sideBar: JQuery) => {
-  // TODO Implement
-  imageQueue = []
+export const removeAllFromQueue = (sidebar: JQuery) => {
+  while (imageQueue.length) {
+    const imageData: SaveValueType | undefined = imageQueue.pop()
+    if (!imageData) continue
+
+    const imageElement = find(`#${imageData.id}`, sidebar)
+    remove(imageElement)
+  }
+
+  const uploadArea: JQuery = find('#ci-chat-upload-area', sidebar)
+  addClass(uploadArea, 'hidden')
 }
