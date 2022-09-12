@@ -11,7 +11,8 @@ module.exports = {
   rules: {
     'max-len': 'off',
     'linebreak-style': 'off',
-    'semi': ['error', 'never']
+    'semi': ['error', 'never'],
+    '@typescript-eslint/no-empty-function': 'off',
   },
   root: true
 }
