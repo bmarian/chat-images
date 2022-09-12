@@ -1,4 +1,4 @@
-import {name as moduleName} from "./package.json"
+import {name as moduleName, production as isModuleInProductionMode} from "./package.json"
 import {resolve} from "path"
 import {normalizePath, defineConfig} from "vite"
 import {viteStaticCopy} from "vite-plugin-static-copy"
@@ -10,8 +10,8 @@ const everyWordToUpperCase = (sentence: string) => sentence
 
 export default defineConfig({
   build: {
-    watch: {},
-    sourcemap: "inline",
+    watch: isModuleInProductionMode ? null : {},
+    sourcemap: isModuleInProductionMode ? false : "inline",
     lib: {
       entry: normalizePath(resolve(__dirname, "src/chat-images.ts")),
       name: everyWordToUpperCase(moduleName),
