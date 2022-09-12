@@ -1,7 +1,7 @@
 import {randomString, t} from '../utils/Utils'
 import {addClass, append, create, find, on, remove, removeClass} from '../utils/JqueryWrappers'
 
-type SaveValueType = {
+export type SaveValueType = {
   type?: string,
   name?: string,
   imageSrc: string | ArrayBuffer | null,
