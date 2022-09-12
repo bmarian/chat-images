@@ -1,12 +1,10 @@
-import {htmlToElement, insertBefore} from '../utils/Utils'
+import {after, create, find} from '../utils/JqueryWrappers'
 
+const getUploadAreaJqueryElement = (): JQuery => create(`<div id="ci-chat-upload-area"></div>`)
 
-const getUploadAreaHtmlElement = (): HTMLElement | null => htmlToElement(`<div id="ci-chat-upload-area"></div>`)
+export const initUploadArea = (sidebarJQueryElement: JQuery) => {
+  const chatControlsJqueryElement: JQuery = find('#chat-controls', sidebarJQueryElement)
+  const uploadAreaJqueryElement: JQuery = getUploadAreaJqueryElement()
 
-export const initUploadArea = (sidebarHtmlElement: HTMLElement) => {
-  const chatControlsHtmlElement: HTMLElement | null = sidebarHtmlElement.querySelector('#chat-controls')
-  const uploadAreaHtmlElement = getUploadAreaHtmlElement()
-
-  if (!chatControlsHtmlElement || !uploadAreaHtmlElement) return
-  insertBefore(uploadAreaHtmlElement, chatControlsHtmlElement, sidebarHtmlElement)
+  after(chatControlsJqueryElement, uploadAreaJqueryElement)
 }
