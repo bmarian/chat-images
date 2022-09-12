@@ -1,15 +1,12 @@
-import "./styles/chat-images.scss"
-import {fromEvent} from "rxjs"
+import './styles/chat-images.scss'
 
-Hooks.once("init", () => {
-  console.log("Init")
+Hooks.once('init', () => {
+  console.log('Init')
 })
 
-Hooks.on('renderSidebarTab', (_0: any, sidebarJQueryElement: JQuery) => {
+Hooks.on('renderSidebarTab', (_0: never, sidebarJQueryElement: JQuery) => {
   const sidebarHTMLElement: HTMLElement = sidebarJQueryElement[0]
   const chat: HTMLElement | null = sidebarHTMLElement.querySelector('#chat-message')
-  if (!chat) return;
-
-  fromEvent(chat, 'paste').subscribe((evt) => console.log(evt))
-  fromEvent(chat, 'drop').subscribe((evt) => console.log(evt))
+  if (!chat) return
 })
+
