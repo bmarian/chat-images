@@ -2,16 +2,14 @@ import './styles/chat-images.scss'
 import {initUploadArea} from './scripts/components/UploadArea'
 import {initUploadButton} from './scripts/components/UploadButton'
 import {initChatSidebar} from './scripts/components/ChatSidebar'
+import {ORIGIN_FOLDER, UPLOAD_FOLDER} from './scripts/utils/Utils'
 
 const createUploadFolder = async () => {
-  const origin = 'data'
-  const folderPath = 'uploaded-chat-images'
-
   try {
-    const location = await FilePicker.browse(origin, folderPath)
-    if (location.target === '.') await FilePicker.createDirectory(origin, folderPath, {})
+    const location = await FilePicker.browse(ORIGIN_FOLDER, UPLOAD_FOLDER)
+    if (location.target === '.') await FilePicker.createDirectory(ORIGIN_FOLDER, UPLOAD_FOLDER, {})
   } catch (e) {
-    await FilePicker.createDirectory(origin, folderPath, {})
+    await FilePicker.createDirectory(ORIGIN_FOLDER, UPLOAD_FOLDER, {})
   }
 }
 

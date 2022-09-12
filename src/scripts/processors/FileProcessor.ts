@@ -1,11 +1,13 @@
-import {randomString, t} from '../utils/Utils'
+import {ORIGIN_FOLDER, randomString, t, UPLOAD_FOLDER} from '../utils/Utils'
 import {addClass, append, create, find, on, remove, removeClass} from '../utils/JqueryWrappers'
+import imageCompression from 'browser-image-compression'
 
 export type SaveValueType = {
   type?: string,
   name?: string,
+  file?: File,
   imageSrc: string | ArrayBuffer | null,
-  id: string
+  id: string,
 }
 
 const DOM_PARSER = new DOMParser()
@@ -33,13 +35,41 @@ const addEventToRemoveButton = (removeButton: JQuery, saveValue: SaveValueType, 
   on(removeButton, 'click', removeEventHandler)
 }
 
-const addImageToQueue = (saveValue: SaveValueType, sidebar: JQuery) => {
+const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
+  const generateFileName = (saveValue: SaveValueType) => {
+    const {type, name, id} = saveValue
+    const fileExtension: string = name?.substring(name.lastIndexOf('.'), name.length) || type?.replace('image/', '') || 'jpeg'
+    const nameWithoutExtension = name?.substring(0, name.lastIndexOf('.')) || name
+
+    const concatFileName = `${nameWithoutExtension}_${id}`
+    const newFileName = concatFileName.length > 200 ? id : concatFileName
+
+    return `${newFileName}${fileExtension}`
+  }
+
+  try {
+    const newName = generateFileName(saveValue)
+    const compressedImage = await imageCompression(saveValue.file as File, {maxSizeMB: 1.5, useWebWorker: true, alwaysKeepResolution: true})
+    const newImage = new File([compressedImage as File], newName, {type: saveValue.type})
+    const imageLocation = await FilePicker.upload(ORIGIN_FOLDER, UPLOAD_FOLDER, newImage, {})
+
+    if (!imageLocation || !(imageLocation as FilePicker.UploadResult)?.path) return saveValue.imageSrc as string
+    return (imageLocation as FilePicker.UploadResult)?.path
+  } catch (e) {
+    return saveValue.imageSrc as string
+  }
+}
+
+const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
   const uploadArea: JQuery = find('#ci-chat-upload-area', sidebar)
   if (!uploadArea || !uploadArea[0]) return
 
   const imagePreview = createImagePreview(saveValue)
   if (!imagePreview || !imagePreview[0]) return
 
+  if (saveValue.file) saveValue.imageSrc = await uploadImage(saveValue)
+
+  console.log(saveValue)
   removeClass(uploadArea, 'hidden')
   append(uploadArea, imagePreview)
   imageQueue.push(saveValue)
@@ -48,10 +78,10 @@ const addImageToQueue = (saveValue: SaveValueType, sidebar: JQuery) => {
   addEventToRemoveButton(removeButton, saveValue, uploadArea)
 }
 
-const imagesFileReaderHandler = (file: File, sidebar: JQuery) => (evt: Event) => {
+const imagesFileReaderHandler = (file: File, sidebar: JQuery) => async (evt: Event) => {
   const imageSrc = (evt.target as FileReader)?.result
-  const saveValue = {type: file.type, name: file.name, imageSrc, id: randomString()}
-  addImageToQueue(saveValue, sidebar)
+  const saveValue = {type: file.type, name: file.name, imageSrc, id: randomString(), file}
+  await addImageToQueue(saveValue, sidebar)
 }
 
 export const processImageFiles = (files: FileList | File[], sidebar: JQuery) => {
@@ -76,11 +106,11 @@ export const processDropAndPasteImages = (eventData: DataTransfer, sidebar: JQue
     // @ts-ignore
     return [...images].map((img) => img.src as string)
   }
-  const urlsFromEventDataHandler = (urls: string[]) => {
+  const urlsFromEventDataHandler = async (urls: string[]) => {
     for (let i = 0; i < urls.length; i++) {
       const url = urls[i]
       const saveValue = {imageSrc: url, id: randomString()}
-      addImageToQueue(saveValue, sidebar)
+      await addImageToQueue(saveValue, sidebar)
     }
   }
 
