@@ -9,3 +9,6 @@ export const trigger = (parentNode: JQuery, eventType: string): JQuery => parent
 export const removeClass = (parentNode: JQuery, classString: string): JQuery => parentNode.removeClass(classString)
 export const addClass = (parentNode: JQuery, classString: string): JQuery => parentNode.addClass(classString)
 export const remove = (node: JQuery): JQuery => node.remove()
+export const attr = (node: JQuery, attrId: string, attrValue?: any): string | JQuery | undefined => attrValue ? node.attr(attrId, attrValue) : node.attr(attrId)
+export const removeAttr = (node: JQuery, attrId: string): JQuery => node.removeAttr(attrId)
+export const focus = (node: JQuery): JQuery => node.focus()

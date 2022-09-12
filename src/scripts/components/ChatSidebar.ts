@@ -29,7 +29,7 @@ const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, user
   hookIsHandlingTheMessage = false
 }
 
-const emptyChatEventHandler = (sidebar: JQuery) => (evt: KeyboardEvent) => {
+const emptyChatEventHandler = (sidebar: JQuery) => async (evt: KeyboardEvent) => {
   if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter')) return
 
   const imageQueue: SaveValueType[] = getImageQueue()
@@ -40,7 +40,7 @@ const emptyChatEventHandler = (sidebar: JQuery) => (evt: KeyboardEvent) => {
     type: CONST.CHAT_MESSAGE_TYPES.OOC || 1,
     user: (game as Game).user,
   }
-  ChatMessage.create(messageData)
+  await ChatMessage.create(messageData)
   removeAllFromQueue(sidebar)
 }
 

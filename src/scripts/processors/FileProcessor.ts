@@ -1,6 +1,7 @@
 import {ORIGIN_FOLDER, randomString, t, UPLOAD_FOLDER} from '../utils/Utils'
 import {addClass, append, create, find, on, remove, removeClass} from '../utils/JqueryWrappers'
 import imageCompression from 'browser-image-compression'
+import {getUploadingStates} from '../components/Loader'
 
 export type SaveValueType = {
   type?: string,
@@ -62,6 +63,9 @@ const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
 }
 
 const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
+  const uploadingStates = getUploadingStates(sidebar)
+
+  uploadingStates.on()
   const uploadArea: JQuery = find('#ci-chat-upload-area', sidebar)
   if (!uploadArea || !uploadArea[0]) return
 
@@ -76,6 +80,7 @@ const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
 
   const removeButton = find('.ci-remove-image-icon', imagePreview)
   addEventToRemoveButton(removeButton, saveValue, uploadArea)
+  uploadingStates.off()
 }
 
 const imagesFileReaderHandler = (file: File, sidebar: JQuery) => async (evt: Event) => {
