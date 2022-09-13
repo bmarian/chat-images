@@ -69,10 +69,10 @@ const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
   const uploadArea: JQuery = find('#ci-chat-upload-area', sidebar)
   if (!uploadArea || !uploadArea[0]) return
 
+  if (saveValue.file) saveValue.imageSrc = await uploadImage(saveValue)
+
   const imagePreview = createImagePreview(saveValue)
   if (!imagePreview || !imagePreview[0]) return
-
-  if (saveValue.file) saveValue.imageSrc = await uploadImage(saveValue)
 
   removeClass(uploadArea, 'hidden')
   append(uploadArea, imagePreview)

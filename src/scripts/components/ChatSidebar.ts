@@ -1,8 +1,10 @@
 import {on} from '../utils/JqueryWrappers'
 import {getImageQueue, processDropAndPasteImages, removeAllFromQueue, SaveValueType} from '../processors/FileProcessor'
 import {t} from '../utils/Utils'
+import {getUploadingStates} from './Loader'
 
 let hookIsHandlingTheMessage = false
+let eventIsHandlingTheMessage = false
 
 const imageTemplate = (imageProps: SaveValueType): string => `<div class="ci-message-image"><img src="${imageProps.imageSrc}" alt="${imageProps.name || t('unableToLoadImage')}"></div>`
 
@@ -12,12 +14,17 @@ const messageTemplate = (imageQueue: SaveValueType[]) => {
 }
 
 const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, userOptions: any, messageOptions: any) => {
+  if (eventIsHandlingTheMessage) return
+
   hookIsHandlingTheMessage = true
   const imageQueue: SaveValueType[] = getImageQueue()
   if (!imageQueue.length) {
     hookIsHandlingTheMessage = false
     return
   }
+
+  const uploadState = getUploadingStates(sidebar)
+  uploadState.on()
 
   const content = `${messageTemplate(imageQueue)}<div class="ci-notes">${chatMessage.content}</div>`
 
@@ -27,13 +34,20 @@ const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, user
 
   removeAllFromQueue(sidebar)
   hookIsHandlingTheMessage = false
+  uploadState.off()
 }
 
 const emptyChatEventHandler = (sidebar: JQuery) => async (evt: KeyboardEvent) => {
   if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter')) return
+  eventIsHandlingTheMessage = true
 
+  const uploadState = getUploadingStates(sidebar)
   const imageQueue: SaveValueType[] = getImageQueue()
-  if (!imageQueue.length) return
+  if (!imageQueue.length) {
+    eventIsHandlingTheMessage = false
+    return
+  }
+  uploadState.on()
 
   const messageData = {
     content: messageTemplate(imageQueue),
@@ -42,6 +56,8 @@ const emptyChatEventHandler = (sidebar: JQuery) => async (evt: KeyboardEvent) =>
   }
   await ChatMessage.create(messageData)
   removeAllFromQueue(sidebar)
+  uploadState.off()
+  eventIsHandlingTheMessage = false
 }
 
 const pastAndDropEventHandler = (sidebar: JQuery) => (evt: any) => {
