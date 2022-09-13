@@ -1,4 +1,14 @@
 .ci-message-image {
+  display: flex;
+  justify-content: center;
+
+  &:not(:first-child) {
+    margin-top: 5px;
+  }
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
   & img {
     cursor: pointer;
 
@@ -7,17 +17,3 @@
     }
   }
 }
-
-
-//& .ff-container {
-//  & .ff-overlay {
-//    background-image: url("../assets/gif.svg");
-//    width: 45px;
-//    height: 40px;
-//
-//    top: -5px;
-//    left: initial;
-//    bottom: initial;
-//    right: 0;
-//  }
-//}

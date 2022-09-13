@@ -13,3 +13,5 @@ export const attr = (node: JQuery, attrId: string, attrValue?: any): string | JQ
 export const removeAttr = (node: JQuery, attrId: string): JQuery => node.removeAttr(attrId)
 export const focus = (node: JQuery): JQuery => node.focus()
 export const scrollBottom = (node: JQuery): JQuery => node.animate({scrollTop: node.height()})
+// @ts-ignore
+export const each = (node: JQuery, handler: Function): JQuery => node.each(handler)
