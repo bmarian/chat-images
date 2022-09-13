@@ -38,7 +38,7 @@ const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, user
 }
 
 const emptyChatEventHandler = (sidebar: JQuery) => async (evt: KeyboardEvent) => {
-  if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter')) return
+  if (hookIsHandlingTheMessage || (evt.code !== 'Enter' && evt.code !== 'NumpadEnter') || evt.shiftKey) return
   eventIsHandlingTheMessage = true
 
   const uploadState = getUploadingStates(sidebar)

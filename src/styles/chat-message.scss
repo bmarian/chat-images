@@ -1,18 +1,4 @@
 .ci-message-image {
-  display: flex;
-  justify-content: center;
-
-  &:not(:first-child) {
-    margin-top: 5px;
-  }
-  &:not(:last-child) {
-    margin-bottom: 5px;
-  }
-  &:only-child {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
   & img {
     cursor: pointer;
 

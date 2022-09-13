@@ -1,4 +1,4 @@
-import {ORIGIN_FOLDER, randomString, t, UPLOAD_FOLDER} from '../utils/Utils'
+import {ORIGIN_FOLDER, randomString, t, UPLOAD_FOLDER, userCanUpload} from '../utils/Utils'
 import {addClass, append, create, find, on, remove, removeClass} from '../utils/JqueryWrappers'
 import imageCompression from 'browser-image-compression'
 import {getUploadingStates} from '../components/Loader'
@@ -55,21 +55,6 @@ const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
   } catch (e) {
     return saveValue.imageSrc as string
   }
-}
-
-const userCanUpload = (): boolean => {
-  const userRole = (game as Game)?.user?.role
-  const fileUploadPermissions = (game as Game)?.permissions?.FILES_UPLOAD
-
-  if (!userRole || !fileUploadPermissions) {
-    ui.notifications?.warn(t('uploadPermissions'))
-    return false
-  }
-
-  const uploadPermission = fileUploadPermissions.includes(userRole)
-  if (!uploadPermission) ui.notifications?.warn(t('uploadPermissions'))
-
-  return uploadPermission
 }
 
 const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
