@@ -5,6 +5,7 @@ import {initChatSidebar} from './scripts/components/ChatSidebar'
 import {ORIGIN_FOLDER, UPLOAD_FOLDER} from './scripts/utils/Utils'
 import {initChatMessage} from './scripts/components/ChatMessage'
 import {find} from './scripts/utils/JqueryWrappers'
+import {processMessage} from './scripts/processors/MessageProcessor'
 
 const createUploadFolder = async () => {
   try {
@@ -32,8 +33,17 @@ Hooks.on('renderSidebarTab', (_0: never, sidebar: JQuery) => {
 })
 
 Hooks.on('renderChatMessage', (_0: never, chatMessage: JQuery) => {
-  const ciMessage = find('.ci-message', chatMessage)
+  const ciMessage = find('.ci-message-image', chatMessage)
   if (!ciMessage[0]) return
 
-  initChatMessage(ciMessage)
+  initChatMessage(chatMessage)
 })
+
+Hooks.on('preCreateChatMessage', (chatMessage: any, userOptions: never, messageOptions: any) => {
+  const progressedMessage: string = processMessage(chatMessage.content)
+
+  chatMessage.content = progressedMessage
+  chatMessage._source.content = progressedMessage
+  messageOptions.chatBubble = false
+})
+

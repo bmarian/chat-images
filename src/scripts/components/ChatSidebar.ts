@@ -13,7 +13,7 @@ const messageTemplate = (imageQueue: SaveValueType[]) => {
   return `<div class="ci-message">${imageTemplates.join('')}</div>`
 }
 
-const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, userOptions: any, messageOptions: any) => {
+const preCreateChatMessageHandler = (sidebar: JQuery) => (chatMessage: any, userOptions: never, messageOptions: any) => {
   if (eventIsHandlingTheMessage) return
 
   hookIsHandlingTheMessage = true
