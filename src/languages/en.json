@@ -1,0 +1,8 @@
+{
+  "I18N.LANGUAGE": "English",
+  "I18N.MAINTAINERS": "bmarian",
+
+  "CI.uploadButtonTitle": "Upload an image",
+  "CI.unableToLoadImage": "Unable to load image",
+  "CI.uploadPermissions": "You don't have upload privileges"
+}

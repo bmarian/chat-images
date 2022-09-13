@@ -1,9 +1,8 @@
 {
   "name": "chat-images",
   "title": "Chat Images",
-  "description": "Adds support for easily sending images in chat.",
-  "version": "2.5.8",
-  "manifestPlusVersion": "1.0.0",
+  "description": "Extends chat functionality with image support.",
+  "version": "3.0",
   "author": "bmarian",
   "authors": [
     {
@@ -13,52 +12,24 @@
     }
   ],
   "esmodules": [
-    "scripts/chat-images.js"
+    "chat-images.js"
   ],
   "styles": [
-    "styles/chat-images.css"
-  ],
-  "scripts": [
-    "scripts/lib/freezeframe/freezeframe.min.js"
+    "chat-images.css"
   ],
   "compatibility": {
-    "minimum": "7",
-    "verified": "10"
+    "minimum": "10",
+    "verified": "10.285"
   },
-  "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "10",
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "languages/en.json"
-    },
-    {
-      "lang": "es",
-      "name": "Español",
-      "path": "languages/es.json"
-    },
-    {
-      "lang": "cn",
-      "name": "Chinese",
-      "path": "languages/cn.json"
-    },
-    {
-      "lang": "ja",
-      "name": "日本語",
-      "path": "languages/ja.json"
-    },
-    {
-      "lang": "fr",
-      "name": "French",
-      "path": "languages/fr.json"
     }
   ],
   "url": "https://github.com/bmarian/chat-images",
   "manifest": "https://github.com/bmarian/chat-images/releases/latest/download/module.json",
-  "download": "https://github.com/bmarian/chat-images/releases/download/2.5.6/module.zip",
-  "changelog": "https://github.com/bmarian/chat-images/releases",
-
-  "allowBugReporter": true,
-  "bugs": "https://github.com/bmarian/chat-images/issues"
+  "download": "https://github.com/bmarian/chat-images/releases/download/3.0/module.zip",
+  "changelog": "https://github.com/bmarian/chat-images/releases"
 }

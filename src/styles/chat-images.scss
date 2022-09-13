@@ -1,0 +1,62 @@
+@import "spinner";
+@import "chat-message";
+
+#chat-controls {
+  & .control-buttons {
+    flex: 0 0 72px;
+  }
+  & .ci-control-buttons {
+    flex: 0 0 24px;
+  }
+}
+
+#ci-upload-image-hidden-input {
+  opacity: 0;
+  width: 0;
+}
+
+#ci-chat-upload-area {
+  flex: unset;
+  max-height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  overflow-y: auto;
+
+  margin-left: 5px;
+  margin-right: 7px;
+}
+
+.ci-upload-area-image {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  min-height: 100px;
+  min-width: 100px;
+  margin: 3px;
+}
+
+.ci-image-preview {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.ci-remove-image-icon {
+  position: absolute;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  top: 3px;
+  right: 0;
+
+  &:hover {
+    text-shadow: 0 0 8px var(--color-shadow-primary);
+  }
+}
