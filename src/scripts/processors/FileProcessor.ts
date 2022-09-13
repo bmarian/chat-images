@@ -57,6 +57,21 @@ const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
   }
 }
 
+const userCanUpload = (): boolean => {
+  const userRole = (game as Game)?.user?.role
+  const fileUploadPermissions = (game as Game)?.permissions?.FILES_UPLOAD
+
+  if (!userRole || !fileUploadPermissions) {
+    ui.notifications?.warn(t('uploadPermissions'))
+    return false
+  }
+
+  const uploadPermission = fileUploadPermissions.includes(userRole)
+  if (!uploadPermission) ui.notifications?.warn(t('uploadPermissions'))
+
+  return uploadPermission
+}
+
 const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
   const uploadingStates = getUploadingStates(sidebar)
 
@@ -64,7 +79,13 @@ const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
   const uploadArea: JQuery = find('#ci-chat-upload-area', sidebar)
   if (!uploadArea || !uploadArea[0]) return
 
-  if (saveValue.file) saveValue.imageSrc = await uploadImage(saveValue)
+  if (saveValue.file) {
+    if (!userCanUpload()) {
+      uploadingStates.off()
+      return
+    }
+    saveValue.imageSrc = await uploadImage(saveValue)
+  }
 
   const imagePreview = createImagePreview(saveValue)
   if (!imagePreview || !imagePreview[0]) return
