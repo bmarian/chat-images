@@ -3,6 +3,8 @@ import {initUploadArea} from './scripts/components/UploadArea'
 import {initUploadButton} from './scripts/components/UploadButton'
 import {initChatSidebar} from './scripts/components/ChatSidebar'
 import {ORIGIN_FOLDER, UPLOAD_FOLDER} from './scripts/utils/Utils'
+import {initChatMessage} from './scripts/components/ChatMessage'
+import {find} from './scripts/utils/JqueryWrappers'
 
 const createUploadFolder = async () => {
   try {
@@ -27,4 +29,11 @@ Hooks.on('renderSidebarTab', (_0: never, sidebar: JQuery) => {
   initUploadArea(sidebar)
   initUploadButton(sidebar)
   initChatSidebar(sidebar)
+})
+
+Hooks.on('renderChatMessage', (_0: never, chatMessage: JQuery) => {
+  const ciMessage = find('.ci-message', chatMessage)
+  if (!ciMessage[0]) return
+
+  initChatMessage(ciMessage)
 })

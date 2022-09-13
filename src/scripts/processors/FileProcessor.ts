@@ -39,13 +39,8 @@ const addEventToRemoveButton = (removeButton: JQuery, saveValue: SaveValueType, 
 const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
   const generateFileName = (saveValue: SaveValueType) => {
     const {type, name, id} = saveValue
-    const fileExtension: string = name?.substring(name.lastIndexOf('.'), name.length) || type?.replace('image/', '') || 'jpeg'
-    const nameWithoutExtension = name?.substring(0, name.lastIndexOf('.')) || name
-
-    const concatFileName = `${nameWithoutExtension}_${id}`
-    const newFileName = concatFileName.length > 200 ? id : concatFileName
-
-    return `${newFileName}${fileExtension}`
+    const fileExtension: string = name?.substring(name.lastIndexOf('.'), name.length) || type?.replace('image/', '.') || '.jpeg'
+    return `${id}${fileExtension}`
   }
 
   try {
