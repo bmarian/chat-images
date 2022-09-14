@@ -2,10 +2,10 @@
 @import "chat-message";
 
 #chat-controls {
-  & .control-buttons {
+  & .ci-control-buttons-gm {
     flex: 0 0 72px;
   }
-  & .ci-control-buttons {
+  & .ci-control-buttons-p {
     flex: 0 0 24px;
   }
 }

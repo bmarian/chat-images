@@ -1,6 +1,7 @@
-import {append, create, find, on, trigger} from '../utils/JqueryWrappers'
+import {addClass, append, create, find, on, trigger} from '../utils/JqueryWrappers'
 import {t, userCanUpload} from '../utils/Utils'
 import {processImageFiles} from '../processors/FileProcessor'
+import {getSetting} from '../utils/Settings'
 
 const createUploadButton = (): JQuery => create(`<a id="ci-upload-image" title="${t('uploadButtonTitle')}"><i class="fas fa-images"></i></a>`)
 
@@ -25,6 +26,8 @@ const setupEvents = (uploadButton: JQuery, hiddenUploadInput: JQuery, sidebar: J
 }
 
 export const initUploadButton = (sidebar: JQuery) => {
+  if (!getSetting('uploadButton')) return
+
   const controlButtons: JQuery = find('.control-buttons', sidebar)
   const uploadButton: JQuery = createUploadButton()
   const hiddenUploadInput: JQuery = createHiddenUploadInput()
@@ -32,12 +35,13 @@ export const initUploadButton = (sidebar: JQuery) => {
   if (!userCanUpload(true)) return
 
   if (controlButtons[0]) {
+    addClass(controlButtons, 'ci-control-buttons-gm')
     append(controlButtons, uploadButton)
     append(controlButtons, hiddenUploadInput)
   } else {
     // Players don't have buttons
     const chatControls: JQuery = find('#chat-controls', sidebar)
-    const newControlButtons = create('<div class="ci-control-buttons"></div>')
+    const newControlButtons = create('<div class="ci-control-buttons-p"></div>')
 
     append(newControlButtons, uploadButton)
     append(newControlButtons, hiddenUploadInput)
