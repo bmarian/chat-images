@@ -2,21 +2,18 @@ import './styles/chat-images.scss'
 import {initUploadArea} from './scripts/components/UploadArea'
 import {initUploadButton} from './scripts/components/UploadButton'
 import {initChatSidebar} from './scripts/components/ChatSidebar'
-import {ORIGIN_FOLDER, UPLOAD_FOLDER} from './scripts/utils/Utils'
 import {initChatMessage} from './scripts/components/ChatMessage'
 import {find} from './scripts/utils/JqueryWrappers'
 import {processMessage} from './scripts/processors/MessageProcessor'
+import {createUploadFolder, getSettings, registerSetting} from './scripts/utils/Settings'
 
-const createUploadFolder = async () => {
-  try {
-    const location = await FilePicker.browse(ORIGIN_FOLDER, UPLOAD_FOLDER)
-    if (location.target === '.') await FilePicker.createDirectory(ORIGIN_FOLDER, UPLOAD_FOLDER, {})
-  } catch (e) {
-    await FilePicker.createDirectory(ORIGIN_FOLDER, UPLOAD_FOLDER, {})
-  }
+const registerSettings = () => {
+  const settings = getSettings()
+  settings.forEach((setting) => registerSetting(setting))
 }
 
 Hooks.once('init', async () => {
+  registerSettings()
   await createUploadFolder()
 })
 
