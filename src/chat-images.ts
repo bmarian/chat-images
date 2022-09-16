@@ -43,4 +43,3 @@ Hooks.on('preCreateChatMessage', (chatMessage: any, userOptions: never, messageO
   chatMessage._source.content = progressedMessage
   messageOptions.chatBubble = false
 })
-
