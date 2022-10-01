@@ -37,9 +37,10 @@ Hooks.on('renderChatMessage', (_0: never, chatMessage: JQuery) => {
 })
 
 Hooks.on('preCreateChatMessage', (chatMessage: any, userOptions: never, messageOptions: any) => {
-  const progressedMessage: string = processMessage(chatMessage.content)
+  const processedMessage: string = processMessage(chatMessage.content)
+  if (chatMessage.content === processedMessage) return
 
-  chatMessage.content = progressedMessage
-  chatMessage._source.content = progressedMessage
+  chatMessage.content = processedMessage
+  chatMessage._source.content = processedMessage
   messageOptions.chatBubble = false
 })
