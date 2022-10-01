@@ -12,6 +12,8 @@ export type SaveValueType = {
   id: string,
 }
 
+const RESTRICTED_DOMAINS = ['static.wikia']
+
 const DOM_PARSER = new DOMParser()
 
 let imageQueue: SaveValueType[] = []
@@ -113,7 +115,9 @@ export const processDropAndPasteImages = (eventData: DataTransfer, sidebar: JQue
     if (!images || !images.length) return null
 
     // @ts-ignore
-    return [...images].map((img) => img.src as string)
+    const imageUrls = [...images].map((img) => img.src as string)
+    const imagesContainRestrictedDomains = imageUrls.some((iu) => RESTRICTED_DOMAINS.some((rd) => iu.includes(rd)))
+    return imagesContainRestrictedDomains? null : imageUrls
   }
   const urlsFromEventDataHandler = async (urls: string[]) => {
     for (let i = 0; i < urls.length; i++) {
