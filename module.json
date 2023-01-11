@@ -1,5 +1,5 @@
 {
-  "name": "chat-images",
+  "id": "chat-images",
   "title": "Chat Images",
   "description": "Extends chat functionality with image support.",
   "version": "3.2",
