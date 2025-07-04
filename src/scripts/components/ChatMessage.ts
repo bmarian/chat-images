@@ -1,4 +1,4 @@
-import {find, on} from '../utils/JqueryWrappers'
+import { find, on } from '../utils/JqueryWrappers'
 
 export const initChatMessage = (chatMessage: JQuery) => {
   const images = find('.ci-message-image img', chatMessage)
@@ -6,7 +6,8 @@ export const initChatMessage = (chatMessage: JQuery) => {
 
   const clickImageHandle = (evt: Event) => {
     const src = (evt.target as HTMLImageElement).src
-    new ImagePopout(src, {editable: false, shareable: true}).render(true)
+    // @ts-ignore
+    new ImagePopout(src, { editable: false, shareable: true }).render(true)
   }
   on(images, 'click', clickImageHandle)
 }

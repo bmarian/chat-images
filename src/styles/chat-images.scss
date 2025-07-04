@@ -1,5 +1,5 @@
-@import "spinner";
-@import "chat-message";
+@use "spinner";
+@use "chat-message";
 
 #chat-controls {
   & .ci-control-buttons-gm {

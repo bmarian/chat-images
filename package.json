@@ -7,13 +7,13 @@
     "build": "tsc && vite build -c vite.config.ts"
   },
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "8.22.0",
     "eslint-config-google": "^0.14.0",
+    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
     "sass": "^1.54.9",
-    "typescript": "^4.8.3",
+    "typescript": "^5.4",
     "vite": "^3.1.0",
     "vite-plugin-static-copy": "^0.9.0"
   },
