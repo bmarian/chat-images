@@ -3,7 +3,7 @@ import { initUploadArea } from './scripts/components/UploadArea'
 import { initUploadButton } from './scripts/components/UploadButton'
 import { initChatSidebar } from './scripts/components/ChatSidebar'
 import { initChatMessage } from './scripts/components/ChatMessage'
-import { find } from './scripts/utils/JqueryWrappers'
+import { create, find } from './scripts/utils/JqueryWrappers'
 import { processMessage } from './scripts/processors/MessageProcessor'
 import { createUploadFolder, getSettings, registerSetting } from './scripts/utils/Settings'
 import { isVeriosnAfter13 } from './scripts/utils/Utils'
@@ -50,7 +50,14 @@ const registerHooks = () => {
   })
 
   if (isVeriosnAfter13()) {
+    Hooks.on('renderChatMessageHTML', (_0: never, chatMessageElement: HTMLElement) => {
+      const chatMessage = create(chatMessageElement)
 
+      const ciMessage = find('.ci-message-image', chatMessage)
+      if (!ciMessage[0]) return
+
+      initChatMessage(chatMessage)
+    })
   } else {
     Hooks.on('renderChatMessage', (_0: never, chatMessage: JQuery) => {
       const ciMessage = find('.ci-message-image', chatMessage)

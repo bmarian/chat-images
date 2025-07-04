@@ -1,4 +1,5 @@
 import { find, on } from '../utils/JqueryWrappers'
+import { ImagePopoutImplementation, isVeriosnAfter13 } from '../utils/Utils'
 
 export const initChatMessage = (chatMessage: JQuery) => {
   const images = find('.ci-message-image img', chatMessage)
@@ -6,8 +7,15 @@ export const initChatMessage = (chatMessage: JQuery) => {
 
   const clickImageHandle = (evt: Event) => {
     const src = (evt.target as HTMLImageElement).src
-    // @ts-ignore
-    new ImagePopout(src, { editable: false, shareable: true }).render(true)
+    const imagePopup = ImagePopoutImplementation();
+
+    if (isVeriosnAfter13()) {
+      // @ts-ignore
+      new imagePopup({ src, editable: false, shareable: true }).render(true)
+    } else {
+      // @ts-ignore
+      new imagePopup(src, { editable: false, shareable: true }).render(true)
+    }
   }
   on(images, 'click', clickImageHandle)
 }
