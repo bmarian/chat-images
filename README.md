@@ -1,4 +1,8 @@
-# Chat Images 3
+# Chat Images
+### Version 3.3 is the last update I will make to this module as I don't play on VTTs anymore.
+
+---
+
 ![GitHub Latest Release](https://img.shields.io/github/release/bmarian/chat-images?style=for-the-badge)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fchat-images&colorB=4aa94a&style=for-the-badge)
 ![Downloads](https://img.shields.io/github/downloads/bmarian/chat-images/latest/module.zip?style=for-the-badge)
