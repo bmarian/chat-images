@@ -1,4 +1,7 @@
 .ci-message-image {
+  &:not(:only-child):not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
   & img {
     cursor: pointer;
 

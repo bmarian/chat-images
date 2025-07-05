@@ -20,6 +20,10 @@ export const getFoundryVersion = () => (game as Game)?.version
 
 export const isVeriosnAfter13 = () => Number(getFoundryVersion()) >= 13
 
-export const FilePickerImplementation = () => isVeriosnAfter13() ? foundry.applications.apps.FilePicker.implementation : FilePicker
+export const FilePickerImplementation = () => isVeriosnAfter13()
+  ? foundry.applications.apps.FilePicker.implementation
+  : FilePicker
 
-export const ImagePopoutImplementation = () => isVeriosnAfter13() ? foundry.applications.apps.ImagePopout : ImagePopout
+export const ImagePopoutImplementation = () => isVeriosnAfter13()
+  ? foundry.applications.apps.ImagePopout
+  : ImagePopout

@@ -7,7 +7,7 @@ export const initChatMessage = (chatMessage: JQuery) => {
 
   const clickImageHandle = (evt: Event) => {
     const src = (evt.target as HTMLImageElement).src
-    const imagePopup = ImagePopoutImplementation();
+    const imagePopup = ImagePopoutImplementation()
 
     if (isVeriosnAfter13()) {
       // @ts-ignore

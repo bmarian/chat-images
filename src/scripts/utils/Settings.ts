@@ -7,7 +7,11 @@ export const createUploadFolder = async (uploadLocation?: string) => {
     const folderLocation = await FilePickerImplementation().browse(ORIGIN_FOLDER, location)
     if (folderLocation.target === '.') await FilePickerImplementation().createDirectory(ORIGIN_FOLDER, location, {})
   } catch (e) {
-    await FilePickerImplementation().createDirectory(ORIGIN_FOLDER, location, {})
+    try {
+      await FilePickerImplementation().createDirectory(ORIGIN_FOLDER, location, {})
+    } catch (err) {
+      // The FilePicker thorws an error when you have a user without upload permissions
+    }
   }
 }
 
