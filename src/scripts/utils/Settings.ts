@@ -1,17 +1,22 @@
-import {ORIGIN_FOLDER, t} from './Utils'
+import { ORIGIN_FOLDER, t, FilePickerImplementation } from './Utils'
 
 
 export const createUploadFolder = async (uploadLocation?: string) => {
   const location = uploadLocation || getSetting('uploadLocation')
   try {
-    const folderLocation = await FilePicker.browse(ORIGIN_FOLDER, location)
-    if (folderLocation.target === '.') await FilePicker.createDirectory(ORIGIN_FOLDER, location, {})
+    const folderLocation = await FilePickerImplementation().browse(ORIGIN_FOLDER, location)
+    if (folderLocation.target === '.') await FilePickerImplementation().createDirectory(ORIGIN_FOLDER, location, {})
   } catch (e) {
-    await FilePicker.createDirectory(ORIGIN_FOLDER, location, {})
+    try {
+      await FilePickerImplementation().createDirectory(ORIGIN_FOLDER, location, {})
+    } catch (err) {
+      // The FilePicker thorws an error when you have a user without upload permissions
+    }
   }
 }
 
 export const setSetting = (key: string, value: any) => {
+  // @ts-ignore
   return (game as Game).settings.set('chat-images', key, value)
 }
 
@@ -57,10 +62,12 @@ export const getSettings = () => [
   },
 ]
 
-export const registerSetting = (setting: {key: string, options: any}) => {
+export const registerSetting = (setting: { key: string, options: any }) => {
+  // @ts-ignore
   return (game as Game).settings.register('chat-images', setting.key, setting.options)
 }
 
 export const getSetting = (key: string): any => {
+  // @ts-ignore
   return (game as Game).settings.get('chat-images', key)
 }

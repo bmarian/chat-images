@@ -1,4 +1,5 @@
-import {append, attr, create, find, focus, remove, removeAttr} from '../utils/JqueryWrappers'
+import { append, attr, create, find, focus, remove, removeAttr } from '../utils/JqueryWrappers'
+import { isVeriosnAfter13 } from '../utils/Utils'
 
 const toggleChat = (chat: JQuery, toggle: boolean) => {
   if (!toggle) {
@@ -25,7 +26,8 @@ const toggleSpinner = (chatForm: JQuery, toggle: boolean) => {
 }
 
 export const getUploadingStates = (sidebar: JQuery) => {
-  const chatForm = find('#chat-form', sidebar)
+  const chatFormQuery = isVeriosnAfter13() ? '.chat-form' : '#chat-form'
+  const chatForm = find(chatFormQuery, sidebar)
   const chat = find('#chat-message', sidebar)
 
   return {

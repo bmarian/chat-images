@@ -12,8 +12,12 @@
   animation: spin 2s linear infinite;
 
   position: absolute;
-  left: 40%;
-  top: 20%;
+  left: 42%;
+  top: 45%;
+}
+
+#ci-chat-upload-area:has(.ci-upload-area-image) ~ #ci-spinner{
+  top: 70%;
 }
 
 @keyframes spin {

@@ -1,7 +1,7 @@
-import {on} from '../utils/JqueryWrappers'
-import {getImageQueue, processDropAndPasteImages, removeAllFromQueue, SaveValueType} from '../processors/FileProcessor'
-import {t} from '../utils/Utils'
-import {getUploadingStates} from './Loader'
+import { find, on } from '../utils/JqueryWrappers'
+import { getImageQueue, processDropAndPasteImages, removeAllFromQueue, SaveValueType } from '../processors/FileProcessor'
+import { isVeriosnAfter13, t } from '../utils/Utils'
+import { getUploadingStates } from './Loader'
 
 let hookIsHandlingTheMessage = false
 let eventIsHandlingTheMessage = false
@@ -49,9 +49,13 @@ const emptyChatEventHandler = (sidebar: JQuery) => async (evt: KeyboardEvent) =>
   }
   uploadState.on()
 
+  const chatMessageType = isVeriosnAfter13()
+    ? CONST.CHAT_MESSAGE_STYLES.OOC
+    : CONST.CHAT_MESSAGE_TYPES.OOC
+
   const messageData = {
     content: messageTemplate(imageQueue),
-    type: CONST.CHAT_MESSAGE_TYPES.OOC || 1,
+    type: typeof chatMessageType !== 'undefined' ? chatMessageType : 1,
     user: (game as Game).user,
   }
   await ChatMessage.create(messageData)
@@ -66,6 +70,11 @@ const pastAndDropEventHandler = (sidebar: JQuery) => (evt: any) => {
   if (!eventData) return
 
   processDropAndPasteImages(eventData, sidebar)
+}
+
+export const isUploadAreaRendered = (sidebar: JQuery): boolean => {
+  const uploadArea = find('#ci-chat-upload-area', sidebar)
+  return !!uploadArea.length;
 }
 
 export const initChatSidebar = (sidebar: JQuery) => {

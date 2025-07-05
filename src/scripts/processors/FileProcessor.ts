@@ -1,8 +1,8 @@
-import {ORIGIN_FOLDER, randomString, t, userCanUpload} from '../utils/Utils'
-import {addClass, append, create, find, on, remove, removeClass} from '../utils/JqueryWrappers'
+import { FilePickerImplementation, ORIGIN_FOLDER, randomString, t, userCanUpload } from '../utils/Utils'
+import { addClass, append, create, find, on, remove, removeClass } from '../utils/JqueryWrappers'
 import imageCompression from 'browser-image-compression'
-import {getUploadingStates} from '../components/Loader'
-import {getSetting} from '../utils/Settings'
+import { getUploadingStates } from '../components/Loader'
+import { getSetting } from '../utils/Settings'
 
 export type SaveValueType = {
   type?: string,
@@ -20,8 +20,8 @@ let imageQueue: SaveValueType[] = []
 
 const isFileImage = (file: File | DataTransferItem) => file.type && file.type.startsWith('image/')
 
-const createImagePreview = ({imageSrc, id}: SaveValueType): JQuery => create(
-    `<div id="${id}" class="ci-upload-area-image">
+const createImagePreview = ({ imageSrc, id }: SaveValueType): JQuery => create(
+  `<div id="${id}" class="ci-upload-area-image">
             <i class="ci-remove-image-icon fa-regular fa-circle-xmark"></i>
             <img class="ci-image-preview" src="${imageSrc}" alt="${t('unableToLoadImage')}"/>
         </div>`)
@@ -41,22 +41,22 @@ const addEventToRemoveButton = (removeButton: JQuery, saveValue: SaveValueType, 
 
 const uploadImage = async (saveValue: SaveValueType): Promise<string> => {
   const generateFileName = (saveValue: SaveValueType) => {
-    const {type, name, id} = saveValue
+    const { type, name, id } = saveValue
     const fileExtension: string = name?.substring(name.lastIndexOf('.'), name.length) || type?.replace('image/', '.') || '.jpeg'
     return `${id}${fileExtension}`
   }
 
   try {
     const newName = generateFileName(saveValue)
-    const compressedImage = await imageCompression(saveValue.file as File, {maxSizeMB: 1.5, useWebWorker: true, alwaysKeepResolution: true})
-    const newImage = new File([compressedImage as File], newName, {type: saveValue.type})
+    const compressedImage = await imageCompression(saveValue.file as File, { maxSizeMB: 1.5, useWebWorker: true, alwaysKeepResolution: true })
+    const newImage = new File([compressedImage as File], newName, { type: saveValue.type })
 
     const uploadLocation = getSetting('uploadLocation')
     // @ts-ignore
-    const imageLocation = await FilePicker.upload(ORIGIN_FOLDER, uploadLocation, newImage, {}, {notify: false})
+    const imageLocation = await FilePickerImplementation().upload(ORIGIN_FOLDER, uploadLocation, newImage, {}, { notify: false })
 
-    if (!imageLocation || !(imageLocation as FilePicker.UploadResult)?.path) return saveValue.imageSrc as string
-    return (imageLocation as FilePicker.UploadResult)?.path
+    if (!imageLocation || !(imageLocation as FilePicker.UploadReturn)?.path) return saveValue.imageSrc as string
+    return (imageLocation as FilePicker.UploadReturn)?.path
   } catch (e) {
     return saveValue.imageSrc as string
   }
@@ -91,7 +91,7 @@ const addImageToQueue = async (saveValue: SaveValueType, sidebar: JQuery) => {
 
 const imagesFileReaderHandler = (file: File, sidebar: JQuery) => async (evt: Event) => {
   const imageSrc = (evt.target as FileReader)?.result
-  const saveValue = {type: file.type, name: file.name, imageSrc, id: randomString(), file}
+  const saveValue = { type: file.type, name: file.name, imageSrc, id: randomString(), file }
   await addImageToQueue(saveValue, sidebar)
 }
 
@@ -117,12 +117,12 @@ export const processDropAndPasteImages = (eventData: DataTransfer, sidebar: JQue
     // @ts-ignore
     const imageUrls = [...images].map((img) => img.src as string)
     const imagesContainRestrictedDomains = imageUrls.some((iu) => RESTRICTED_DOMAINS.some((rd) => iu.includes(rd)))
-    return imagesContainRestrictedDomains? null : imageUrls
+    return imagesContainRestrictedDomains ? null : imageUrls
   }
   const urlsFromEventDataHandler = async (urls: string[]) => {
     for (let i = 0; i < urls.length; i++) {
       const url = urls[i]
-      const saveValue = {imageSrc: url, id: randomString()}
+      const saveValue = { imageSrc: url, id: randomString() }
       await addImageToQueue(saveValue, sidebar)
     }
   }

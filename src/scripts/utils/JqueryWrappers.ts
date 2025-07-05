@@ -1,4 +1,5 @@
-export const create = (html: string): JQuery => $(html)
+// @ts-ignore
+export const create = (html: string | HTMLElement): JQuery => $(html)
 export const before = (referenceNode: JQuery, newNode: JQuery): JQuery => referenceNode.before(newNode)
 export const after = (referenceNode: JQuery, newNode: JQuery): JQuery => referenceNode.after(newNode)
 export const find = (selector: string, parentNode?: JQuery): JQuery => parentNode ? parentNode.find(selector) : $(selector)
@@ -12,6 +13,6 @@ export const remove = (node: JQuery): JQuery => node.remove()
 export const attr = (node: JQuery, attrId: string, attrValue?: any): string | JQuery | undefined => attrValue ? node.attr(attrId, attrValue) : node.attr(attrId)
 export const removeAttr = (node: JQuery, attrId: string): JQuery => node.removeAttr(attrId)
 export const focus = (node: JQuery): JQuery => node.focus()
-export const scrollBottom = (node: JQuery): JQuery => node.animate({scrollTop: node.height()})
+export const scrollBottom = (node: JQuery): JQuery => node.animate({ scrollTop: node.height() })
 // @ts-ignore
 export const each = (node: JQuery, handler: Function): JQuery => node.each(handler)
