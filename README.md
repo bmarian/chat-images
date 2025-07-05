@@ -1,6 +1,10 @@
 # Chat Images
 ### Version 3.3 is the last update I will make to this module as I don't play on VTTs anymore.
 
+Known issues in v13
+- There is no support for the chat-notification
+- The upload button has been removed
+
 ---
 
 ![GitHub Latest Release](https://img.shields.io/github/release/bmarian/chat-images?style=for-the-badge)
