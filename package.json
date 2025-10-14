@@ -14,8 +14,8 @@
     "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
     "sass": "^1.54.9",
     "typescript": "^5.4",
-    "vite": "^3.1.0",
-    "vite-plugin-static-copy": "^0.9.0"
+    "vite": "^7.0.2",
+    "vite-plugin-static-copy": "^3.1.0"
   },
   "dependencies": {
     "browser-image-compression": "^2.0.0"
